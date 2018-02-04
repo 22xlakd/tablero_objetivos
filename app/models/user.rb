@@ -4,4 +4,8 @@ class User < ActiveRecord::Base
   devise :database_authenticatable,
          :recoverable, :rememberable, :trackable, :validatable
   has_secure_password
+
+  def include_role?(role = nil)
+    roles.inlude?(role)
+  end
 end

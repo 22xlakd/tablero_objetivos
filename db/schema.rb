@@ -11,12 +11,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180204195914) do
+ActiveRecord::Schema.define(version: 20180204223553) do
+
+  create_table "roles", force: :cascade do |t|
+    t.string   "name",       limit: 255
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  create_table "roles_users", id: false, force: :cascade do |t|
+    t.integer "role_id", limit: 4
+    t.integer "user_id", limit: 4
+  end
+
+  add_index "roles_users", ["role_id"], name: "index_roles_users_on_role_id", using: :btree
+  add_index "roles_users", ["user_id"], name: "index_roles_users_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "nombre",                 limit: 255
     t.string   "apellido",               limit: 255
-    t.string   "email_mio",              limit: 255
     t.string   "password_digest",        limit: 255
     t.string   "codigo_sucursal",        limit: 255
     t.datetime "created_at",                                      null: false

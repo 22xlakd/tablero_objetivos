@@ -26,7 +26,7 @@ Documentation:
   Enabled: false
 
 LineLength:
-  Max: 150
+  Max: 160
 
 MethodLength:
   CountComments: false
@@ -96,7 +96,3 @@ Metrics/CyclomaticComplexity:
 
 Style/ClassAndModuleChildren:
   Enabled: false
-
-Style/AndOr:
-  Exclude:
-- '**/*controller.rb'
