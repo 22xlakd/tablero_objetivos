@@ -1,5 +1,4 @@
 globals:
-  Spree: true
   analytics: true
   ga: true
   _: true
