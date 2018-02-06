@@ -262,6 +262,9 @@ Devise.setup do |config|
   # When using OmniAuth, Devise cannot automatically set OmniAuth path,
   # so you need to do it manually. For the users scope, it would be:
   # config.omniauth_path_prefix = '/my_engine/users/auth'
-  Role.find_or_create_by!(name: 'admin')
-  Role.find_or_create_by!(name: 'sucursal')
+
+  unless Rails.env == 'test'
+    Role.find_or_create_by!(name: 'admin')
+    Role.find_or_create_by!(name: 'sucursal')
+  end
 end

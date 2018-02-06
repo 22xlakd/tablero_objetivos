@@ -1,7 +1,7 @@
-require 'spec_helper'
+require 'rails_helper'
 require 'byebug'
 
-describe 'User', type: :model do
+describe User, type: :model do
   let(:usuario_prueba) { create(:user) }
 
   it 'test 1' do

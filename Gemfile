@@ -24,8 +24,8 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 # Gemas agregadas para el proyecto
 gem 'cancan'
-gem 'devise'
-
+gem 'devise', '~>3.5'
+gem 'rake', '< 11.0'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
@@ -43,7 +43,8 @@ end
 group :test do
   gem 'capybara'
   gem 'database_cleaner'
-  gem 'factory_girl_rails'
+  gem 'factory_bot_rails'
+  gem 'ffaker', '~> 2.2'
   gem 'rspec-rails', '~> 3.0.0'
 end
 
