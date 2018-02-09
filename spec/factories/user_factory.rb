@@ -12,7 +12,7 @@ FactoryBot.define do
     codigo_sucursal { 1234 }
 
     factory :admin_user do
-      spree_roles { [Role.find_by(name: 'admin') || create(:role, name: 'admin')] }
+      roles { [Role.find_by(name: 'admin') || create(:role, name: 'admin')] }
     end
   end
 end

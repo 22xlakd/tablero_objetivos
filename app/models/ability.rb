@@ -5,7 +5,8 @@ class Ability
     if user.respond_to?(:include_role?) && user.include_role?('admin')
       can :manage, :all
     else
-      can :display, User
+      cannot [:save, :create], User
+      can :read, User
     end
 
     # Protect admin role

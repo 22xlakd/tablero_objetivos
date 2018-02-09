@@ -4,7 +4,9 @@ class User < ActiveRecord::Base
   devise :database_authenticatable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  has_and_belongs_to_many :roles
+
   def include_role?(role = nil)
-    roles.inlude?(role)
+    roles.include?(Role.find_by(name: role))
   end
 end
