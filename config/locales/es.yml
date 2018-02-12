@@ -1,0 +1,51 @@
+es:
+  activerecord:
+    models:
+      user: 'Usuario'
+      variable: 'Variable'
+    models:
+      user:
+        one: 'Usuario'
+        other: 'Usuarios'
+      variable:
+        one: 'Variable'
+        other: 'Variables'
+    attributes:
+      user:
+        email: 'Email'
+        nombre: 'Nombre'
+        apellido: 'Apellido'
+        password: 'Contraseña'
+        password_confirmation: 'Confirmar contraseña'
+        codigo_sucursal: 'Código de Sucursal'
+      variable:
+        nombre: 'Nombre'
+        tipo: 'Tipo de variable'
+        puntaje: 'Puntaje'
+        proyeccion_mensual: 'Proyección Mensual'
+        porcentaje_proyectado: 'Porcentaje proyectado'
+    errors:
+      models:
+        user:
+          attributes:
+            email:
+              blank: 'No puede estar en blanco'
+              invalid: 'No es un email válido'
+            password:
+              blank: 'No puede estar en blanco'
+              too_short: "Contraseña demasiado corta, debe contener al menos %{count} caracteres"
+            password_confirmation:
+              confirmation: 'Las contraseñas no coinciden'
+            codigo_sucursal:
+              blank: 'No puede estar en blanco'
+        variable:
+          attributes:
+            nombre:
+              blank: 'No puede estar en blanco'
+            puntaje:
+              not_a_number: 'No es un número'
+              greater_than: 'No puede ser negativo'
+      messages:
+        tipo:
+          undefined: "El tipo de variable ingresado no pertence a los valores aceptados %{tipos}"
+

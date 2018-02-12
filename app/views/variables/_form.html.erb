@@ -1,0 +1,37 @@
+<%= form_for(@variable) do |f| %>
+  <% if @variable.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@variable.errors.count, "error") %> prohibited this variable from being saved:</h2>
+
+      <ul>
+      <% @variable.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :nombre %><br>
+    <%= f.text_field :nombre %>
+  </div>
+  <div class="field">
+    <%= f.label :tipo %><br>
+    <%= f.text_field :tipo %>
+  </div>
+  <div class="field">
+    <%= f.label :proyeccion_mensual %><br>
+    <%= f.text_field :proyeccion_mensual %>
+  </div>
+  <div class="field">
+    <%= f.label :porcentaje_proyectado %><br>
+    <%= f.text_field :porcentaje_proyectado %>
+  </div>
+  <div class="field">
+    <%= f.label :puntaje %><br>
+    <%= f.number_field :puntaje %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

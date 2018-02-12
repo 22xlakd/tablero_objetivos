@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  nombre: MyString
+  tipo: MyString
+  proyeccion_mensual: 9.99
+  porcentaje_proyectado: 9.99
+  puntaje: 1
+
+two:
+  nombre: MyString
+  tipo: MyString
+  proyeccion_mensual: 9.99
+  porcentaje_proyectado: 9.99
+  puntaje: 1

@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Nombre:</strong>
+  <%= @variable.nombre %>
+</p>
+
+<p>
+  <strong>Tipo:</strong>
+  <%= @variable.tipo %>
+</p>
+
+<p>
+  <strong>Proyeccion mensual:</strong>
+  <%= @variable.proyeccion_mensual %>
+</p>
+
+<p>
+  <strong>Porcentaje proyectado:</strong>
+  <%= @variable.porcentaje_proyectado %>
+</p>
+
+<p>
+  <strong>Puntaje:</strong>
+  <%= @variable.puntaje %>
+</p>
+
+<%= link_to 'Edit', edit_variable_path(@variable) %> |
+<%= link_to 'Back', variables_path %>
