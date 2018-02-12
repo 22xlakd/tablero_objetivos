@@ -7,6 +7,7 @@ describe Ability, type: :model do
   let(:admin) { create(:role, name: 'admin') }
   let(:usuario) { create(:user, roles: [sucursal]) }
   let(:usuario2) { create(:user, roles: [admin]) }
+  let(:variable) { create(:variable) }
   let(:ability) { Ability.new(usuario) }
 
   it 'cannot delete admin role' do
@@ -27,6 +28,14 @@ describe Ability, type: :model do
 
     it 'can read another user data' do
       expect(ability).to be_able_to(:read, usuario2)
+    end
+
+    it 'cannot edit variable' do
+      expect(ability).not_to be_able_to(:update, variable)
+    end
+
+    it 'cannot delete variable' do
+      expect(ability).not_to be_able_to(:destroy, variable)
     end
   end
 
