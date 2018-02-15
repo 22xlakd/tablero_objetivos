@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   load_and_authorize_resource
+  skip_before_action :authenticate_user!, only: :sign_in
 
   # GET /users
   # GET /users.json
@@ -19,6 +20,11 @@ class UsersController < ApplicationController
 
   # POST /users
   # POST /users.json
+
+  def sign_in
+    @ppp = 'sdasda'
+  end
+
   def create
     @user = User.new(user_params)
 
