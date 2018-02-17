@@ -7,6 +7,10 @@ class Ability
     else
       cannot [:save, :create], User
       can :read, User
+      can :read, Variable
+      can :read, Variable do |variable|
+        variable.registros.select { |r| r.user.codigo_sucursal == user.codigo_sucursal }.count > 0
+      end
     end
 
     # Protect admin role

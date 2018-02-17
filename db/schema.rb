@@ -11,7 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180210132220) do
+ActiveRecord::Schema.define(version: 20180217140235) do
+
+  create_table "registros", force: :cascade do |t|
+    t.date     "fecha"
+    t.integer  "codigo_sucursal", limit: 4
+    t.integer  "variable_id",     limit: 4
+    t.decimal  "value",                     precision: 10
+    t.datetime "created_at",                               null: false
+    t.datetime "updated_at",                               null: false
+  end
+
+  add_index "registros", ["codigo_sucursal"], name: "index_registros_on_codigo_sucursal", using: :btree
+  add_index "registros", ["variable_id"], name: "index_registros_on_variable_id", using: :btree
 
   create_table "roles", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -59,4 +71,5 @@ ActiveRecord::Schema.define(version: 20180210132220) do
     t.datetime "updated_at",                                       null: false
   end
 
+  add_foreign_key "registros", "variables"
 end

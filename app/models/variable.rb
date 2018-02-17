@@ -3,6 +3,8 @@ class Variable < ActiveRecord::Base
   validates :puntaje, numericality: { greater_than: 0 }
   validate :check_variable_type
 
+  has_many :registros
+
   VARIABLE_TYPES = %w(porcentaje entero moneda)
 
   def variable_types

@@ -1,0 +1,33 @@
+<%= form_for(@registro) do |f| %>
+  <% if @registro.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@registro.errors.count, "error") %> prohibited this registro from being saved:</h2>
+
+      <ul>
+      <% @registro.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :fecha %><br>
+    <%= f.date_select :fecha %>
+  </div>
+  <div class="field">
+    <%= f.label :sucursal_id %><br>
+    <%= f.text_field :sucursal_id %>
+  </div>
+  <div class="field">
+    <%= f.label :variable_id %><br>
+    <%= f.text_field :variable_id %>
+  </div>
+  <div class="field">
+    <%= f.label :value %><br>
+    <%= f.text_field :value %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

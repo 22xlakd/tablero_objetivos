@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  fecha: 2018-02-17
+  sucursal_id: 
+  variable_id: 
+  value: 9.99
+
+two:
+  fecha: 2018-02-17
+  sucursal_id: 
+  variable_id: 
+  value: 9.99
