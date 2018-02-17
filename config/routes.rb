@@ -6,12 +6,14 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
   devise_scope :user do
     authenticated :user do
-      root 'home#index', as: :authenticated_root
+      root 'variables#index', as: :authenticated_root
     end
 
     unauthenticated do
       root 'devise/sessions#new', as: :unauthenticated_root
     end
+
+    get '/logout' => 'devise/sessions#destroy', :as => :logout
   end
 
   # You can have the root of your site routed with "root"

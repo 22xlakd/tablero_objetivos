@@ -48,4 +48,4 @@ es:
       messages:
         tipo:
           undefined: "El tipo de variable ingresado no pertence a los valores aceptados %{tipos}"
-
+  unauthorized: 'El usuario no tiene permisos para acceder a esta sección'
