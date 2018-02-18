@@ -37,12 +37,17 @@
 
           <div class="form-group">
             <label>Proyección mensual:</label>
-            <span><%= @variable.proyeccion_mensual %></span>
+            <span><%= '$' if @variable.tipo == 'moneda' %><%= number_with_precision(@variable.proyeccion_mensual, precision: 2, separator: ',', delimiter: '.') %><%= '%' if @variable.tipo == 'porcentaje' %></span>
           </div>
 
           <div class="form-group">
             <label>Porcentaje proyectado:</label>
-            <span><%= @variable.porcentaje_proyectado %></span>
+            <span><%= number_with_precision(@variable.porcentaje_proyectado, precision: 2, separator: ',', delimiter: '.') %>%</span>
+          </div>
+
+          <div class="form-group">
+            <label>Valor objetivo:</label>
+            <span><%= '$' if @variable.tipo == 'moneda' %><%= number_with_precision(@variable.valor_objetivo, precision: 2, separator: ',', delimiter: '.') %><%= '%' if @variable.tipo == 'porcentaje' %></span>
           </div>
 
           <div class="form-group">

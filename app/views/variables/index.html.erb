@@ -31,6 +31,7 @@
                 <th>Tipo</th>
                 <th>Proyeccion mensual</th>
                 <th>Porcentaje proyectado</th>
+                <th>Valor objetivo</th>
                 <th>Puntaje</th>
                 <th></th>
               </tr>
@@ -38,11 +39,12 @@
             <tbody>
               <% @variables.each do |variable| %>
                 <tr>
-                  <td><%= variable.nombre %></td>
-                  <td><%= variable.tipo %></td>
-                  <td><%= variable.proyeccion_mensual %></td>
-                  <td><%= variable.porcentaje_proyectado %></td>
-                  <td><%= variable.puntaje %></td>
+                  <td align="center"><%= variable.nombre %></td>
+                  <td align="center"><%= variable.tipo.capitalize %></td>
+                  <td align="right"><%= '$' if variable.tipo == 'moneda' %><%= number_with_precision(variable.proyeccion_mensual, precision: 2, separator: ',', delimiter: '.') %><%= '%' if variable.tipo == 'porcentaje' %></td>
+                  <td align="right"><%= number_with_precision(variable.porcentaje_proyectado, precision: 2, separator: ',', delimiter: '.') %>%</td>
+                  <td align="right"><%= '$' if variable.tipo == 'moneda' %><%= number_with_precision(variable.valor_objetivo, precision: 2, separator: ',', delimiter: '.') %><%= '%' if variable.tipo == 'porcentaje' %></td>
+                  <td align="right"><%= variable.puntaje %></td>
                   <td><%= link_to t(:edit), edit_variable_path(variable) %></td>
                 </tr>
               <% end %>

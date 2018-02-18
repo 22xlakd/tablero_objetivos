@@ -1,5 +1,5 @@
 class Variable < ActiveRecord::Base
-  validates :nombre, presence: true
+  validates :nombre, :valor_objetivo, presence: true
   validates :puntaje, numericality: { greater_than: 0 }
   validate :check_variable_type
 

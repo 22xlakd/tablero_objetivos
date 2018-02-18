@@ -22,6 +22,7 @@ es:
         nombre: 'Nombre'
         tipo: 'Tipo de variable'
         puntaje: 'Puntaje'
+        valor_objetivo: 'Valor objetivo'
         proyeccion_mensual: 'Proyección Mensual'
         porcentaje_proyectado: 'Porcentaje proyectado'
     errors:
@@ -43,6 +44,9 @@ es:
             nombre:
               blank: 'No puede estar en blanco'
             puntaje:
+              not_a_number: 'No es un número'
+              greater_than: 'No puede ser negativo'
+            valor_objetivo:
               not_a_number: 'No es un número'
               greater_than: 'No puede ser negativo'
       messages:
