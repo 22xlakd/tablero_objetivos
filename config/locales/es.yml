@@ -49,3 +49,14 @@ es:
         tipo:
           undefined: "El tipo de variable ingresado no pertence a los valores aceptados %{tipos}"
   unauthorized: 'El usuario no tiene permisos para acceder a esta sección'
+  model_error: 'impidieron que la variable se pueda guardar:'
+  error:
+    one: '1 error'
+    other: '%{count} errores'
+  update: 'Actualizar'
+  back: 'Volver'
+  reset: 'Limpiar'
+  edit: 'Editar'
+  variable_updated: 'La variable fue actualizada correctamente.'
+  variable_created: 'La variable fue creada correctamente.'
+  variable_destroyed: 'La variable fue destruida correctamente.'

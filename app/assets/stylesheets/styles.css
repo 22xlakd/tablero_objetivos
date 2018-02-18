@@ -1035,3 +1035,9 @@ p.back-link {
 .no-margin {
     margin: 0 !important;
 }
+
+.form-group input:invalid, select:invalid {
+    border: 1px solid #f9243f;
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075)
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075)
+}

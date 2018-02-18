@@ -24,7 +24,7 @@ class VariablesController < ApplicationController
 
     respond_to do |format|
       if @variable.save
-        format.html { redirect_to @variable, notice: 'Variable was successfully created.' }
+        format.html { redirect_to @variable, notice: I18n.t(:variable_created) }
         format.json { render :show, status: :created, location: @variable }
       else
         format.html { render :new }
@@ -38,7 +38,7 @@ class VariablesController < ApplicationController
   def update
     respond_to do |format|
       if @variable.update(variable_params)
-        format.html { redirect_to @variable, notice: 'Variable was successfully updated.' }
+        format.html { redirect_to @variable, notice: I18n.t(:variable_updated) }
         format.json { render :show, status: :ok, location: @variable }
       else
         format.html { render :edit }
@@ -52,7 +52,7 @@ class VariablesController < ApplicationController
   def destroy
     @variable.destroy
     respond_to do |format|
-      format.html { redirect_to variables_url, notice: 'Variable was successfully destroyed.' }
+      format.html { redirect_to variables_url, notice: I18n.t(:variable_destroyed) }
       format.json { head :no_content }
     end
   end

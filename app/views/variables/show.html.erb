@@ -1,29 +1,58 @@
-<p id="notice"><%= notice %></p>
+<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
+  <div class="row">
+    <ol class="breadcrumb">
+      <li>
+        <a href="/">
+          <em class="fa fa-home"></em>
+        </a>
+      </li>
+      <li><a href="/variables">Variables</a></li>
+      <li class="active">Editar</li>
+    </ol>
+  </div><!--/.row-->
+  <div class="row">
+    <div class="col-lg-12">
+      <h1 class="page-header">Variables Objetivo</h1>
+    </div>
+  </div><!--/.row-->
 
-<p>
-  <strong>Nombre:</strong>
-  <%= @variable.nombre %>
-</p>
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="panel panel-default">
+        <div class="panel-heading">Editando variable: <%= @variable.nombre %></div>
+        <div class="panel-body">
+          <div id="notice" class="alert bg-success <% if notice.nil? %>hidden<% end %>" role="alert">
+            <em class="fa fa-lg fa-warning">&nbsp;</em> <%= notice %> <a href="#" class="pull-right"><em class="fa fa-lg fa-close"></em></a>
+          </div>
 
-<p>
-  <strong>Tipo:</strong>
-  <%= @variable.tipo %>
-</p>
+          <div class="form-group">
+            <label>Nombre:</label>
+            <span><%= @variable.nombre %></span>
+          </div>
+          
+          <div class="form-group">
+            <label>Tipo:</label>
+            <span><%= @variable.tipo.capitalize %></span>
+          </div>
 
-<p>
-  <strong>Proyeccion mensual:</strong>
-  <%= @variable.proyeccion_mensual %>
-</p>
+          <div class="form-group">
+            <label>Proyección mensual:</label>
+            <span><%= @variable.proyeccion_mensual %></span>
+          </div>
 
-<p>
-  <strong>Porcentaje proyectado:</strong>
-  <%= @variable.porcentaje_proyectado %>
-</p>
+          <div class="form-group">
+            <label>Porcentaje proyectado:</label>
+            <span><%= @variable.porcentaje_proyectado %></span>
+          </div>
 
-<p>
-  <strong>Puntaje:</strong>
-  <%= @variable.puntaje %>
-</p>
+          <div class="form-group">
+            <label>Puntaje:</label>
+            <span><%= @variable.puntaje %></span>
+          </div>
 
-<%= link_to 'Edit', edit_variable_path(@variable) %> |
-<%= link_to 'Back', variables_path %>
+          <h4><%= link_to t(:edit), edit_variable_path(@variable) %> | <%= link_to t(:back), variables_path %></h4>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,37 +1,56 @@
-<%= form_for(@variable) do |f| %>
+<%= form_for(@variable, html: { role: 'form' }) do |f| %>
   <% if @variable.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@variable.errors.count, "error") %> prohibited this variable from being saved:</h2>
+    <div id="error_explanation" class="row">
+      <div class="col-lg-12">
+        <div class="alert bg-danger" role="alert">
+          <em class="fa fa-lg fa-warning">&nbsp;</em>
+          <%= t(:error, count: @variable.errors.count) %>&nbsp;<%= t(:model_error) %>
+          <a href="#" class="pull-right"><em class="fa fa-lg fa-close"></em></a>
 
-      <ul>
-      <% @variable.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+          <ul>
+            <% @variable.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :nombre %><br>
-    <%= f.text_field :nombre %>
+  <div class="row">
+    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+      <div class="form-group">
+        <%= f.label :nombre %>
+        <%= f.text_field :nombre, class: "form-control", placeholder: "Placeholder" %>
+      </div>
+      <div class="form-group">
+        <%= f.label :tipo %>
+        <%= select("variable", "tipo", @variable.variable_types.collect {|vt| [vt.capitalize, vt] }, { include_blank: false }, { class: "form-control", required: "required" }) %>
+      </div>
+    </div>
+
+    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+      <div class="form-group">
+        <%= f.label :proyeccion_mensual %>
+        <%= f.number_field :proyeccion_mensual, class: "form-control", placeholder: "Proyección mensual" %>
+      </div>
+      <div class="form-group">
+        <%= f.label :porcentaje_proyectado %>
+        <%= f.number_field :porcentaje_proyectado, class: "form-control", placeholder: "Porcentaje proyectado" %>
+      </div>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :tipo %><br>
-    <%= f.text_field :tipo %>
+  <div class="row">
+    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+      <div class="form-group">
+        <%= f.label :puntaje %>
+        <%= f.number_field :puntaje, class: "form-control", required: "required", min: 1 %>
+      </div>
+    </div>
   </div>
-  <div class="field">
-    <%= f.label :proyeccion_mensual %><br>
-    <%= f.text_field :proyeccion_mensual %>
-  </div>
-  <div class="field">
-    <%= f.label :porcentaje_proyectado %><br>
-    <%= f.text_field :porcentaje_proyectado %>
-  </div>
-  <div class="field">
-    <%= f.label :puntaje %><br>
-    <%= f.number_field :puntaje %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
+  <div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12"> 
+      <%= button_tag(t(:update), class: "btn btn-primary", type: "submit") %>
+      <%= button_tag(t(:reset), class: "btn btn-default", type: "reset") %>
+    </div>
   </div>
 <% end %>
