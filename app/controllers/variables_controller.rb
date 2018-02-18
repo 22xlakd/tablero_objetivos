@@ -17,6 +17,24 @@ class VariablesController < ApplicationController
   # GET /variables/1/edit
   def edit; end
 
+  def tablero_objetivos
+    tablero = if current_user.roles.select { |r| r.name == 'admin' }.count > 0
+                Variable.admin_dashboard
+              else
+                Variable.sucursal_dashboard(current_user.codigo_sucursal)
+              end
+
+    respond_to do |format|
+      if tablero.count > 0
+        format.html { render :tablero_objetivos, tablero: tablero }
+        format.json { render :tablero_objetivos, status: :ok, tablero: tablero }
+      else
+        format.html { render :tablero_objetivos, notice: I18n.t(:no_variables_found) }
+        format.json { render json: I18n.t(:no_variables_found), status: :unprocessable_entity }
+      end
+    end
+  end
+
   # POST /variables
   # POST /variables.json
   def create

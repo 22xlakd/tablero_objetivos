@@ -3,11 +3,14 @@ Rails.application.routes.draw do
   resources :variables
   devise_for :users
   resources :users
+
+  get 'tablero_objetivos' => 'variables#tablero_objetivos'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
   devise_scope :user do
     authenticated :user do
-      root 'variables#index', as: :authenticated_root
+      root 'variables#tablero_objetivos', as: :authenticated_root
     end
 
     unauthenticated do

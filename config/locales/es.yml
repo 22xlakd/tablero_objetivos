@@ -64,3 +64,4 @@ es:
   variable_updated: 'La variable fue actualizada correctamente.'
   variable_created: 'La variable fue creada correctamente.'
   variable_destroyed: 'La variable fue destruida correctamente.'
+  no_variables_found: 'No se encontraron variables para el tablero.'
