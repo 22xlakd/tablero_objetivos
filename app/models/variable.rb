@@ -7,11 +7,15 @@ class Variable < ActiveRecord::Base
 
   VARIABLE_TYPES = %w(porcentaje entero moneda)
 
-  scope :sucursal_dashboard, ->(codigo_sucursal) { joins(registros: :user).where('registros.codigo_sucursal': codigo_sucursal) }
-  scope :admin_dashboard, -> { joins(:registros).where(nombre: ['Cantidad de clientes']) }
+  scope :sucursal_dashboard, ->(codigo_sucursal) { joins(:registros).where('registros.codigo_sucursal': codigo_sucursal) }
+  scope :admin_dashboard, -> { where(nombre: ['Cantidad de clientes']) }
 
   def variable_types
     VARIABLE_TYPES
+  end
+
+  def registros_by_user(user)
+    registros.where(codigo_sucursal: user.codigo_sucursal)
   end
 
   private

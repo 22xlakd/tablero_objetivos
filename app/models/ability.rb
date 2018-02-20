@@ -10,6 +10,10 @@ class Ability
       can [:display, :read, :tablero_objetivos], Variable do |variable|
         variable.registros.select { |r| r.user.codigo_sucursal == user.codigo_sucursal }.count > 0
       end
+
+      can [:display, :read], Registro do |registro|
+        registro.codigo_sucursal == user.codigo_sucursal
+      end
     end
 
     # Protect admin role
