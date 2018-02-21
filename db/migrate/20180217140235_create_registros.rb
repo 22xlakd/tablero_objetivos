@@ -4,7 +4,7 @@ class CreateRegistros < ActiveRecord::Migration
       t.date :fecha
       t.integer :codigo_sucursal
       t.references :variable, index: true, foreign_key: true
-      t.decimal :value
+      t.decimal :value, precision: 10, scale: 2
 
       t.timestamps null: false
     end

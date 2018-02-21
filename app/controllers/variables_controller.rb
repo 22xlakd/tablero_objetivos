@@ -21,7 +21,7 @@ class VariablesController < ApplicationController
     @tablero = if current_user.roles.select { |r| r.name == 'admin' }.count > 0
                  Variable.admin_dashboard
                else
-                 Variable.where(nombre: ['Cantidad de clientes'])
+                 Variable.where(nombre: ['Cantidad de clientes', 'Ventas totales', 'Efectividad reparto folleto', 'Cantidad de ventas'])
                end
 
     respond_to do |format|

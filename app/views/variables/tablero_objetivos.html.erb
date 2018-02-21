@@ -39,14 +39,18 @@
           <div class="panel panel-default">
             <div class="panel-body easypiechart-panel">
               <h4><%= c_variable.nombre %></h4>
-              <div id="gauge" class="200x160px"></div>
+              <div id="gauge_<%= c_variable.id %>" class="col-xs-12 col-sm-12 col-md-12 col-lg-12"></div>
 
               <script>
                 var g = new JustGage({
-                  id: "gauge",
-                  value: 6,
+                  id: "gauge_<%= c_variable.id %>",
+                  value: <%= c_variable.calculate_current_value(current_user) %>,
+                  symbol: '<%= c_variable.graph_options[:symbol] %>',
                   min: 0,
-                  max: 10,
+                  minTxt: 'sdsa',
+                  humanFriendly: true,
+                  relativeGaugeSize: true,
+                  max: <%= c_variable.valor_objetivo %>,
                   levelColors: ["#ff0000", "#f9c802", "#a9d70b"],
                   pointer: true,
                 });
@@ -58,35 +62,3 @@
       <% end %>
     </div>
   <% end %>
-
-
-
-  <div class="row">
-    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
-      <div class="panel panel-default">
-        <div class="panel-body easypiechart-panel">
-          <h4>Comments</h4>
-          <div class="easypiechart" id="easypiechart-orange" data-percent="65" ><span class="percent">65%</span></div>
-        </div>
-      </div>
-    </div>
-    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
-      <div class="panel panel-default">
-        <div class="panel-body easypiechart-panel">
-          <h4>New Users</h4>
-          <div class="easypiechart" id="easypiechart-teal" data-percent="56" ><span class="percent">56%</span></div>
-        </div>
-      </div>
-    </div>
-    <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
-      <div class="panel panel-default">
-        <div class="panel-body easypiechart-panel">
-          <h4>Visitors</h4>
-          <div class="easypiechart" id="easypiechart-red" data-percent="27" ><span class="percent">27%</span></div>
-        </div>
-      </div>
-    </div>
-  </div><!--/.row-->
-</div>
-
-
