@@ -11,13 +11,13 @@ FactoryBot.define do
     password_confirmation { password }
     codigo_sucursal { rand(1000) }
 
-    trait :admin_user do
+    factory :admin_user do
       after :create do
         FactoryBot.create(:role, name: 'admin')
       end
     end
 
-    trait :sucursal_user do
+    factory :sucursal_user do
       after :create do
         FactoryBot.create(:role, name: 'sucursal')
       end
