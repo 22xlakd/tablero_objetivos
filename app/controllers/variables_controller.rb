@@ -79,6 +79,6 @@ class VariablesController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def variable_params
-    params.require(:variable).permit(:nombre, :tipo, :proyeccion_mensual, :porcentaje_proyectado, :valor_objetivo, :puntaje)
+    params.require(:variable).permit(:nombre, :tipo, :puntaje)
   end
 end

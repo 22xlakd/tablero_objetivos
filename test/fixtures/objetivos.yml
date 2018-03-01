@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  proyeccion_mensual: 9.99
+  porcentaje_proyectado: 9.99
+  valor: 9.99
+  variable_id: 
+  user_id: 
+
+two:
+  proyeccion_mensual: 9.99
+  porcentaje_proyectado: 9.99
+  valor: 9.99
+  variable_id: 
+  user_id: 

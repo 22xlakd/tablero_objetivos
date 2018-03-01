@@ -1,9 +1,10 @@
 class Variable < ActiveRecord::Base
-  validates :nombre, :valor_objetivo, presence: true
+  validates :nombre, presence: true
   validates :puntaje, numericality: { greater_than: 0 }
   validate :check_variable_type
 
   has_many :registros
+  has_many :objetivos
 
   VARIABLE_TYPES = %w(porcentaje entero moneda)
   GRAPH_OPTIONS = { porcentaje: { symbol: '%' }, entero: { symbol: '' }, moneda: { symbol: '' } }

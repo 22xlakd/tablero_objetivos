@@ -14,6 +14,10 @@ class Ability
       can [:display, :read], Registro do |registro|
         registro.codigo_sucursal == user.codigo_sucursal
       end
+
+      can [:display, :read], Objetivo do |objetivo|
+        objetivo.user == user
+      end
     end
 
     # Protect admin role

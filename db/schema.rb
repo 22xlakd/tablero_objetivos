@@ -11,15 +11,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180217140235) do
+ActiveRecord::Schema.define(version: 20180301023452) do
+
+  create_table "objetivos", force: :cascade do |t|
+    t.decimal  "proyeccion_mensual",              precision: 10, scale: 2
+    t.decimal  "porcentaje_proyectado",           precision: 10, scale: 2
+    t.decimal  "valor",                           precision: 10, scale: 2
+    t.integer  "variable_id",           limit: 4
+    t.integer  "user_id",               limit: 4
+    t.datetime "created_at",                                               null: false
+    t.datetime "updated_at",                                               null: false
+  end
+
+  add_index "objetivos", ["user_id"], name: "index_objetivos_on_user_id", using: :btree
+  add_index "objetivos", ["variable_id"], name: "index_objetivos_on_variable_id", using: :btree
 
   create_table "registros", force: :cascade do |t|
     t.date     "fecha"
     t.integer  "codigo_sucursal", limit: 4
     t.integer  "variable_id",     limit: 4
-    t.decimal  "value",                     precision: 10
-    t.datetime "created_at",                               null: false
-    t.datetime "updated_at",                               null: false
+    t.decimal  "value",                     precision: 10, scale: 2
+    t.datetime "created_at",                                         null: false
+    t.datetime "updated_at",                                         null: false
   end
 
   add_index "registros", ["codigo_sucursal"], name: "index_registros_on_codigo_sucursal", using: :btree
@@ -62,14 +75,14 @@ ActiveRecord::Schema.define(version: 20180217140235) do
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
   create_table "variables", force: :cascade do |t|
-    t.string   "nombre",                limit: 255
-    t.string   "tipo",                  limit: 255
-    t.decimal  "proyeccion_mensual",                precision: 10
-    t.decimal  "porcentaje_proyectado",             precision: 10
-    t.integer  "puntaje",               limit: 4
-    t.datetime "created_at",                                       null: false
-    t.datetime "updated_at",                                       null: false
+    t.string   "nombre",     limit: 255
+    t.string   "tipo",       limit: 255
+    t.integer  "puntaje",    limit: 4
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
 
+  add_foreign_key "objetivos", "users"
+  add_foreign_key "objetivos", "variables"
   add_foreign_key "registros", "variables"
 end

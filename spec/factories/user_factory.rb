@@ -9,10 +9,18 @@ FactoryBot.define do
     apellido { 'Perez' }
     password 'secretrevelations'
     password_confirmation { password }
-    codigo_sucursal { 1234 }
+    codigo_sucursal { rand(1000) }
 
-    factory :admin_user do
-      roles { [Role.find_by(name: 'admin') || create(:role, name: 'admin')] }
+    trait :admin_user do
+      after :create do
+        FactoryBot.create(:role, name: 'admin')
+      end
+    end
+
+    trait :sucursal_user do
+      after :create do
+        FactoryBot.create(:role, name: 'sucursal')
+      end
     end
   end
 end
