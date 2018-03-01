@@ -3,7 +3,6 @@ class Objetivo < ActiveRecord::Base
   belongs_to :user
 
   validates :variable, presence: true
+  validates :user, presence: true
   validates :proyeccion_mensual, numericality: { greater_than: 0 }
-
-
 end

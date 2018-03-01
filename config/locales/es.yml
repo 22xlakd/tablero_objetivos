@@ -37,6 +37,7 @@ es:
         valor: 'Valor'
         proyeccion_mensual: 'Proyección Mensual'
         porcentaje_proyectado: 'Porcentaje proyectado'
+        user: 'Usuario'
     errors:
       models:
         user:
@@ -69,6 +70,10 @@ es:
             porcentaje_proyectado:
               not_a_number: 'No es un número'
               greater_than: 'No puede ser negativo'
+            variable:
+              blank: 'No puede estar en blanco'
+            user:
+              blank: 'No puede estar en blanco'
       messages:
         tipo:
           undefined: "El tipo de variable ingresado no pertence a los valores aceptados %{tipos}"
