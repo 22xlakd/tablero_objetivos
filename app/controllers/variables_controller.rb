@@ -18,10 +18,11 @@ class VariablesController < ApplicationController
   def edit; end
 
   def tablero_objetivos
-    @tablero = if current_user.roles.select { |r| r.name == 'admin' }.count > 0
+    @tablero = if current_user.include_role?('admin')
                  Variable.admin_dashboard
                else
-                 Variable.where(nombre: ['Cantidad de clientes', 'Ventas totales', 'Efectividad reparto folleto', 'Cantidad de ventas'])
+                 Variable.sucursal_dashboard(current_user.codigo_sucursal)
+                 #Variable.where(nombre: ['Cantidad de clientes', 'Ventas totales', 'Efectividad reparto folleto', 'Cantidad de ventas'])
                end
 
     respond_to do |format|

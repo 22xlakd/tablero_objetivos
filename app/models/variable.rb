@@ -9,7 +9,7 @@ class Variable < ActiveRecord::Base
   VARIABLE_TYPES = %w(porcentaje entero moneda)
   GRAPH_OPTIONS = { porcentaje: { symbol: '%' }, entero: { symbol: '' }, moneda: { symbol: '' } }
 
-  scope :sucursal_dashboard, ->(codigo_sucursal) { joins(:registros).where('registros.codigo_sucursal': codigo_sucursal) }
+  scope :sucursal_dashboard, ->(codigo_sucursal) { joins(:registros).where('registros.codigo_sucursal': codigo_sucursal).uniq }
   scope :admin_dashboard, -> { where(nombre: ['Cantidad de clientes']) }
 
   def variable_types

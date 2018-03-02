@@ -33,6 +33,7 @@ es:
       registro:
         fecha: 'Fecha'
         value: 'Valor'
+        user: 'Usuario'
       objetivo:
         valor: 'Valor'
         proyeccion_mensual: 'Proyección Mensual'
@@ -59,6 +60,16 @@ es:
             puntaje:
               not_a_number: 'No es un número'
               greater_than: 'No puede ser negativo'
+        registro:
+          attributes:
+            fecha:
+              blank: 'No puede estar en blanco'
+            value:
+              blank: 'No puede estar en blanco'
+            variable:
+              blank: 'No puede estar en blanco'
+            user:
+              blank: 'No puede estar en blanco'
         objetivo:
           attributes:
             valor:
