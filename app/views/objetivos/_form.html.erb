@@ -1,0 +1,25 @@
+<%= form_for(objetivo, html: { role: 'form', id: 'objective_form', onsubmit: 'changeSeparator("valor_objetivo");changeSeparator("proyeccion_mensual");changeSeparator("porcentaje_proyectado")', class: 'hidden' }) do |f| %>
+  <div class="panel panel-primary">
+    <div class="panel-heading">Objetivo para el usuario: usuario seleccionado</div>
+    <div class="panel-body">
+      <div class="row">
+        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+          <div class="form-group">
+            <%= f.label :proyeccion_mensual %>
+            <%= f.number_field :proyeccion_mensual, class: "form-control", placeholder: "Proyección mensual", onblur: "changeSeparator(this.id)", step: 0.01 %>
+          </div>
+          <div class="form-group">
+            <%= f.label :porcentaje_proyectado %>
+            <%= f.number_field :porcentaje_proyectado, class: "form-control", placeholder: "Porcentaje proyectado", onblur: "changeSeparator(this.id)", step: 0.01 %>
+          </div> 
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+          <div class="form-group">
+            <%= f.label :valor %>
+            <%= f.number_field :valor, class: "form-control", required: "required", onblur: "changeSeparator(this.id)", step: 0.01 %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

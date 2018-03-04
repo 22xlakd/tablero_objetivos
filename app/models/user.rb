@@ -10,6 +10,8 @@ class User < ActiveRecord::Base
   has_many :registros, foreign_key: :codigo_sucursal, primary_key: :codigo_sucursal
   has_many :objetivos
 
+  scope :sucursal, -> { includes(:roles).where('roles.name' => 'sucursal') }
+
   def include_role?(role = nil)
     roles.include?(Role.find_by(name: role))
   end

@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   resources :registros
   resources :variables
+  resources :objetivos
   devise_for :users
   resources :users
 

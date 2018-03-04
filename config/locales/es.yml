@@ -90,7 +90,6 @@ es:
       messages:
         tipo:
           undefined: "El tipo de variable ingresado no pertence a los valores aceptados %{tipos}"
-  add_objective: 'Agregar objetivo'
   date:
     abbr_day_names:
     - dom
@@ -145,16 +144,17 @@ es:
     - :day
     - :month
     - :year
-  unauthorized: 'El usuario no tiene permisos para acceder a esta sección'
-  model_error: 'impidieron que la variable se pueda guardar:'
+  back: 'Volver'
+  edit: 'Editar'
   error:
     one: '1 error'
     other: '%{count} errores'
-  update: 'Actualizar'
-  back: 'Volver'
+  model_error: 'impidieron que la variable se pueda guardar:'
+  no_variables_found: 'No se encontraron variables para el tablero.'
   reset: 'Limpiar'
-  edit: 'Editar'
+  unauthorized: 'El usuario no tiene permisos para acceder a esta sección'
+  update: 'Actualizar'
   variable_updated: 'La variable fue actualizada correctamente.'
   variable_created: 'La variable fue creada correctamente.'
   variable_destroyed: 'La variable fue destruida correctamente.'
-  no_variables_found: 'No se encontraron variables para el tablero.'
+  view_objective: 'Ver objetivo'
