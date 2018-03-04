@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(version: 20180301023452) do
     t.datetime "updated_at",                                               null: false
   end
 
+  add_index "objetivos", ["user_id", "variable_id"], name: "index_objetivos_on_user_id_and_variable_id", unique: true, using: :btree
   add_index "objetivos", ["user_id"], name: "index_objetivos_on_user_id", using: :btree
   add_index "objetivos", ["variable_id"], name: "index_objetivos_on_variable_id", using: :btree
 

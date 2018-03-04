@@ -2,9 +2,9 @@ require 'rails_helper'
 require 'byebug'
 
 describe Objetivo, type: :model do
-  let(:variable) { create(:variable, puntaje: 4) }
-  let(:user) { create(:sucursal_user) }
-  let(:objetivo) { create(:objetivo, variable: variable, proyeccion_mensual: 5, porcentaje_proyectado: 5, user: user) }
+  let!(:variable) { create(:variable, puntaje: 4) }
+  let!(:user) { create(:sucursal_user) }
+  let!(:objetivo) { create(:objetivo, variable: variable, proyeccion_mensual: 5, porcentaje_proyectado: 5, user: user) }
 
   context 'validating proyeccion_mensual' do
     it "doesn't save objetivo when proyeccion_mensual is not number" do
@@ -59,6 +59,14 @@ describe Objetivo, type: :model do
       expect(objetivo.save).to be false
       expect(objetivo.errors.count).to eq(1)
       expect(objetivo.errors.full_messages.join(',')).to eq('Usuario No puede estar en blanco')
+    end
+  end
+
+  context 'validating unique objetivo per user and variable' do
+    it "doesn't create an objective with same user and variable" do
+      objetivo2 = Objetivo.create(variable: variable, proyeccion_mensual: 5, porcentaje_proyectado: 5, user: user)
+      expect(objetivo2.errors.count).to eq(1)
+      expect(objetivo2.errors.full_messages.join(',')).to eq('Usuario Ya existe el objetivo para el usuario y la variable seleccionada')
     end
   end
 end

@@ -22,7 +22,6 @@ class VariablesController < ApplicationController
                  Variable.admin_dashboard
                else
                  Variable.sucursal_dashboard(current_user.codigo_sucursal)
-                 #Variable.where(nombre: ['Cantidad de clientes', 'Ventas totales', 'Efectividad reparto folleto', 'Cantidad de ventas'])
                end
 
     respond_to do |format|

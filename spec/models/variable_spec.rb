@@ -2,7 +2,21 @@ require 'rails_helper'
 require 'byebug'
 
 describe Variable, type: :model do
-  let(:variable) { create(:variable, puntaje: 4) }
+  let(:user) { create(:sucursal_user) }
+  let(:user2) { create(:sucursal_user) }
+  let(:objetivo) { create(:objetivo, valor: 45, user: user) }
+  let(:variable) { create(:variable, puntaje: 4, objetivos: [objetivo]) }
+
+  context '#objetivo_by_user' do
+    it 'returns objetivo for user' do
+      expect(variable.objetivo_by_user(user)).not_to be nil
+      expect(variable.objetivo_by_user(user).valor).to eq(45)
+    end
+
+    it "returns nil if objetivo doesn't exist for user" do
+      expect(variable.objetivo_by_user(user2)).to be nil
+    end
+  end
 
   context 'validating tipo' do
     it 'save model when tipo has correct value' do

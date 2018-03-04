@@ -6,4 +6,5 @@ class Objetivo < ActiveRecord::Base
   validates :user, presence: true
   validates :proyeccion_mensual, numericality: { greater_than: 0 }
   validates :porcentaje_proyectado, numericality: { greater_than: 0 }
+  validates :user, uniqueness: { scope: :variable }
 end

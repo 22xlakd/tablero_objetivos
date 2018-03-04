@@ -20,6 +20,10 @@ class Variable < ActiveRecord::Base
     registros.where(codigo_sucursal: user.codigo_sucursal)
   end
 
+  def objetivo_by_user(user)
+    objetivos.find_by(user: user)
+  end
+
   def calculate_current_value(user)
     registros_by_user(user).sum(:value)
   end

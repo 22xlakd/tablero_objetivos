@@ -83,8 +83,10 @@ es:
               greater_than: 'No puede ser negativo'
             variable:
               blank: 'No puede estar en blanco'
+              taken: 'Ya existe el objetivo para el usuario y la variable seleccionada'
             user:
               blank: 'No puede estar en blanco'
+              taken: 'Ya existe el objetivo para el usuario y la variable seleccionada'
       messages:
         tipo:
           undefined: "El tipo de variable ingresado no pertence a los valores aceptados %{tipos}"

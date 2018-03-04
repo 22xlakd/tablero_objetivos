@@ -9,5 +9,7 @@ class CreateObjetivos < ActiveRecord::Migration
 
       t.timestamps null: false
     end
+
+    add_index :objetivos, [:user_id, :variable_id], unique: true
   end
 end

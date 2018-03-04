@@ -47,10 +47,9 @@
                   value: <%= c_variable.calculate_current_value(current_user) %>,
                   symbol: '<%= c_variable.graph_options[:symbol] %>',
                   min: 0,
-                  minTxt: 'sdsa',
                   humanFriendly: true,
                   relativeGaugeSize: true,
-                  max: <%= c_variable.valor_objetivo %>,
+                  max: <%= c_variable.objetivo_by_user(current_user).nil? ? 0 : c_variable.objetivo_by_user(current_user).valor %>,
                   levelColors: ["#ff0000", "#f9c802", "#a9d70b"],
                   pointer: true,
                 });
