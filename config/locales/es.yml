@@ -90,6 +90,7 @@ es:
       messages:
         tipo:
           undefined: "El tipo de variable ingresado no pertence a los valores aceptados %{tipos}"
+  add_objective: 'Agregar objetivo'
   date:
     abbr_day_names:
     - dom

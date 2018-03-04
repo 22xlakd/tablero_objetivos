@@ -1045,3 +1045,12 @@ p.back-link {
 .table.table-striped th{
     text-align: center;
 }
+
+.input-height{
+    height: 46px;
+}
+
+.btn-add-objective{
+    vertical-align: middle;
+    margin-top: 25px;
+}

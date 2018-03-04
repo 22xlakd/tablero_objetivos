@@ -23,28 +23,33 @@
         <%= f.text_field :nombre, class: "form-control", placeholder: "Placeholder" %>
       </div>
       <div class="form-group">
-        <%= f.label :tipo %>
-        <%= select("variable", "tipo", @variable.variable_types.collect {|vt| [vt.capitalize, vt] }, { include_blank: false }, { class: "form-control", required: "required" }) %>
-      </div>
+        <%= f.label :puntaje %>
+        <%= f.number_field :puntaje, class: "form-control", required: "required", min: 1 %>
+      </div> 
     </div>
 
     <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
       <div class="form-group">
+        <%= f.label :tipo %>
+        <%= select("variable", "tipo", @variable.variable_types.collect {|vt| [vt.capitalize, vt] }, { include_blank: false }, { class: "form-control input-height", required: "required" }) %>
+      </div>
+      <div class="form-group">
+        <%= button_tag(t(:add_objective), class: "btn-add-objective btn btn-lg btn-primary", type: "button", id: "add_objective") %>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+  <div class="row">
+    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+     <div class="form-group">
         <%= f.label :proyeccion_mensual %>
         <%= f.number_field :proyeccion_mensual, class: "form-control", placeholder: "Proyección mensual", onblur: "changeSeparator(this.id)", step: 0.01 %>
       </div>
       <div class="form-group">
         <%= f.label :porcentaje_proyectado %>
         <%= f.number_field :porcentaje_proyectado, class: "form-control", placeholder: "Porcentaje proyectado", onblur: "changeSeparator(this.id)", step: 0.01 %>
-      </div>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-      <div class="form-group">
-        <%= f.label :puntaje %>
-        <%= f.number_field :puntaje, class: "form-control", required: "required", min: 1 %>
-      </div>
+      </div> 
     </div>
     <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
       <div class="form-group">
@@ -55,8 +60,7 @@
   </div>
   <div class="row">
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12"> 
-      <%= button_tag(t(:update), class: "btn btn-primary", type: "submit") %>
-      <%= button_tag(t(:reset), class: "btn btn-default", type: "reset") %>
+      <%= button_tag(t(:update), class: "btn btn-lg btn-success", type: "submit") %>
+      <%= button_tag(t(:reset), class: "btn btn-lg btn-default", type: "reset") %>
     </div>
   </div>
-<% end %>
