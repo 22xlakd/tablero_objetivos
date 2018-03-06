@@ -1,7 +1,7 @@
 <div class="panel panel-default">
   <div class="panel-heading">Editando variable: <%= @variable.nombre %></div>
   <div class="panel-body">
-
+    
     <%= form_for(@variable, html: { role: 'form', onsubmit: 'changeSeparator("variable_valor_objetivo");changeSeparator("variable_proyeccion_mensual");changeSeparator("variable_porcentaje_proyectado")' }) do |f| %>
       <% if @variable.errors.any? %>
         <div id="error_explanation" class="row">
@@ -38,30 +38,64 @@
             <%= f.label :tipo %>
             <%= select("variable", "tipo", @variable.variable_types.collect {|vt| [vt.capitalize, vt] }, { include_blank: false }, { class: "form-control input-height", required: "required" }) %>
           </div>
+          <!--
           <div class="form-group">
             <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8 no-padding">
               <label for="users"><%= t(:user, count: 2, scope: [:activerecord, :models]) %></label>
               <%= display_user_selector %>
             </div>
             <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
-              <%= button_tag(t(:view_objective), onclick: "showObjectiveForm();", class: "btn-add-objective btn btn-lg btn-primary", type: "button", id: "view_objective") %>
+              <%= button_tag(t(:view_objective), onclick: "showObjectiveForm(jQuery('#usuario_id').val());", class: "btn-add-objective btn btn-lg btn-primary", type: "button", id: "view_objective") %>
             </div>
           </div>
+          -->
+        </div>
+      </div>
+      
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+          <div id="accordion" role="tablist" aria-multiselectable="false">
+            <%= f.fields_for :objetivos do |ff| %>
+              <% c_user = ff.object.user %>
+              <div class="panel panel-default">
+                <div class="panel-heading" role="tab" id="headingOne">
+                  <h5 class="mb-0">
+                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                      <%= c_user.nombre + c_user.apellido %>
+                    </a>
+                  </h5>
+                </div>
+                <div id="collapseOne" class="collapse <% if ff.index == 0 %>show<% end %>" role="tabpanel" aria-labelledby="headingOne">
+                  <div class="panel-body">
+                    <div class="row">
+                      <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                        <div class="form-group">
+                          <%= ff.label :proyeccion_mensual %>
+                          <%= ff.number_field :proyeccion_mensual, class: "form-control", placeholder: "Proyección mensual", onblur: "changeSeparator(this.id)", step: 0.01 %>
+                        </div>
+                        <div class="form-group">
+                          <%= ff.label :porcentaje_proyectado %>
+                          <%= ff.number_field :porcentaje_proyectado, class: "form-control", placeholder: "Porcentaje proyectado", onblur: "changeSeparator(this.id)", step: 0.01 %>
+                        </div> 
+                      </div>
+                      <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                        <div class="form-group">
+                          <%= ff.label :valor %>
+                          <%= ff.number_field :valor, class: "form-control", required: "required", onblur: "changeSeparator(this.id)", step: 0.01 %>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <% end %>
         </div>
       </div>
     <% end %>
-  </div>
-</div>
 
-<%= render partial: 'objetivos/form', locals: { objetivo: Objetivo.new } %>
+    <%= button_tag(t(:update), class: "btn btn-lg btn-success", type: "submit") %>
+    <%= button_tag(t(:reset), class: "btn btn-lg btn-default", type: "reset") %>
 
-<div class="panel panel-default">
-  <div class="panel-body">
-    <div class="row">
-      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12"> 
-        <%= button_tag(t(:update), class: "btn btn-lg btn-success", type: "submit") %>
-        <%= button_tag(t(:reset), class: "btn btn-lg btn-default", type: "reset") %>
-      </div>
-    </div>
   </div>
 </div>

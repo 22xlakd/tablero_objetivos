@@ -1,6 +1,7 @@
 <%= form_for(objetivo, html: { role: 'form', id: 'objective_form', onsubmit: 'changeSeparator("valor_objetivo");changeSeparator("proyeccion_mensual");changeSeparator("porcentaje_proyectado")', class: 'hidden' }) do |f| %>
+
   <div class="panel panel-primary">
-    <div class="panel-heading">Objetivo para el usuario: usuario seleccionado</div>
+    <div id="user_selected" class="panel-heading"></div>
     <div class="panel-body">
       <div class="row">
         <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">

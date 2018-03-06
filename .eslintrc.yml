@@ -52,8 +52,7 @@ rules:
   no-inner-declarations: 1
   no-trailing-spaces: 1
   no-implied-eval: 1
-
-  prefer-template: 1
+  prefer-template: 0
   function-paren-newline: 1
   no-mixed-operators: 1
   max-len: [1, 150, 2]

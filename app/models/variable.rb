@@ -12,6 +12,8 @@ class Variable < ActiveRecord::Base
   scope :sucursal_dashboard, ->(codigo_sucursal) { joins(:registros).where('registros.codigo_sucursal': codigo_sucursal).uniq }
   scope :admin_dashboard, -> { where(nombre: ['Cantidad de clientes']) }
 
+  accepts_nested_attributes_for :objetivos
+
   def variable_types
     VARIABLE_TYPES
   end
