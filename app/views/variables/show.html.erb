@@ -36,23 +36,49 @@
           </div>
 
           <div class="form-group">
-            <label>Proyección mensual:</label>
-            <span><%= '$' if @variable.tipo == 'moneda' %><%= number_with_precision(@variable.proyeccion_mensual, precision: 2, separator: ',', delimiter: '.') %><%= '%' if @variable.tipo == 'porcentaje' %></span>
-          </div>
-
-          <div class="form-group">
-            <label>Porcentaje proyectado:</label>
-            <span><%= number_with_precision(@variable.porcentaje_proyectado, precision: 2, separator: ',', delimiter: '.') %>%</span>
-          </div>
-
-          <div class="form-group">
-            <label>Valor objetivo:</label>
-            <span><%= '$' if @variable.tipo == 'moneda' %><%= number_with_precision(@variable.valor_objetivo, precision: 2, separator: ',', delimiter: '.') %><%= '%' if @variable.tipo == 'porcentaje' %></span>
-          </div>
-
-          <div class="form-group">
             <label>Puntaje:</label>
             <span><%= @variable.puntaje %></span>
+          </div>
+
+          <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+              <div id="accordion" role="tablist" aria-multiselectable="false">
+                <% @variable.objetivos.each_with_index do |c_objetivo, i| %>
+                  <% c_user = c_objetivo.user %>
+
+                  <div class="panel panel-default accordion-container">
+                    <div class="panel-heading accordion-header" role="tab" id="headingOne">
+                      <h5 class="mb-0">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                          <%= c_user.nombre + c_user.apellido %>
+                        </a>
+                      </h5>
+                    </div>
+                    <div id="collapseOne" class="collapse <% if i == 0 %>show<% end %>" role="tabpanel" aria-labelledby="headingOne">
+                      <div class="panel-body">
+                        <div class="form-group">
+                          <label>Proyección mensual:</label>
+                          <span><%= '$' if @variable.tipo == 'moneda' %><%= number_with_precision(c_objetivo.proyeccion_mensual, precision: 2, separator: ',', delimiter: '.') %><%= '%' if @variable.tipo == 'porcentaje' %></span>
+                        </div>
+
+                        <div class="form-group">
+                          <label>Porcentaje proyectado:</label>
+                          <span><%= number_with_precision(c_objetivo.porcentaje_proyectado, precision: 2, separator: ',', delimiter: '.') %>%</span>
+                        </div>
+
+                        <div class="form-group">
+                          <label>Valor:</label>
+                          <span><%= '$' if @variable.tipo == 'moneda' %><%= number_with_precision(c_objetivo.valor, precision: 2, separator: ',', delimiter: '.') %><%= '%' if @variable.tipo == 'porcentaje' %></span>
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+
+                <% end %>
+
+              </div>
+            </div>
           </div>
 
           <h4><%= link_to t(:edit), edit_variable_path(@variable) %> | <%= link_to t(:back), variables_path %></h4>

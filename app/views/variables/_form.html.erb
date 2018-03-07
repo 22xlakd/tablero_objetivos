@@ -57,8 +57,10 @@
           <div id="accordion" role="tablist" aria-multiselectable="false">
             <%= f.fields_for :objetivos do |ff| %>
               <% c_user = ff.object.user %>
-              <div class="panel panel-default">
-                <div class="panel-heading" role="tab" id="headingOne">
+              <%= ff.hidden_field :id, value: ff.object.id %>
+
+              <div class="panel panel-default accordion-container">
+                <div class="panel-heading accordion-header" role="tab" id="headingOne">
                   <h5 class="mb-0">
                     <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                       <%= c_user.nombre + c_user.apellido %>
@@ -92,10 +94,10 @@
           <% end %>
         </div>
       </div>
+
+      <%= button_tag(t(:update), class: "btn btn-lg btn-success", type: "submit") %>
+      <%= button_tag(t(:reset), class: "btn btn-lg btn-default", type: "reset") %>
+
     <% end %>
-
-    <%= button_tag(t(:update), class: "btn btn-lg btn-success", type: "submit") %>
-    <%= button_tag(t(:reset), class: "btn btn-lg btn-default", type: "reset") %>
-
   </div>
 </div>
