@@ -48,7 +48,7 @@ es:
               invalid: 'No es un email válido'
             password:
               blank: 'No puede estar en blanco'
-              too_short: "Contraseña demasiado corta, debe contener al menos %{count} caracteres"
+              too_short: "demasiado corta, debe contener al menos %{count} caracteres"
             password_confirmation:
               confirmation: 'Las contraseñas no coinciden'
             codigo_sucursal:
@@ -90,6 +90,7 @@ es:
       messages:
         tipo:
           undefined: "El tipo de variable ingresado no pertence a los valores aceptados %{tipos}"
+  back: 'Volver'
   date:
     abbr_day_names:
     - dom
@@ -144,12 +145,11 @@ es:
     - :day
     - :month
     - :year
-  back: 'Volver'
   edit: 'Editar'
   error:
     one: '1 error'
     other: '%{count} errores'
-  model_error: 'impidieron que la variable se pueda guardar:'
+  model_error: 'impidieron que %{model} se pueda guardar:'
   no_variables_found: 'No se encontraron variables para el tablero.'
   reset: 'Limpiar'
   unauthorized: 'El usuario no tiene permisos para acceder a esta sección'

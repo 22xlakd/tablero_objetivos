@@ -5,6 +5,8 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   validates :codigo_sucursal, presence: true
+  validates :email, presence: true
+  validates :email, uniqueness: true
 
   has_and_belongs_to_many :roles
   has_many :registros, foreign_key: :codigo_sucursal, primary_key: :codigo_sucursal

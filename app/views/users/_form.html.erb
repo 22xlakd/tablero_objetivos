@@ -1,41 +1,68 @@
-<%= form_for(@user) do |f| %>
-  <% if @user.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
+<div class="panel panel-default">
+  <div class="panel-heading">Editar usuario</div>
+  <div class="panel-body">
+    <%= form_for(@user) do |f| %>
+      <% if @user.errors.any? %>
+        <div id="error_explanation" class="row">
+          <div class="col-lg-12">
+            <div class="alert bg-danger" role="alert">
+              <em class="fa fa-lg fa-warning">&nbsp;</em>
+              <%= t(:error, count: @user.errors.count) %>&nbsp;<%= t(:model_error, model: 'el Usuario') %>
+              <a href="#" class="pull-right"><em class="fa fa-lg fa-close"></em></a>
 
-      <ul>
-      <% @user.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
+              <ul>
+                <% @user.errors.full_messages.each do |message| %>
+                  <li><%= message %></li>
+                <% end %>
+              </ul>
+            </div>
+          </div>
+        </div>
       <% end %>
-      </ul>
-    </div>
-  <% end %>
+      
+      <div class="row">
+        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+          <div class="form-group">
+            <%= f.label :nombre %>
+            <%= f.text_field :nombre, class: "form-control", placeholder: "Nombre del usuario" %>
+          </div>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+          <div class="form-group">
+            <%= f.label :apellido %>
+            <%= f.text_field :apellido, class: "form-control", placeholder: "Apellido del usuario" %>
+          </div> 
+        </div>
+      </div>
 
-  <div class="field">
-    <%= f.label :nombre %><br>
-    <%= f.text_field :nombre %>
+      <div class="row">
+        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+          <div class="form-group">
+            <%= f.label :email %>
+            <%= f.email_field :email, class: "form-control", placeholder: "Ingrese una dirección de email" %>
+          </div>
+          <div class="form-group">
+            <%= f.label :codigo_sucursal %>
+            <%= f.text_field :codigo_sucursal, class: "form-control", placeholder: "Ingrese el código de la sucursal" %>
+          </div>
+        </div>
+
+        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+          <div class="form-group">
+            <%= f.label :password %>
+            <%= f.password_field :password, class: "form-control" %>
+          </div>
+          <div class="form-group">
+            <%= f.label :password_confirmation %>
+            <%= f.password_field :password_confirmation, class: "form-control" %>
+          </div>
+        </div>
+      </div>
+
+      <%= button_tag(t(:update), class: "btn btn-lg btn-success", type: "submit") %>
+      <%= button_tag(t(:back), class: "btn btn-lg btn-default", type: "button", onclick: "location.href='#{users_path}';") %>
+
+    <% end %>
+
   </div>
-  <div class="field">
-    <%= f.label :apellido %><br>
-    <%= f.text_field :apellido %>
-  </div>
-  <div class="field">
-    <%= f.label :email %><br>
-    <%= f.text_field :email %>
-  </div>
-  <div class="field">
-    <%= f.label :password %><br>
-    <%= f.password_field :password %>
-  </div>
-  <div class="field">
-    <%= f.label :password_confirmation %><br>
-    <%= f.password_field :password_confirmation %>
-  </div>
-  <div class="field">
-    <%= f.label :codigo_sucursal %><br>
-    <%= f.text_field :codigo_sucursal %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+</div>
