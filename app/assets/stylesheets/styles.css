@@ -1072,3 +1072,12 @@ p.back-link {
 .btn-new-user {
     margin-right:10px;
 }
+
+.center-button {
+    margin-top: 30px;
+}
+
+.inline-title {
+    display: inline-block;
+    font-weight: bold;
+}

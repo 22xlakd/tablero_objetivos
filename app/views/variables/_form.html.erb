@@ -38,11 +38,13 @@
             <%= f.label :tipo %>
             <%= select("variable", "tipo", @variable.variable_types.collect {|vt| [vt.capitalize, vt] }, { include_blank: false }, { class: "form-control input-height", required: "required" }) %>
           </div>
+          <div class="form-group">
+            <button type="button" class="btn btn-primary center-button" data-toggle="modal" data-target="#addObjectiveToUser">Agregar objetivo</button>
+          </div>
           <!--
           <div class="form-group">
             <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8 no-padding">
               <label for="users"><%= t(:user, count: 2, scope: [:activerecord, :models]) %></label>
-              <%= display_user_selector %>
             </div>
             <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
               <%= button_tag(t(:view_objective), onclick: "showObjectiveForm(jQuery('#usuario_id').val());", class: "btn-add-objective btn btn-lg btn-primary", type: "button", id: "view_objective") %>
@@ -57,13 +59,16 @@
           <div id="accordion" role="tablist" aria-multiselectable="false">
             <%= f.fields_for :objetivos do |ff| %>
               <% c_user = ff.object.user %>
-              <%= ff.hidden_field :id, value: ff.object.id %>
+              <script>
+                var idx = <%= ff.index %>;
+              </script>
 
-              <div class="panel panel-default accordion-container">
+              <div class="panel panel-default accordion-container" id="tab_<%= ff.object.id %>">
                 <div class="panel-heading accordion-header" role="tab" id="headingOne">
                   <h5 class="mb-0">
                     <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                      <%= c_user.nombre + c_user.apellido %>
+                      <%= c_user.nombre + ' ' + c_user.apellido %>
+                      <%= ff.hidden_field :id, value: ff.object.id %>
                     </a>
                   </h5>
                 </div>
@@ -99,5 +104,7 @@
       <%= button_tag(t(:reset), class: "btn btn-lg btn-default", type: "reset") %>
 
     <% end %>
+
+    <%= render 'modal_new_objective' %>
   </div>
 </div>

@@ -91,6 +91,8 @@ es:
         tipo:
           undefined: "El tipo de variable ingresado no pertence a los valores aceptados %{tipos}"
   back: 'Volver'
+  close: 'Cerrar'
+  create: 'Crear'
   date:
     abbr_day_names:
     - dom
