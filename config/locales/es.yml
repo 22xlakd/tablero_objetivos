@@ -145,6 +145,7 @@ es:
     - :day
     - :month
     - :year
+  destroy: 'Eliminar'
   edit: 'Editar'
   error:
     one: '1 error'
@@ -152,8 +153,13 @@ es:
   model_error: 'impidieron que %{model} se pueda guardar:'
   no_variables_found: 'No se encontraron variables para el tablero.'
   reset: 'Limpiar'
+  save: 'Guardar'
   unauthorized: 'El usuario no tiene permisos para acceder a esta sección'
   update: 'Actualizar'
+  user_created: 'El usuario fue creado correctamente.'
+  user_delete_confirmation: 'Está seguro de eliminar el usuario?'
+  user_destroyed: 'El usuario fue eliminado correctamente.'
+  user_updated: 'El usuario fue actualizado correctamente.'
   variable_updated: 'La variable fue actualizada correctamente.'
   variable_created: 'La variable fue creada correctamente.'
   variable_destroyed: 'La variable fue destruida correctamente.'

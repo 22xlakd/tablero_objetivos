@@ -45,7 +45,7 @@
                   <td align="center"><%= usuario.email %></td>
                   <td align="center"><%= usuario.codigo_sucursal %></td>
                   <td><%= link_to t(:edit), edit_user_path(usuario) %></td>
-                  <td><%= link_to 'Destroy', usuario, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+                  <td><%= link_to t(:destroy), usuario, method: :delete, data: { confirm: t(:user_delete_confirmation) } %></td>
                 </tr>
               <% end %>
             </tbody>

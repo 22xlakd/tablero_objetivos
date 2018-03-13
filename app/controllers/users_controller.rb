@@ -1,6 +1,8 @@
 class UsersController < ApplicationController
   load_and_authorize_resource
   skip_before_action :authenticate_user!, only: :sign_in
+  before_action :load_roles, only: [:create, :update, :edit, :new]
+  before_action :extract_roles_from_params, only: [:create, :update]
 
   # GET /users
   # GET /users.json
@@ -26,7 +28,8 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.save
-        format.html { redirect_to @user, notice: 'User was successfully created.' }
+        set_roles
+        format.html { redirect_to @user, notice: I18n.t(:user_created) }
         format.json { render :show, status: :created, location: @user }
       else
         format.html { render :new }
@@ -38,9 +41,15 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1
   # PATCH/PUT /users/1.json
   def update
+    if params[:user][:password].blank? && params[:user][:password_confirmation].blank?
+      params[:user].delete(:password)
+      params[:user].delete(:password_confirmation)
+    end
+
     respond_to do |format|
       if @user.update(user_params)
-        format.html { redirect_to @user, notice: 'User was successfully updated.' }
+        set_roles
+        format.html { redirect_to @user, notice: I18n.t(:user_updated) }
         format.json { render :show, status: :ok, location: @user }
       else
         format.html { render :edit }
@@ -54,7 +63,7 @@ class UsersController < ApplicationController
   def destroy
     @user.destroy
     respond_to do |format|
-      format.html { redirect_to users_url, notice: 'User was successfully destroyed.' }
+      format.html { redirect_to users_url, notice: I18n.t(:user_destroyed) }
       format.json { head :no_content }
     end
   end
@@ -63,6 +72,18 @@ class UsersController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def user_params
-    params.require(:user).permit(:nombre, :apellido, :email, :password, :password_confirmation, :codigo_sucursal)
+    params.require(:user).permit(:nombre, :apellido, :email, :password, :password_confirmation, :codigo_sucursal, :role_ids)
+  end
+
+  def load_roles
+    @roles = Role.all
+  end
+
+  def extract_roles_from_params
+    @roles_ids = params[:user].delete('role_ids') if params[:user]
+  end
+
+  def set_roles
+    @user.roles = Role.where(id: @roles_ids) if @roles_ids
   end
 end
