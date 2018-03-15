@@ -47,14 +47,14 @@
                   <% c_user = c_objetivo.user %>
 
                   <div class="panel panel-default accordion-container">
-                    <div class="panel-heading accordion-header" role="tab" id="headingOne">
+                    <div class="panel-heading accordion-header" role="tab" id="heading_<%= i %>">
                       <h5 class="mb-0">
-                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse_<%= i %>" aria-expanded="true" aria-controls="collapse_<%= i %>">
                           <%= c_user.nombre + c_user.apellido %>
                         </a>
                       </h5>
                     </div>
-                    <div id="collapseOne" class="collapse <% if i == 0 %>show<% end %>" role="tabpanel" aria-labelledby="headingOne">
+                    <div id="collapse_<%= i %>" class="collapse" role="tabpanel" aria-labelledby="heading_<%= i %>">
                       <div class="panel-body">
                         <div class="form-group">
                           <label>Proyección mensual:</label>
