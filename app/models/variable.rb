@@ -18,16 +18,16 @@ class Variable < ActiveRecord::Base
     VARIABLE_TYPES
   end
 
-  def registros_by_user(user)
-    registros.where(codigo_sucursal: user.codigo_sucursal)
-  end
-
   def objetivo_by_user(user)
     objetivos.find_by(user: user)
   end
 
   def calculate_current_value(user)
     registros_by_user(user).sum(:value)
+  end
+
+  def objetivo_cumplido?(user)
+    objetivo_by_user(user).cumplido?(calculate_current_value(user))
   end
 
   def graph_options
@@ -40,5 +40,9 @@ class Variable < ActiveRecord::Base
 
   def check_variable_type
     errors.add(:tipo, I18n.t('tipo.undefined', tipos: VARIABLE_TYPES, scope: [:activerecord, :errors, :messages])) unless VARIABLE_TYPES.include?(tipo)
+  end
+
+  def registros_by_user(user)
+    registros.where(codigo_sucursal: user.codigo_sucursal).where('extract(month from fecha) = ?', Time.zone.today.month)
   end
 end
