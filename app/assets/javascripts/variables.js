@@ -7,7 +7,6 @@ function changeSeparator (idInput) {
 
 function add_objective(){
 
-    // jQuery('#usuario_id').val();
     var newTab = jQuery("#tab_" + idx).first().clone();
     idx += 1;
     jQuery(newTab).attr("id", "tab_" + idx)
@@ -36,5 +35,7 @@ function add_objective(){
     });
 
     jQuery('.accordion-container:last-child').after(newTab);
+    jQuery("#collapse_" + idx).collapse('show');
+    jQuery('#addObjectiveToUser').modal('hide');
 
 }
