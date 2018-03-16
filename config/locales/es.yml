@@ -91,6 +91,7 @@ es:
         tipo:
           undefined: "El tipo de variable ingresado no pertence a los valores aceptados %{tipos}"
   back: 'Volver'
+  best_objective: 'Objetivo más olgado'
   close: 'Cerrar'
   create: 'Crear'
   date:
@@ -154,6 +155,8 @@ es:
     other: '%{count} errores'
   model_error: 'impidieron que %{model} se pueda guardar:'
   no_variables_found: 'No se encontraron variables para el tablero.'
+  point_of_month: 'Puntaje total del mes'
+  point_of_year: 'Puntaje total del año'
   reset: 'Limpiar'
   save: 'Guardar'
   unauthorized: 'El usuario no tiene permisos para acceder a esta sección'
@@ -166,3 +169,4 @@ es:
   variable_created: 'La variable fue creada correctamente.'
   variable_destroyed: 'La variable fue destruida correctamente.'
   view_objective: 'Ver objetivo'
+  worst_objective: 'Objetivo más lejano' 

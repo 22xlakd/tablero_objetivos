@@ -24,6 +24,9 @@ class VariablesController < ApplicationController
                  Variable.sucursal_dashboard(current_user.codigo_sucursal)
                end
 
+    @puntaje_del_mes = current_user.calculate_current_month_points
+    @puntaje_del_anio = current_user.calculate_year_points
+
     respond_to do |format|
       if @tablero.count > 0
         format.html { render :tablero_objetivos, tablero: @tablero }

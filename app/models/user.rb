@@ -17,4 +17,22 @@ class User < ActiveRecord::Base
   def include_role?(role = nil)
     roles.include?(Role.find_by(name: role))
   end
+
+  def calculate_current_month_points
+    total_month_points = 0
+    objetivos.each do |c_objetivo|
+      total_month_points += c_objetivo.variable.puntaje if c_objetivo.cumplido?
+    end
+
+    total_month_points
+  end
+
+  def calculate_year_points(year = Time.zone.today.year)
+    total_year_points = 0
+    objetivos.each do |c_objetivo|
+      total_year_points += c_objetivo.points_per_year(year)
+    end
+
+    total_year_points
+  end
 end

@@ -32,13 +32,50 @@
     <em class="fa fa-lg fa-warning">&nbsp;</em> <%= notice %> <a href="#" class="pull-right"><em class="fa fa-lg fa-close"></em></a>
   </div>
 
+  <div class="panel panel-container">
+    <div class="row">
+      <div class="col-xs-6 col-md-3 col-lg-3 no-padding">
+        <div class="panel panel-teal panel-widget border-right">
+          <div class="row no-padding"><em class="fa fa-xl fa-bullhorn color-teal"></em>
+            <div class="large"><%= @puntaje_del_mes %></div>
+            <div class="text-muted-dashboard"><%= t(:point_of_month) %></div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-6 col-md-3 col-lg-3 no-padding">
+        <div class="panel panel-blue panel-widget border-right">
+          <div class="row no-padding"><em class="fa fa-xl fa-line-chart color-orange"></em>
+            <div class="large"><%= @puntaje_del_anio %></div>
+            <div class="text-muted-dashboard"><%= t(:point_of_year) %></div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-6 col-md-3 col-lg-3 no-padding">
+        <div class="panel panel-orange panel-widget border-right">
+          <div class="row no-padding"><em class="fa fa-xl fa-arrow-up color-green"></em>
+            <div class="large">24</div>
+            <div class="text-muted-dashboard"><%= t(:best_objective) %>: <b>Facturación</b></div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-6 col-md-3 col-lg-3 no-padding">
+        <div class="panel panel-red panel-widget ">
+          <div class="row no-padding"><em class="fa fa-xl fa-arrow-down color-red"></em>
+            <div class="large">25.2k</div>
+            <div class="text-muted-dashboard"><%= t(:worst_objective) %>: <b>Cantidad de clientes</b></div>
+          </div>
+        </div>
+      </div>
+    </div><!--/.row-->
+  </div>
+
   <% @tablero.in_groups_of(4, false) do |group| %>
     <div class="row">
       <% group.each do |c_variable| %>
         <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
           <div class="panel panel-default">
             <div class="panel-body easypiechart-panel">
-              <h4><%= c_variable.nombre %></h4>
+              <h3><%= c_variable.nombre %></h3>
               <div id="gauge_<%= c_variable.id %>" class="col-xs-12 col-sm-12 col-md-12 col-lg-12"></div>
 
               <script>

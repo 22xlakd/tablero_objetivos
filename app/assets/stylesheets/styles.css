@@ -31,6 +31,9 @@ h3, h4 {
 .text-muted {
   color: #c5c7cc; }
 
+.text-muted-dashboard {
+  color: #777; }
+
 .color-gray {
   color: #444444; }
 
@@ -45,6 +48,10 @@ h3, h4 {
 
 .color-red {
   color: #f9243f; }
+
+.color-green {
+    color: #8ad919;
+}
 
 .no-padding {
   padding: 0;

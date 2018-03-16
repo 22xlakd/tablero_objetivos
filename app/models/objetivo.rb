@@ -8,7 +8,21 @@ class Objetivo < ActiveRecord::Base
   validates :porcentaje_proyectado, numericality: { greater_than: 0 }
   validates :user, uniqueness: { scope: :variable }
 
-  def cumplido?(current_value = 0)
-    current_value > valor
+  def cumplido?
+    variable.calculate_current_value(user) > valor
+  end
+
+  def fue_cumplido?(month, year)
+    variable.calculate_value(user, month, year) > valor
+  end
+
+  def points_per_year(year)
+    total_points = 0
+
+    (1..12).each do |i|
+      total_points += variable.puntaje if fue_cumplido?(i, year)
+    end
+
+    total_points
   end
 end
