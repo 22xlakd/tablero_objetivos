@@ -23,6 +23,10 @@ class UsersController < ApplicationController
   # POST /users
   # POST /users.json
 
+  def ranking_usuarios
+    @users = User.sucursal
+  end
+
   def create
     @user = User.new(user_params)
 

@@ -10,6 +10,14 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.for(:sign_up) { |u| u.permit(:username, :first_name, :last_name, :password, :password_confirmation, :email) }
   end
 
+  def home
+    if current_user.include_role?('admin')
+      redirect_to controller: 'users', action: 'ranking_usuarios'
+    else
+      redirect_to controller: 'variables', action: 'tablero_objetivos'
+    end
+  end
+
   rescue_from CanCan::AccessDenied do
     flash[:error] = I18n.t(:unauthorized)
     redirect_to authenticated_root_path

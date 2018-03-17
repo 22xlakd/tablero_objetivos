@@ -18,11 +18,7 @@ class VariablesController < ApplicationController
   def edit; end
 
   def tablero_objetivos
-    @tablero = if current_user.include_role?('admin')
-                 Variable.admin_dashboard
-               else
-                 Variable.sucursal_dashboard(current_user.codigo_sucursal)
-               end
+    @tablero = Variable.sucursal_dashboard(current_user.codigo_sucursal)
 
     respond_to do |format|
       if @tablero.count > 0
