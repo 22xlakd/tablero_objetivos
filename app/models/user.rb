@@ -27,6 +27,16 @@ class User < ActiveRecord::Base
     total_month_points
   end
 
+  def best_objective
+    best_obj = objetivos.min_by(&:current_distance)
+    { name: best_obj.variable.nombre, value: best_obj.current_distance.abs, type: best_obj.variable.tipo }
+  end
+
+  def worst_objective
+    worst_obj = objetivos.max_by(&:current_distance)
+    { name: worst_obj.variable.nombre, value: worst_obj.current_distance.abs, type: worst_obj.variable.tipo }
+  end
+
   def calculate_year_points(year = Time.zone.today.year)
     total_year_points = 0
     objetivos.each do |c_objetivo|

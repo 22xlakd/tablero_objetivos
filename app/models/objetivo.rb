@@ -25,4 +25,8 @@ class Objetivo < ActiveRecord::Base
 
     total_points
   end
+
+  def current_distance
+    valor - variable.calculate_current_value(user)
+  end
 end
