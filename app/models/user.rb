@@ -30,7 +30,7 @@ class User < ActiveRecord::Base
   def best_objective
     best_obj = objetivos.min_by(&:current_distance)
 
-    if best_obj.nil?
+    if best_obj.nil? || !best_obj.cumplido?
       {}
     else
       { name: best_obj.variable.nombre, value: best_obj.current_distance.abs, type: best_obj.variable.tipo }

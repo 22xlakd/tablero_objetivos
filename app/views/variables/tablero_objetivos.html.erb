@@ -34,6 +34,9 @@
 
   <div class="panel panel-container">
     <div class="row">
+      <% best_obj = best_objective %>
+      <% worst_obj = worst_objective %>
+
       <div class="col-xs-6 col-md-3 col-lg-3 no-padding">
         <div class="panel panel-teal panel-widget border-right">
           <div class="row no-padding"><em class="fa fa-xl fa-bullhorn color-teal"></em>
@@ -50,16 +53,20 @@
           </div>
         </div>
       </div>
-      <div class="col-xs-6 col-md-3 col-lg-3 no-padding">
-        <div class="panel panel-orange panel-widget border-right">
-          <%= best_objective %>
+      <% if best_obj != '' %>
+        <div class="col-xs-6 col-md-3 col-lg-3 no-padding">
+          <div class="panel panel-orange panel-widget border-right">
+            <%= best_obj %>
+          </div>
         </div>
-      </div>
-      <div class="col-xs-6 col-md-3 col-lg-3 no-padding">
-        <div class="panel panel-red panel-widget ">
-          <%= worst_objective %>
+      <% end %>
+      <% if worst_obj != '' %>
+        <div class="col-xs-6 col-md-3 col-lg-3 no-padding">
+          <div class="panel panel-red panel-widget ">
+            <%= worst_obj %>
+          </div>
         </div>
-      </div>
+      <% end %>
     </div><!--/.row-->
   </div>
 
