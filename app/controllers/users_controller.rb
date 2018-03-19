@@ -25,6 +25,13 @@ class UsersController < ApplicationController
 
   def ranking_usuarios
     @users = User.sucursal
+    @points = {}
+
+    @users.each do |c_user|
+      @points[c_user.id] = [c_user.calculate_current_month_points, c_user.calculate_year_points]
+    end
+
+    @users = @users.sort_by(&:calculate_current_month_points).reverse
   end
 
   def create

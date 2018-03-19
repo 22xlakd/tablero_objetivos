@@ -1,14 +1,17 @@
 module VariablesHelper
   def month_points
-    current_user.calculate_current_month_points
+    board_user = set_user
+    board_user.calculate_current_month_points
   end
 
   def year_points
-    current_user.calculate_year_points
+    board_user = set_user
+    board_user.calculate_year_points
   end
 
   def best_objective
-    best_obj = current_user.best_objective
+    board_user = set_user
+    best_obj = board_user.best_objective
 
     best_obj[:value] = if best_obj[:type] == 'entero'
                          best_obj[:value].to_i
@@ -24,7 +27,8 @@ module VariablesHelper
   end
 
   def worst_objective
-    worst_obj = current_user.worst_objective
+    board_user = set_user
+    worst_obj = board_user.worst_objective
 
     worst_obj[:value] = if worst_obj[:type] == 'entero'
                           worst_obj[:value].to_i
@@ -37,5 +41,15 @@ module VariablesHelper
       <div class='text-muted-dashboard'>#{I18n.t(:worst_objective)}: <b>#{worst_obj[:name]}</b></div>
       </div>"
     html_objective.html_safe
+  end
+
+  private
+
+  def set_user
+    if params[:codigo_sucursal]
+      User.where(codigo_sucursal: params[:codigo_sucursal]).first
+    else
+      current_user
+    end
   end
 end

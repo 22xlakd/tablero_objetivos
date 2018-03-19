@@ -20,7 +20,6 @@
       <div class="panel panel-default">
         <div class="panel-heading">
           Sucursales con mejores puntajes
-          <%= button_tag 'Nuevo Usuario', type: 'button', class: 'btn btn-primary pull-right btn-new-user', onclick: "location.href='#{new_user_path}';" %>
         </div>
         <div class="panel-body">
           <div id="notice" class="alert bg-info <% if notice.nil? %>hidden<% end %>" role="alert">
@@ -30,22 +29,23 @@
           <table class="table table-striped">
             <thead>
               <tr>
+                <th>Posición</th>
                 <th>Nombre</th>
                 <th>Apellido</th>
-                <th>Email</th>
-                <th>Código de sucursal</th>
-                <th colspan="2"></th>
+                <th>Puntos del mes</th>
+                <th>Puntos del año</th>
+                <th></th>
               </tr>
             </thead>
             <tbody>
-              <% @users.each do |usuario| %>
+              <% @users.each_with_index do |usuario, index| %>
                 <tr>
+                  <td align="center"><%= index + 1 %>
                   <td align="center"><%= usuario.nombre.capitalize %></td>
                   <td align="center"><%= usuario.apellido.capitalize %></td>
-                  <td align="center"><%= usuario.email %></td>
-                  <td align="center"><%= usuario.codigo_sucursal %></td>
-                  <td><%= link_to t(:edit), edit_user_path(usuario) %></td>
-                  <td><%= link_to t(:destroy), usuario, method: :delete, data: { confirm: t(:user_delete_confirmation) } %></td>
+                  <td align="center"><%= @points[usuario.id][0] %>
+                  <td align="center"><%= @points[usuario.id][1] %>
+                  <td><%= link_to t(:view_dashboard), tablero_objetivos_variables_path(codigo_sucursal: usuario.codigo_sucursal) %></td>
                 </tr>
               <% end %>
             </tbody>

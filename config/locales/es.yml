@@ -169,4 +169,5 @@ es:
   variable_created: 'La variable fue creada correctamente.'
   variable_destroyed: 'La variable fue destruida correctamente.'
   view_objective: 'Ver objetivo'
+  view_dashboard: 'Ver tablero de objetivos'
   worst_objective: 'Objetivo más lejano' 

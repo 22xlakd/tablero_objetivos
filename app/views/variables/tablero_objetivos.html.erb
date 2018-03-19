@@ -11,7 +11,7 @@
   </div><!--/.row-->
   <div class="row">
     <div class="col-lg-12">
-      <h1 class="page-header">Tablero de Objetivos del mes de <%= l(Time.zone.today, format: :only_month).capitalize %></h1>
+      <h3 class="page-header">Tablero de Objetivos del mes de <%= l(Time.zone.today, format: :only_month).capitalize %><% if @user != current_user %> para el usuario: <%= @user.nombre.capitalize + @user.apellido.capitalize %><% end %></h3>
     </div>
   </div><!--/.row-->
 
@@ -75,12 +75,12 @@
               <script>
                 var g = new JustGage({
                   id: "gauge_<%= c_variable.id %>",
-                  value: <%= c_variable.calculate_current_value(current_user) %>,
+                  value: <%= c_variable.calculate_current_value(@user) %>,
                   symbol: '<%= c_variable.graph_options[:symbol] %>',
                   min: 0,
                   humanFriendly: true,
                   relativeGaugeSize: true,
-                  max: <%= c_variable.objetivo_by_user(current_user).nil? ? 0 : c_variable.objetivo_by_user(current_user).valor %>,
+                  max: <%= c_variable.objetivo_by_user(@user).nil? ? 0 : c_variable.objetivo_by_user(@user).valor %>,
                   levelColors: ["#ff0000", "#f9c802", "#a9d70b"],
                   pointer: true,
                 });
@@ -90,5 +90,13 @@
           </div>
         </div>
       <% end %>
+    </div>
+  <% end %>
+
+  <% if @user != current_user %>
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <%= button_tag(t(:back), class: "btn btn-lg btn-default", type: "button", onclick: "location.href='#{ranking_usuarios_path}';") %>
+      </div>
     </div>
   <% end %>

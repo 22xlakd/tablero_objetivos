@@ -1,11 +1,9 @@
 Rails.application.routes.draw do
   resources :registros
-  resources :variables
   resources :objetivos
   devise_for :users
   resources :users
 
-  get 'tablero_objetivos' => 'variables#tablero_objetivos'
   get 'ranking_usuarios' => 'users#ranking_usuarios'
 
   # The priority is based upon order of creation: first created -> highest priority.
@@ -20,6 +18,12 @@ Rails.application.routes.draw do
     end
 
     get '/logout' => 'devise/sessions#destroy', :as => :logout
+  end
+
+  resources :variables do
+    collection do
+      get 'tablero_objetivos/:codigo_sucursal' => 'variables#tablero_objetivos', as: 'tablero_objetivos'
+    end
   end
 
   # You can have the root of your site routed with "root"

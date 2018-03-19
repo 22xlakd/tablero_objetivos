@@ -29,12 +29,22 @@ class User < ActiveRecord::Base
 
   def best_objective
     best_obj = objetivos.min_by(&:current_distance)
-    { name: best_obj.variable.nombre, value: best_obj.current_distance.abs, type: best_obj.variable.tipo }
+
+    if best_obj.nil?
+      {}
+    else
+      { name: best_obj.variable.nombre, value: best_obj.current_distance.abs, type: best_obj.variable.tipo }
+    end
   end
 
   def worst_objective
     worst_obj = objetivos.max_by(&:current_distance)
-    { name: worst_obj.variable.nombre, value: worst_obj.current_distance.abs, type: worst_obj.variable.tipo }
+
+    if worst_obj.nil?
+      {}
+    else
+      { name: worst_obj.variable.nombre, value: worst_obj.current_distance.abs, type: worst_obj.variable.tipo }
+    end
   end
 
   def calculate_year_points(year = Time.zone.today.year)

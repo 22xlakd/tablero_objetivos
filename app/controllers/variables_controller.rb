@@ -18,7 +18,13 @@ class VariablesController < ApplicationController
   def edit; end
 
   def tablero_objetivos
-    @tablero = Variable.sucursal_dashboard(current_user.codigo_sucursal)
+    @user = if params[:codigo_sucursal]
+              User.find_by(codigo_sucursal: params[:codigo_sucursal])
+            else
+              current_user
+            end
+
+    @tablero = Variable.sucursal_dashboard(@user.codigo_sucursal)
 
     respond_to do |format|
       if @tablero.count > 0
