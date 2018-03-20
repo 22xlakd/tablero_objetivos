@@ -21,9 +21,14 @@
       <div class="panel panel-default">
         <div class="panel-heading">Editando variable: <%= @variable.nombre %></div>
         <div class="panel-body">
-          <div id="notice" class="alert bg-success <% if notice.nil? %>hidden<% end %>" role="alert">
-            <em class="fa fa-lg fa-warning">&nbsp;</em> <%= notice %> <a href="#" class="pull-right"><em class="fa fa-lg fa-close"></em></a>
-          </div>
+          <% if !notice.nil? %>
+            <div id="notice" class="alert bg-success" role="alert">
+              <em class="fa fa-lg fa-warning">&nbsp;</em> <%= notice %> <a href="#" class="pull-right"><em class="fa fa-lg fa-close"></em></a>
+            </div>
+            <script>
+              setTimeout(function(){ hideFlashMessage("#notice"); }, 1500);
+            </script>
+          <% end %>
 
           <div class="form-group">
             <label>Nombre:</label>

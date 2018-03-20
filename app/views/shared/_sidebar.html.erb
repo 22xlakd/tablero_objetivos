@@ -18,10 +18,15 @@
       </div>
     </form>
     -->
-    <ul class="nav menu">
-      <li class="active"><a href="/"><em class="fa fa-dashboard">&nbsp;</em> Tablero</a></li>
-      <li><a href="/users"><em class="fa fa-users">&nbsp;</em> Usuarios</a></li>
-      <li><a href="/variables"><em class="fa fa-bar-chart">&nbsp;</em> Variables</a></li>
+    <ul id="menu_ppal" class="nav menu">
+      <li id="dashboard"><a href="/"><em class="fa fa-dashboard">&nbsp;</em> Tablero</a></li>
+
+      <% if current_user.include_role?('admin') %>
+        <li id="ranking"><a href="/"><em class="fa fa-sort-amount-desc">&nbsp;</em> Ranking</a></li>
+        <li id="users"><a href="/users"><em class="fa fa-users">&nbsp;</em> Usuarios</a></li>
+        <li id="variables"><a href="/variables"><em class="fa fa-bar-chart">&nbsp;</em> Variables</a></li>
+      <% end %>
+
       <!--
       <li><a href="elements.html"><em class="fa fa-toggle-off">&nbsp;</em> UI Elements</a></li>
       <li><a href="panels.html"><em class="fa fa-clone">&nbsp;</em> Alerts &amp; Panels</a></li>

@@ -22,9 +22,14 @@
           Sucursales con mejores puntajes
         </div>
         <div class="panel-body">
-          <div id="notice" class="alert bg-info <% if notice.nil? %>hidden<% end %>" role="alert">
-            <em class="fa fa-lg fa-warning">&nbsp;</em> <%= notice %> <a href="#" class="pull-right"><em class="fa fa-lg fa-close"></em></a>
-          </div>
+          <% if !notice.nil? %>
+            <div id="notice" class="alert bg-success" role="alert">
+              <em class="fa fa-lg fa-warning">&nbsp;</em> <%= notice %> <a href="#" class="pull-right"><em class="fa fa-lg fa-close"></em></a>
+            </div>
+            <script>
+              setTimeout(function(){ hideFlashMessage("#notice"); }, 1500);
+            </script>
+          <% end %>
 
           <table class="table table-striped">
             <thead>
@@ -56,3 +61,9 @@
     </div>
   </div> 
 </div>
+
+<script>
+  jQuery(document).ready(function(){
+    activeMenuItem('ranking');
+  });
+</script>

@@ -14,3 +14,9 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require_tree .
+
+function activeMenuItem (itemActive) {
+
+    jQuery("#menu_ppal li").removeClass("active");
+    jQuery("#" + itemActive).addClass("active");
+}

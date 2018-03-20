@@ -1093,3 +1093,11 @@ p.back-link {
     display: inline-block;
     font-weight: bold;
 }
+
+.flash-container {
+    height: 67px;
+}
+
+.flash-container span {
+    font-family: 'Montserrat Light Italic';
+}

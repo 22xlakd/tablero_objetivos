@@ -23,6 +23,7 @@ Rails.application.routes.draw do
   resources :variables do
     collection do
       get 'tablero_objetivos/:codigo_sucursal' => 'variables#tablero_objetivos', as: 'tablero_objetivos'
+      get 'tablero_objetivos' => 'variables#tablero_objetivos'
     end
   end
 

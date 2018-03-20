@@ -27,10 +27,15 @@
     </div>
   </div>
   -->
-
-  <div id="notice" class="alert bg-info <% if notice.nil? %>hidden<% end %>" role="alert">
-    <em class="fa fa-lg fa-warning">&nbsp;</em> <%= notice %> <a href="#" class="pull-right"><em class="fa fa-lg fa-close"></em></a>
-  </div>
+  
+  <% if !notice.nil? %>
+    <div id="notice" class="alert bg-success" role="alert">
+      <em class="fa fa-lg fa-warning">&nbsp;</em> <%= notice %> <a href="#" class="pull-right"><em class="fa fa-lg fa-close"></em></a>
+    </div>
+    <script>
+      setTimeout(function(){ hideFlashMessage("#notice"); }, 1500);
+    </script>
+  <% end %>
 
   <div class="panel panel-container">
     <div class="row">
@@ -107,3 +112,9 @@
       </div>
     </div>
   <% end %>
+
+  <script>
+    jQuery(document).ready(function(){
+      activeMenuItem('dashboard');
+    });
+  </script>
