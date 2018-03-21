@@ -59,6 +59,5 @@ namespace :import do
 
     logger.info("...........Finalizando proceso........#{Time.now}")
     logger.close
-
   end
 end
