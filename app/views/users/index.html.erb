@@ -30,8 +30,8 @@
           <table class="table table-striped">
             <thead>
               <tr>
-                <th>Nombre</th>
-                <th>Apellido</th>
+                <th>Sucursal</th>
+                <!-- <th>Apellido</th> -->
                 <th>Email</th>
                 <th>Código de sucursal</th>
                 <th colspan="2"></th>
@@ -41,7 +41,6 @@
               <% @users.each do |usuario| %>
                 <tr>
                   <td align="center"><%= usuario.nombre.capitalize %></td>
-                  <td align="center"><%= usuario.apellido.capitalize %></td>
                   <td align="center"><%= usuario.email %></td>
                   <td align="center"><%= usuario.codigo_sucursal %></td>
                   <td><%= link_to t(:edit), edit_user_path(usuario) %></td>

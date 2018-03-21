@@ -4,8 +4,8 @@ class Objetivo < ActiveRecord::Base
 
   validates :variable, presence: true
   validates :user, presence: true
-  validates :proyeccion_mensual, numericality: { greater_than: 0 }
-  validates :porcentaje_proyectado, numericality: { greater_than: 0 }
+  # validates :proyeccion_mensual, numericality: { greater_than: 0 }
+  # validates :porcentaje_proyectado, numericality: { greater_than: 0 }
   validates :user, uniqueness: { scope: :variable }
 
   def cumplido?

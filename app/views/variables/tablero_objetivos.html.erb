@@ -11,7 +11,7 @@
   </div><!--/.row-->
   <div class="row">
     <div class="col-lg-12">
-      <h3 class="page-header">Tablero de Objetivos del mes de <%= l(Time.zone.today, format: :only_month).capitalize %><% if @user != current_user %> para el usuario: <%= @user.nombre.capitalize + @user.apellido.capitalize %><% end %></h3>
+      <h3 class="page-header">Tablero de Objetivos del mes de <%= l(Time.zone.today, format: :only_month).capitalize %><% if @user != current_user %> para el usuario: <%= @user.nombre.capitalize %><% end %></h3>
     </div>
   </div><!--/.row-->
 

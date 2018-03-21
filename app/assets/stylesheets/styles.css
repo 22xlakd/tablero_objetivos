@@ -1101,3 +1101,7 @@ p.back-link {
 .flash-container span {
     font-family: 'Montserrat Light Italic';
 }
+
+.margin-top-buttons {
+    margin-top: 10px;
+}

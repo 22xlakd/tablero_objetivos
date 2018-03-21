@@ -35,8 +35,8 @@
             <thead>
               <tr>
                 <th>Posición</th>
-                <th>Nombre</th>
-                <th>Apellido</th>
+                <th>Sucursal</th>
+                <!-- <th>Apellido</th> -->
                 <th>Puntos del mes</th>
                 <th>Puntos del año</th>
                 <th></th>
@@ -47,7 +47,6 @@
                 <tr>
                   <td align="center"><%= index + 1 %>
                   <td align="center"><%= usuario.nombre.capitalize %></td>
-                  <td align="center"><%= usuario.apellido.capitalize %></td>
                   <td align="center"><%= @points[usuario.id][0] %>
                   <td align="center"><%= @points[usuario.id][1] %>
                   <td><%= link_to t(:view_dashboard), tablero_objetivos_variables_path(codigo_sucursal: usuario.codigo_sucursal) %></td>

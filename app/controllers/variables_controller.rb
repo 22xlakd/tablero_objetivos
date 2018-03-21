@@ -15,7 +15,9 @@ class VariablesController < ApplicationController
   def new; end
 
   # GET /variables/1/edit
-  def edit; end
+  def edit
+    @variable.objetivos.build if @variable.objetivos.empty?
+  end
 
   def tablero_objetivos
     @user = if params[:codigo_sucursal]

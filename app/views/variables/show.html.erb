@@ -55,12 +55,13 @@
                     <div class="panel-heading accordion-header" role="tab" id="heading_<%= i %>">
                       <h5 class="mb-0">
                         <a data-toggle="collapse" data-parent="#accordion" href="#collapse_<%= i %>" aria-expanded="true" aria-controls="collapse_<%= i %>">
-                          <%= c_user.nombre + c_user.apellido %>
+                          <%= c_user.nombre %>
                         </a>
                       </h5>
                     </div>
                     <div id="collapse_<%= i %>" class="collapse" role="tabpanel" aria-labelledby="heading_<%= i %>">
                       <div class="panel-body">
+                        <!--
                         <div class="form-group">
                           <label>Proyección mensual:</label>
                           <span><%= '$' if @variable.tipo == 'moneda' %><%= number_with_precision(c_objetivo.proyeccion_mensual, precision: 2, separator: ',', delimiter: '.') %><%= '%' if @variable.tipo == 'porcentaje' %></span>
@@ -69,7 +70,7 @@
                         <div class="form-group">
                           <label>Porcentaje proyectado:</label>
                           <span><%= number_with_precision(c_objetivo.porcentaje_proyectado, precision: 2, separator: ',', delimiter: '.') %>%</span>
-                        </div>
+                        </div> -->
 
                         <div class="form-group">
                           <label>Valor:</label>

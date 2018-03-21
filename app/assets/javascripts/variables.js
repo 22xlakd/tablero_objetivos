@@ -7,9 +7,18 @@ function changeSeparator (idInput) {
 
 function add_objective(){
 
+    var parentSelector = ''
     var newTab = jQuery("#tab_" + idx).first().clone();
+    if (jQuery("#tab_" + idx).hasClass('hidden')) {
+        jQuery("#tab_" + idx).remove()
+        parentSelector = "#accordion"
+    }
+    else{
+        parentSelector = '.accordion-container:last-child'
+    }
     idx += 1;
     jQuery(newTab).attr("id", "tab_" + idx)
+    jQuery(newTab).removeClass("hidden")
     jQuery(newTab).find(".panel-heading.accordion-header").attr("id", "heading_" + idx)
     jQuery(newTab).find(".lnk-username").attr("href", "#collapse_" + idx)
     jQuery(newTab).find(".lnk-username").attr("aria-controls", "collapse_" + idx)
@@ -34,7 +43,7 @@ function add_objective(){
        jQuery(this).val("")
     });
 
-    jQuery('.accordion-container:last-child').after(newTab);
+    jQuery(parentSelector).after(newTab);
     jQuery("#collapse_" + idx).collapse('show');
     jQuery('#addObjectiveToUser').modal('hide');
 
