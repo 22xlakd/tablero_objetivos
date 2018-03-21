@@ -1,5 +1,3 @@
-require 'byebug'
-
 namespace :import do
   desc 'Importa variables del sistema a partir de un archivo'
   task :variables, [:dir, :file] => :environment do |t, args|
