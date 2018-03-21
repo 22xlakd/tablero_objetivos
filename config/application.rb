@@ -21,8 +21,21 @@ module TableroObjetivos
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     config.i18n.default_locale = :es
 
+    config.autoload_paths += %W(#{config.root}/lib/)
+
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
     config.assets.paths << Rails.root.join('app', 'assets', 'fonts')
+
+    # Importer configurations
+    config.x.importer.source_file = 'ftp'
+    config.x.importer.connection_data = {
+      port: 4821,
+      host: 'nuevo.aguirrezabalahogar.com.ar',
+      passive: true,
+      user: 'aguirrezabala',
+      password: '!PPGp!xY*qQc6u6L'
+    }
+    config.x.importer.destination_path = 'tmp/'
   end
 end

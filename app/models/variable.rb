@@ -1,6 +1,6 @@
 class Variable < ActiveRecord::Base
   validates :nombre, presence: true
-  validates :puntaje, numericality: { greater_than: 0 }
+  validates :puntaje, numericality: { greater_or_equal_than: 0 }
   validate :check_variable_type
 
   has_many :registros
