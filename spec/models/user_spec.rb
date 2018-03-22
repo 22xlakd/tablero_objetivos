@@ -19,7 +19,7 @@ describe User, type: :model do
   let(:objetivo3) { create(:objetivo, valor: 85, user: subject, variable: variable2) }
   let(:objetivo4) { create(:objetivo, valor: 156, user: user2, variable: variable2) }
   let(:reg3) { create(:registro, user: user2, value: 52, variable: variable2) }
-  let(:reg4) { create(:registro, user: user2, value: 7, variable: variable2) }
+  let(:reg4) { create(:registro, user: user2, value: 117, variable: variable2) }
   let(:reg5) { create(:registro, user: user2, value: 71, variable: variable2) }
 
   before(:each) do
@@ -31,7 +31,6 @@ describe User, type: :model do
 
   context '#calculating points' do
     it 'sums points correcly' do
-      debugger
       expect(subject.calculate_current_month_points).to eq(7)
       expect(user2.calculate_current_month_points).to eq(11)
     end
