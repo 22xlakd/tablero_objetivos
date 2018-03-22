@@ -15,7 +15,7 @@ class Custom::Importer::VariableImporter
                         else
                           c_variable.variable_types[2]
                         end
-      c_variable.puntaje = 0
+      c_variable.puntaje = 0 if c_variable.puntaje.nil?
       c_variable.codigo_variable = c_row[0]
 
       var_with_problems << c_variable.errors.full_messages.join(',') unless c_variable.save
