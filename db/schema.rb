@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180301023452) do
+ActiveRecord::Schema.define(version: 20180322224349) do
 
   create_table "objetivos", force: :cascade do |t|
     t.decimal  "proyeccion_mensual",              precision: 10, scale: 2
@@ -77,12 +77,15 @@ ActiveRecord::Schema.define(version: 20180301023452) do
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
   create_table "variables", force: :cascade do |t|
-    t.string   "nombre",     limit: 255
-    t.string   "tipo",       limit: 255
-    t.integer  "puntaje",    limit: 4
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.string   "nombre",          limit: 255
+    t.string   "tipo",            limit: 255
+    t.integer  "puntaje",         limit: 4
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+    t.integer  "codigo_variable", limit: 4
   end
+
+  add_index "variables", ["codigo_variable"], name: "index_variables_on_codigo_variable", using: :btree
 
   add_foreign_key "objetivos", "users"
   add_foreign_key "objetivos", "variables"

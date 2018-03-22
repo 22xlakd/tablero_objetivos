@@ -6,7 +6,7 @@ class Custom::Importer::VariableImporter
     # NOTE QUITAMOS ENCABEZADOS
     data.shift
     data.each do |c_row|
-      c_variable = Variable.find_by(id: c_row[0])
+      c_variable = Variable.find_by(codigo_variable: c_row[0])
       c_variable = Variable.new if c_variable.nil?
 
       c_variable.nombre = c_row[1].tr('_', ' ').capitalize
@@ -16,6 +16,7 @@ class Custom::Importer::VariableImporter
                           c_variable.variable_types[2]
                         end
       c_variable.puntaje = 0
+      c_variable.codigo_variable = c_row[0]
 
       var_with_problems << c_variable.errors.full_messages.join(',') unless c_variable.save
     end

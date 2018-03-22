@@ -10,7 +10,7 @@ class Custom::Importer::RegistroImporter
     data.shift
     data.each do |c_row|
       c_registro = Registro.new(fecha: c_row[0], value: c_row[3])
-      c_variable = Variable.find_by(id: c_row[2])
+      c_variable = Variable.find_by(codigo_variable: c_row[2])
       c_user = User.find_by(codigo_sucursal: c_row[1])
 
       if c_variable.nil? || c_user.nil?
