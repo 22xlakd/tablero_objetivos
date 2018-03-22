@@ -106,6 +106,7 @@ GEM
       mini_portile2 (~> 2.3.0)
     orm_adapter (0.5.0)
     public_suffix (3.0.1)
+    puma (3.11.3)
     rack (1.6.8)
     rack-test (0.6.3)
       rack (>= 1.0)
@@ -215,6 +216,7 @@ DEPENDENCIES
   jbuilder (~> 2.0)
   jquery-rails
   mysql2 (>= 0.3.13, < 0.5)
+  puma
   rails (= 4.2.5)
   rake (< 11.0)
   rspec-rails (~> 3.0.0)
