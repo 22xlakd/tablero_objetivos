@@ -48,6 +48,9 @@ group :test do
   gem 'rspec-rails', '~> 3.0.0'
 end
 
+group :production do
+  gem 'puma'
+end
 group :development do
   gem 'byebug'
   # Access an IRB console on exception pages or by using <%= console %> in views
