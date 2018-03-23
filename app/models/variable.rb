@@ -20,11 +20,12 @@ class Variable < ActiveRecord::Base
   end
 
   def objetivo_by_user(user)
-    objetivos.find_by(user: user)
+    objetivos.select { |o| o.user == user }.first
+    # objetivos.find_by(user: user)
   end
 
   def calculate_current_value(user)
-    registros_by_user_per_month(user).sum(:value)
+    registros_by_user_per_month(user).sum(&:value)
   end
 
   def calculate_value(user, month, year)
@@ -38,7 +39,8 @@ class Variable < ActiveRecord::Base
   end
 
   def registros_by_user_per_month(user, month = Time.zone.today.month, year = Time.zone.today.year)
-    registros.where(codigo_sucursal: user.codigo_sucursal).where('extract(month from fecha) = ?', month).where('extract(year from fecha) = ?', year)
+    registros.select { |r| r.codigo_sucursal == user.codigo_sucursal.to_i && r.fecha.month == month.to_i && r.fecha.year == year.to_i }
+    # registros.where(codigo_sucursal: user.codigo_sucursal).where('extract(month from fecha) = ?', month).where('extract(year from fecha) = ?', year)
   end
 
   private
