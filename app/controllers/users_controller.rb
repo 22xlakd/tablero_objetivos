@@ -24,7 +24,7 @@ class UsersController < ApplicationController
   # POST /users.json
 
   def ranking_usuarios
-    @users = User.sucursal
+    @users = User.sucursal.includes(:registros, objetivos: :variable)
     @points = {}
 
     @users.each do |c_user|

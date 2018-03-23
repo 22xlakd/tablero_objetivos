@@ -55,7 +55,7 @@ module VariablesHelper
 
   def set_user
     if params[:codigo_sucursal]
-      User.where(codigo_sucursal: params[:codigo_sucursal]).first
+      User.includes(:registros, objetivos: :variable).where(codigo_sucursal: params[:codigo_sucursal]).first
     else
       current_user
     end
