@@ -885,7 +885,14 @@ h1.page-header {
 .easypiechart-panel {
   text-align: center;
   padding: 1px 0;
-  margin-bottom: 20px; }
+  margin-bottom: 20px;
+  height: 100%;
+}
+
+.easypiechart-panel h3 {
+    height: 50px;
+    overflow: hidden;
+}
 
 .placeholder h2 {
   margin-bottom: 0px; }
@@ -898,7 +905,8 @@ h1.page-header {
   text-align: center;
   width: 120px;
   height: 120px;
-  margin: 20px auto 10px auto; }
+  margin: 20px auto 10px auto;
+}
 
 .easypiechart .percent {
   display: block;
