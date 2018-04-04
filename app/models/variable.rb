@@ -1,6 +1,6 @@
 class Variable < ActiveRecord::Base
   validates :nombre, presence: true
-  validates :puntaje, numericality: { greater_or_equal_than: 0 }
+  validates :puntaje, numericality: { greater_than_or_equal_to: 0 }
   validate :check_variable_type
 
   has_many :registros
@@ -10,7 +10,6 @@ class Variable < ActiveRecord::Base
   GRAPH_OPTIONS = { porcentaje: { symbol: '%' }, entero: { symbol: '' }, moneda: { symbol: '' } }
 
   scope :sucursal_dashboard, ->(codigo_sucursal) { joins(:registros).where('registros.codigo_sucursal': codigo_sucursal).uniq }
-  #scope :puntaje_total_por_sucursal, ->(codigo_sucursal, variable_id) { joins(:registros).where('registros.codigo_sucursal': codigo_sucursal, 'registros.variable_id': variable_id).sum(&:value) }
   scope :admin_dashboard, -> { where(nombre: ['Cantidad de clientes']) }
 
   accepts_nested_attributes_for :objetivos

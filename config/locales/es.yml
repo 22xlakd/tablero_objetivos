@@ -62,7 +62,7 @@ es:
               blank: 'No puede estar en blanco'
             puntaje:
               not_a_number: 'No es un número'
-              greater_than: 'No puede ser negativo'
+              greater_than_or_equal_to: 'No puede ser negativo'
         registro:
           attributes:
             fecha:

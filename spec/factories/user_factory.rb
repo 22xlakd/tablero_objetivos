@@ -12,15 +12,11 @@ FactoryBot.define do
     codigo_sucursal { rand(1000) }
 
     factory :admin_user do
-      after :create do
-        FactoryBot.create(:role, name: 'admin')
-      end
+      roles { [Role.find_by(name: 'admin') || FactoryBot.create(:role, name: 'admin')] }
     end
 
     factory :sucursal_user do
-      after :create do
-        FactoryBot.create(:role, name: 'sucursal')
-      end
+      roles { [Role.find_by(name: 'sucursal') || FactoryBot.create(:role, name: 'sucursal')] }
     end
   end
 end

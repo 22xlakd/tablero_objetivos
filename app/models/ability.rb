@@ -12,7 +12,7 @@ class Ability
       end
 
       can [:display, :read], Registro do |registro|
-        registro.codigo_sucursal == user.codigo_sucursal
+        registro.codigo_sucursal == user.codigo_sucursal.to_i
       end
 
       can [:display, :read], Objetivo do |objetivo|

@@ -44,6 +44,11 @@ describe User, type: :model do
     variable2.registros = [reg1, reg2, reg3, reg4, reg5, reg6, reg7, reg8, reg9, reg10, reg11]
   end
 
+  it 'finds user role' do
+    expect(subject.include_role?('sucursal')).to be true
+    expect(subject.include_role?('admin')).to be false
+  end
+
   context '#calculating points' do
     it 'sums month points correcly' do
       expect(subject.calculate_current_month_points).to eq(7)
@@ -54,5 +59,8 @@ describe User, type: :model do
       expect(subject.calculate_year_points('2018')).to eq(11)
       expect(user2.calculate_year_points('2018')).to eq(22)
     end
+  end
+
+  context '#best_objective' do
   end
 end

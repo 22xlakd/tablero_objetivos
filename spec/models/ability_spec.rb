@@ -9,11 +9,16 @@ describe Ability, type: :model do
   let(:usuario2) { create(:user, roles: [admin]) }
   let(:usuario3) { create(:user, nombre: 'Usuario 2', roles: [sucursal]) }
   let(:variable) { create(:variable) }
-  let(:registro1) { create(:registro, variable: variable, user: usuario) }
+  let(:r_1) { create(:registro, variable: variable, user: usuario) }
   let(:registro2) { create(:registro, variable: variable, user: usuario3) }
   let(:objetivo1) { create(:objetivo, variable: variable, user: usuario) }
   let(:objetivo2) { create(:objetivo, variable: variable, user: usuario3) }
   let(:ability) { Ability.new(usuario) }
+
+  before do
+    variable.objetivos << objetivo1
+    variable.objetivos << objetivo2
+  end
 
   it 'cannot delete admin role' do
     expect(ability).not_to be_able_to(:destroy, admin)
@@ -44,7 +49,7 @@ describe Ability, type: :model do
     end
 
     it 'can read records that belongs to him' do
-      expect(ability).to be_able_to(:read, registro1)
+      expect(ability).to be_able_to(:read, r_1)
     end
 
     it 'cannot read records that belongs to another user' do
@@ -60,7 +65,7 @@ describe Ability, type: :model do
     end
 
     it 'cannot edit registro' do
-      expect(ability).not_to be_able_to(:update, registro1)
+      expect(ability).not_to be_able_to(:update, r_1)
       expect(ability).not_to be_able_to(:update, registro2)
     end
 
@@ -70,7 +75,7 @@ describe Ability, type: :model do
     end
 
     it 'cannot delete registro' do
-      expect(ability).not_to be_able_to(:destroy, registro1)
+      expect(ability).not_to be_able_to(:destroy, r_1)
       expect(ability).not_to be_able_to(:destroy, registro2)
     end
 
