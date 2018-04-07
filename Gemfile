@@ -41,6 +41,7 @@ group :test do
   gem 'factory_bot_rails'
   gem 'ffaker', '~> 2.2'
   gem 'rspec-rails', '~> 3.0.0'
+  gem 'selenium-webdriver'
 end
 
 group :production do
