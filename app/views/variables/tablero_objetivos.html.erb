@@ -81,7 +81,7 @@
         <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
           <div class="panel panel-default">
             <div class="panel-body easypiechart-panel">
-              <h3><%= c_variable.nombre %></h3>
+              <h3><%= c_variable.nombre.upcase %><%= "(#{c_variable.graph_options[:symbol]})" unless c_variable.graph_options[:symbol].blank? %></h3>
               <p><b><%= c_variable.puntaje %> pts.</b></p>
               <div id="gauge_<%= c_variable.id %>" class="col-xs-12 col-sm-12 col-md-12 col-lg-12"></div>
 
@@ -90,12 +90,20 @@
                   id: "gauge_<%= c_variable.id %>",
                   value: <%= c_variable.calculate_current_value(@user) %>,
                   symbol: '<%= c_variable.graph_options[:symbol] %>',
+                  <% if c_variable.tipo == 'moneda' %>
+                      symbolPosition: 'left',
+                      maxLabelPrepend: '<%= c_variable.graph_options[:symbol] %>',
+                      minLabelPrepend: '<%= c_variable.graph_options[:symbol] %>',
+                  <% else %>
+                      minLabelAppend: '<%= c_variable.graph_options[:symbol] %>',
+                      maxLabelAppend: '<%= c_variable.graph_options[:symbol] %>',
+                  <% end %>
                   min: 0,
                   humanFriendly: true,
                   relativeGaugeSize: true,
                   max: <%= c_variable.objetivo_by_user(@user).nil? ? 0 : c_variable.objetivo_by_user(@user).valor %>,
                   levelColors: ["#ff0000", "#f9c802", "#a9d70b"],
-                  pointer: true,
+                  pointer: true
                 });
               </script>
               <!--<div class="easypiechart" id="easypiechart-blue" data-percent="92" ><span class="percent">92%</span></div>-->

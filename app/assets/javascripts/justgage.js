@@ -92,14 +92,34 @@ JustGage = function(config) {
     // symbol : string
     // special symbol to show next to value
     symbol: kvLookup('symbol', config, dataset, ''),
+    
+    // symbolPosition : string
+    // special symbol position to show to the left or right of the value
+    symbolPosition: kvLookup('symbolPosition', config, dataset, 'right'),
 
     // min : float
     // min value
     min: kvLookup('min', config, dataset, 0, 'float'),
+    
+    // minLabelPrepend: String
+    // Label shown to the left of min value
+    minLabelPrepend: kvLookup('minLabelPrepend', config, dataset, ''),
+    
+    // minLabelAppend: String
+    // Label shown to the right of min value
+    minLabelAppend: kvLookup('minLabelAppend', config, dataset, ''),
 
     // max : float
     // max value
     max: kvLookup('max', config, dataset, 100, 'float'),
+    
+    // minLabelPrepend: String
+    // Label shown to the left of min value
+    maxLabelPrepend: kvLookup('maxLabelPrepend', config, dataset, ''),
+    
+    // minLabelAppend: String
+    // Label shown to the right of min value
+    maxLabelAppend: kvLookup('maxLabelAppend', config, dataset, ''),
 
     // reverse : bool
     // reverse min and max
@@ -702,6 +722,15 @@ JustGage = function(config) {
   } else if (obj.config.formatNumber) {
     obj.txtMinimum = formatNumber(min);
   }
+  
+  if (obj.config.minLabelPrepend) {
+    obj.txtMinimum = obj.config.minLabelPrepend + ' ' + obj.txtMinimum
+  }
+  
+  if (obj.config.minLabelAppend) {
+    obj.txtMinimum = obj.txtMinimum + ' ' + obj.config.minLabelAppend
+  }
+  
   obj.txtMin = obj.canvas.text(obj.params.minX, obj.params.minY, obj.txtMinimum);
   obj.txtMin.attr({
     "font-size": obj.params.minFontSize,
@@ -723,6 +752,15 @@ JustGage = function(config) {
   } else if (obj.config.formatNumber) {
     obj.txtMaximum = formatNumber(max);
   }
+  
+  if (obj.config.maxLabelPrepend) {
+    obj.txtMaximum = obj.config.maxLabelPrepend + ' ' + obj.txtMaximum
+  }
+  
+  if (obj.config.maxLabelAppend) {
+    obj.txtMaximum = obj.txtMaximum + ' ' + obj.config.maxLabelAppend
+  }
+  
   obj.txtMax = obj.canvas.text(obj.params.maxX, obj.params.maxY, obj.txtMaximum);
   obj.txtMax.attr({
     "font-size": obj.params.maxFontSize,
@@ -753,11 +791,18 @@ JustGage = function(config) {
   if (obj.config.textRenderer) {
     obj.originalValue = obj.config.textRenderer(obj.originalValue);
   } else if (obj.config.humanFriendly) {
-    obj.originalValue = humanFriendlyNumber(obj.originalValue, obj.config.humanFriendlyDecimal) + obj.config.symbol;
+    obj.originalValue = humanFriendlyNumber(obj.originalValue, obj.config.humanFriendlyDecimal);
   } else if (obj.config.formatNumber) {
-    obj.originalValue = formatNumber(obj.originalValue) + obj.config.symbol;
+    obj.originalValue = formatNumber(obj.originalValue);
   } else {
-    obj.originalValue = (obj.originalValue * 1).toFixed(obj.config.decimals) + obj.config.symbol;
+    obj.originalValue = (obj.originalValue * 1).toFixed(obj.config.decimals);
+  }
+  
+  if (obj.config.symbolPosition == 'left'){
+    obj.originalValue = obj.config.symbol + obj.originalValue
+  }
+  else {
+    obj.originalValue = obj.originalValue + obj.config.symbol
   }
 
   if (obj.config.counter === true) {
