@@ -78,20 +78,26 @@
   <% @tablero.in_groups_of(4, false) do |group| %>
     <div class="row">
       <% group.each do |c_variable| %>
+        <% max = c_variable.objetivo_by_user(@user).nil? ? 0 : c_variable.objetivo_by_user(@user).valor %>
+        <% interval = max / 4 %>
+        <% percent = max / 100 %>
+        <% value = c_variable.calculate_current_value(@user) %>
+
         <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
           <div class="panel panel-default">
             <div class="panel-body easypiechart-panel">
               <h3><%= c_variable.nombre.upcase %><%= "(#{c_variable.graph_options[:symbol]})" unless c_variable.graph_options[:symbol].blank? %></h3>
               <p><b><%= c_variable.puntaje %> pts.</b></p>
+              <% if value > max %>
+                <p class="trophy-icon"><i class="fa fa-trophy"></i></p>
+              <% end %>
               <div id="gauge_<%= c_variable.id %>" class="col-xs-12 col-sm-12 col-md-12 col-lg-12"></div>
-              <% max = c_variable.objetivo_by_user(@user).nil? ? 0 : c_variable.objetivo_by_user(@user).valor %>
-              <% interval = max / 4 %>
-              <% percent = max / 100 %>
+              
 
               <script>
                 var g = new JustGage({
                   id: "gauge_<%= c_variable.id %>",
-                  value: <%= c_variable.calculate_current_value(@user) %>,
+                  value: <%= value %>,
                   symbol: '<%= c_variable.graph_options[:symbol] %>',
                   <% if c_variable.tipo == 'moneda' %>
                       symbolPosition: 'left',
