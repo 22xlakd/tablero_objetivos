@@ -38,11 +38,22 @@
             <%= f.label :tipo %>
             <%= select("variable", "tipo", @variable.variable_types.collect {|vt| [vt.capitalize, vt] }, { include_blank: false }, { class: "form-control input-height", required: "required" }) %>
           </div>
+
           <% if !display_user_selector(@variable, :exclude).blank? %> 
-            <div class="form-group">
-              <button type="button" class="btn btn-primary center-button" data-toggle="modal" data-target="#addObjectiveToUser">Agregar objetivo</button>
+            <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+              <div class="form-group">
+                <button type="button" class="btn btn-primary center-button" data-toggle="modal" data-target="#addObjectiveToUser">Agregar objetivo</button>
+              </div>
             </div>
           <% end %>
+          <div class="col-xs-12 col-sm-9 col-md-9 col-lg-9">
+            <div class="form-group chk-middle">
+              <%= content_tag :label, class: "checkbox-container" do -%>
+                  <%= f.check_box :inverse, class: "form-control check-inverse" %>
+                  <%= t('activerecord.attributes.variable.inverse') %>
+              <% end -%>
+            </div>
+          </div>
           <!--
           <div class="form-group">
             <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8 no-padding">

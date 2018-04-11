@@ -78,9 +78,7 @@
   <% @tablero.in_groups_of(4, false) do |group| %>
     <div class="row">
       <% group.each do |c_variable| %>
-        <% max = c_variable.objetivo_by_user(@user).nil? ? 0 : c_variable.objetivo_by_user(@user).valor %>
-        <% interval = max / 4 %>
-        <% percent = max / 100 %>
+        <% objetivo = c_variable.objetivo_by_user(@user).nil? ? 0 : c_variable.objetivo_by_user(@user).valor %>
         <% value = c_variable.calculate_current_value(@user) %>
 
         <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
@@ -88,62 +86,16 @@
             <div class="panel-body easypiechart-panel">
               <h3><%= c_variable.nombre.upcase %><%= "(#{c_variable.graph_options[:symbol]})" unless c_variable.graph_options[:symbol].blank? %></h3>
               <p><b><%= c_variable.puntaje %> pts.</b></p>
-              <% if value > max %>
+              <% if value > objetivo %>
                 <p class="trophy-icon"><i class="fa fa-trophy"></i></p>
               <% end %>
               <div id="gauge_<%= c_variable.id %>" class="col-xs-12 col-sm-12 col-md-12 col-lg-12"></div>
-              
 
-              <script>
-                var g = new JustGage({
-                  id: "gauge_<%= c_variable.id %>",
-                  value: <%= value %>,
-                  symbol: '<%= c_variable.graph_options[:symbol] %>',
-                  <% if c_variable.tipo == 'moneda' %>
-                      symbolPosition: 'left',
-                      maxLabelPrepend: '<%= c_variable.graph_options[:symbol] %>',
-                      minLabelPrepend: '<%= c_variable.graph_options[:symbol] %>',
-                  <% else %>
-                      minLabelAppend: '<%= c_variable.graph_options[:symbol] %>',
-                      maxLabelAppend: '<%= c_variable.graph_options[:symbol] %>',
-                  <% end %>
-                  min: 0,
-                  humanFriendly: true,
-                  relativeGaugeSize: true,
-                  max: <%= max %>,
-                  customSectors: [
-                    {
-                      color : "#ff0000",
-                      lo : 0,
-                      hi : <%= interval / 2 %> 
-                    },{
-                      color : "#fa8801",
-                      lo : <%= interval / 2 %>,
-                      hi : <%= interval %> 
-                    },
-                    {
-                      color : "#f9c802",
-                      lo : <%= interval %>,
-                      hi : <%= interval * 2 %> 
-                    },{
-                      color : "#f7da02",
-                      lo : <%= interval * 2 %>,
-                      hi : <%= (interval * 2) + (interval / 2) %> 
-                    },
-                    {
-                      color : "#d4ce06",
-                      lo : <%= (interval * 2) + (interval / 2) %>,
-                      hi : <%= (interval * 4) - percent %> 
-                    },
-                    {
-                      color : "#a9d70b",
-                      lo : <%= (interval * 4) - percent %>,
-                      hi : <%= max %>
-                    }
-                  ],
-                  pointer: true
-                });
-              </script>
+              <% if c_variable.inverse %>
+                <%== inverse_gauge_graph(c_variable, objetivo, value) %>
+              <% else %>
+                <%== gauge_graph(c_variable, objetivo, value) %>
+              <% end %>
               <!--<div class="easypiechart" id="easypiechart-blue" data-percent="92" ><span class="percent">92%</span></div>-->
             </div>
           </div>

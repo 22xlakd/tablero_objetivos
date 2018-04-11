@@ -30,6 +30,7 @@ es:
         nombre: 'Nombre'
         tipo: 'Tipo de variable'
         puntaje: 'Puntaje'
+        inverse: 'Inversa'
       registro:
         fecha: 'Fecha'
         value: 'Valor'

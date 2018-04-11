@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180322224349) do
+ActiveRecord::Schema.define(version: 20180411024348) do
 
   create_table "objetivos", force: :cascade do |t|
     t.decimal  "proyeccion_mensual",              precision: 10, scale: 2
@@ -83,6 +83,7 @@ ActiveRecord::Schema.define(version: 20180322224349) do
     t.datetime "created_at",                  null: false
     t.datetime "updated_at",                  null: false
     t.integer  "codigo_variable", limit: 4
+    t.boolean  "inverse"
   end
 
   add_index "variables", ["codigo_variable"], name: "index_variables_on_codigo_variable", using: :btree

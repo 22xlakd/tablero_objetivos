@@ -51,6 +51,122 @@ module VariablesHelper
     end
   end
 
+  def gauge_graph(variable, max = 0, value = 0)
+    interval = max / 4
+    percent = max / 100
+
+    label_options = if variable.tipo == 'moneda'
+                      'symbolPosition: "left",'\
+                      "maxLabelPrepend: '#{variable.graph_options[:symbol]}',"\
+                      "minLabelPrepend: '#{variable.graph_options[:symbol]}',"\
+                    else
+                      "minLabelAppend: '#{variable.graph_options[:symbol]}',"\
+                      "maxLabelAppend: '#{variable.graph_options[:symbol]}',"\
+                    end
+
+    '<script>'\
+      'var g = new JustGage({'\
+        "id: 'gauge_#{variable.id}',"\
+        "value: #{value},"\
+        "symbol: '#{variable.graph_options[:symbol]}',"\
+        "#{label_options}"\
+        'min: 0,'\
+        'humanFriendly: true,'\
+        'relativeGaugeSize: true,'\
+        "max: #{max},"\
+        'customSectors: ['\
+          '{'\
+            'color : "#ff0000",'\
+            'lo : 0,'\
+            "hi : #{interval / 2}"\
+          '},{'\
+            'color : "#fa8801",'\
+            "lo : #{interval / 2},"\
+            "hi : #{interval}"\
+          '},'\
+          '{'\
+            'color : "#f9c802",'\
+            "lo : #{interval},"\
+            "hi : #{interval * 2}"\
+          '},{'\
+            'color : "#f7da02",'\
+            "lo : #{interval * 2},"\
+            "hi : #{(interval * 2) + (interval / 2)}"\
+          '},'\
+          '{'\
+            'color : "#d4ce06",'\
+            "lo : #{(interval * 2) + (interval / 2)},"\
+            "hi : #{(interval * 4) - percent}"\
+          '},'\
+          '{'\
+            'color : "#a9d70b",'\
+            "lo : #{(interval * 4) - percent},"\
+            "hi : #{max}"\
+          '}'\
+        '],'\
+        'pointer: true'\
+      '});'\
+    '</script>'
+  end
+  
+  def inverse_gauge_graph(variable, max = 0, value = 0)
+    interval = max / 4
+    percent = max / 100
+
+    label_options = if variable.tipo == 'moneda'
+                      'symbolPosition: "left",'\
+                      "maxLabelPrepend: '#{variable.graph_options[:symbol]}',"\
+                      "minLabelPrepend: '#{variable.graph_options[:symbol]}',"\
+                    else
+                      "minLabelAppend: '#{variable.graph_options[:symbol]}',"\
+                      "maxLabelAppend: '#{variable.graph_options[:symbol]}',"\
+                    end
+
+    '<script>'\
+      'var g = new JustGage({'\
+        "id: 'gauge_#{variable.id}',"\
+        "value: #{value},"\
+        "symbol: '#{variable.graph_options[:symbol]}',"\
+        "#{label_options}"\
+        'min: 0,'\
+        'humanFriendly: true,'\
+        'relativeGaugeSize: true,'\
+        "max: #{max},"\
+        'customSectors: ['\
+          '{'\
+            'color : "#a9d70b",'\
+            'lo : 0,'\
+            "hi : #{interval / 2}"\
+          '},{'\
+            'color : "#d4ce06",'\
+            "lo : #{interval / 2},"\
+            "hi : #{interval}"\
+          '},'\
+          '{'\
+            'color : "#f7da02",'\
+            "lo : #{interval},"\
+            "hi : #{interval * 2}"\
+          '},{'\
+            'color : "#f9c802",'\
+            "lo : #{interval * 2},"\
+            "hi : #{(interval * 2) + (interval / 2)}"\
+          '},'\
+          '{'\
+            'color : "#fa8801",'\
+            "lo : #{(interval * 2) + (interval / 2)},"\
+            "hi : #{(interval * 4) - percent}"\
+          '},'\
+          '{'\
+            'color : "#ff0000",'\
+            "lo : #{(interval * 4) - percent},"\
+            "hi : #{max}"\
+          '}'\
+        '],'\
+        'pointer: true'\
+      '});'\
+    '</script>'
+  end
+
   private
 
   def set_user
