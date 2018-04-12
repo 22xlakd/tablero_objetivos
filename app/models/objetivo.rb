@@ -9,7 +9,11 @@ class Objetivo < ActiveRecord::Base
   validates :user, uniqueness: { scope: :variable }
 
   def cumplido?(current_value)
-    current_value > valor
+    if variable.inverse
+      current_value < valor
+    else
+      current_value > valor
+    end
   end
 
   def fue_cumplido?(month, year)
@@ -27,6 +31,10 @@ class Objetivo < ActiveRecord::Base
   end
 
   def current_distance(current_value)
-    valor - current_value
+    if variable.inverse
+      current_value - valor
+    else
+      valor - current_value
+    end
   end
 end

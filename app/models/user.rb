@@ -28,30 +28,26 @@ class User < ActiveRecord::Base
   end
 
   def best_objective
-    min_distance = 0
     best_obj = objetivos.min_by do |o|
-      min_distance = calculate_current_value(o.variable.id)
-      o.current_distance(min_distance)
+      o.current_distance(calculate_current_value(o.variable.id))
     end
 
-    if best_obj.nil? || !best_obj.cumplido?(min_distance)
+    if best_obj.nil?
       {}
     else
-      { name: best_obj.variable.nombre, value: min_distance.abs, type: best_obj.variable.tipo }
+      { name: best_obj.variable.nombre, value: calculate_current_value(best_obj.variable.id).abs, type: best_obj.variable.tipo }
     end
   end
 
   def worst_objective
-    max_distance = 0
     worst_obj = objetivos.max_by do |o|
-      max_distance = calculate_current_value(o.variable.id)
-      o.current_distance(max_distance)
+      o.current_distance(calculate_current_value(o.variable.id))
     end
 
     if worst_obj.nil?
       {}
     else
-      { name: worst_obj.variable.nombre, value: max_distance.abs, type: worst_obj.variable.tipo }
+      { name: worst_obj.variable.nombre, value: calculate_current_value(worst_obj.variable.id).abs, type: worst_obj.variable.tipo }
     end
   end
 

@@ -78,7 +78,8 @@
   <% @tablero.in_groups_of(4, false) do |group| %>
     <div class="row">
       <% group.each do |c_variable| %>
-        <% objetivo = c_variable.objetivo_by_user(@user).nil? ? 0 : c_variable.objetivo_by_user(@user).valor %>
+        <% objetivo = c_variable.objetivo_by_user(@user) %>
+        <% valor_objetivo = objetivo.nil? ? 0 : objetivo.valor %>
         <% value = c_variable.calculate_current_value(@user) %>
 
         <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3">
@@ -86,15 +87,15 @@
             <div class="panel-body easypiechart-panel">
               <h3><%= c_variable.nombre.upcase %><%= "(#{c_variable.graph_options[:symbol]})" unless c_variable.graph_options[:symbol].blank? %></h3>
               <p><b><%= c_variable.puntaje %> pts.</b></p>
-              <% if value > objetivo %>
+              <% if !objetivo.nil? && objetivo.cumplido?(value) && !valor_objetivo.zero? %>
                 <p class="trophy-icon"><i class="fa fa-trophy"></i></p>
               <% end %>
               <div id="gauge_<%= c_variable.id %>" class="col-xs-12 col-sm-12 col-md-12 col-lg-12"></div>
 
               <% if c_variable.inverse %>
-                <%== inverse_gauge_graph(c_variable, objetivo, value) %>
+                <%== inverse_gauge_graph(c_variable, valor_objetivo, value) %>
               <% else %>
-                <%== gauge_graph(c_variable, objetivo, value) %>
+                <%== gauge_graph(c_variable, valor_objetivo, value) %>
               <% end %>
               <!--<div class="easypiechart" id="easypiechart-blue" data-percent="92" ><span class="percent">92%</span></div>-->
             </div>

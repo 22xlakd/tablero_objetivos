@@ -108,7 +108,7 @@ module VariablesHelper
       '});'\
     '</script>'
   end
-  
+
   def inverse_gauge_graph(variable, max = 0, value = 0)
     interval = max / 4
     percent = max / 100
