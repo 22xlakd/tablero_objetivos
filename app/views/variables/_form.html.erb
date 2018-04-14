@@ -1,5 +1,5 @@
 <div class="panel panel-default">
-  <div class="panel-heading">Editando variable: <%= @variable.nombre %></div>
+  <div class="panel-heading"><%= t(:update_variable, variable: @variable.nombre) %></div>
   <div class="panel-body">
     
     <%= form_for(@variable, html: { role: 'form', onsubmit: 'changeSeparator("variable_valor_objetivo");changeSeparator("variable_proyeccion_mensual");changeSeparator("variable_porcentaje_proyectado")' }) do |f| %>
@@ -40,18 +40,18 @@
           </div>
 
           <% if !display_user_selector(@variable, :exclude).blank? %> 
-            <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
-              <div class="form-group">
-                <button type="button" class="btn btn-primary center-button" data-toggle="modal" data-target="#addObjectiveToUser">Agregar objetivo</button>
-              </div>
+            <div class="col-xs-12 col-sm-5 col-md-4 col-lg-3">
+             <div class="form-group chk-middle">
+                <%= content_tag :label, class: "checkbox-container" do -%>
+                    <%= f.check_box :inverse, class: "form-control check-inverse" %>
+                    <%= t('activerecord.attributes.variable.inverse') %>
+                <% end -%>
+              </div>   
             </div>
           <% end %>
-          <div class="col-xs-12 col-sm-9 col-md-9 col-lg-9">
-            <div class="form-group chk-middle">
-              <%= content_tag :label, class: "checkbox-container" do -%>
-                  <%= f.check_box :inverse, class: "form-control check-inverse" %>
-                  <%= t('activerecord.attributes.variable.inverse') %>
-              <% end -%>
+          <div class="col-xs-12 col-sm-7 col-md-8 col-lg-9">
+            <div class="form-group">
+              <button id="btn_add_objective" type="button" class="btn btn-primary center-button" data-toggle="modal" data-target="#addObjectiveToUser">Agregar objetivo</button>
             </div>
           </div>
           <!--

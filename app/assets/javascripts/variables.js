@@ -27,7 +27,7 @@ function add_objective(){
     input_obj_id.attr("name", "variable[objetivos_attributes][" + idx  + "][id]")
     input_obj_id.val('')
     var input_usr_id = '<input value="' + jQuery('#usuario_id').val() + '" type="hidden" name="variable[objetivos_attributes][' + idx + '][user_id]" id="variable_objetivos_attributes_' + idx + '_user_id" />'
-    jQuery(newTab).find(".lnk-username").html(jQuery('#usuario_id').text())
+    jQuery(newTab).find(".lnk-username").html(jQuery('#usuario_id option:selected').text())
     jQuery(newTab).find(".lnk-username").append( input_obj_id)
     jQuery(newTab).find(".lnk-username").append( input_usr_id)
     jQuery(newTab).find(".collapse").attr("id","collapse_" + idx)

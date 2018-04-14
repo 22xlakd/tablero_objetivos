@@ -22,9 +22,9 @@
       <li id="dashboard"><a href="/"><em class="fa fa-dashboard">&nbsp;</em> Tablero</a></li>
 
       <% if current_user.include_role?('admin') %>
-        <li id="ranking"><a href="/"><em class="fa fa-sort-amount-desc">&nbsp;</em> Ranking</a></li>
-        <li id="users"><a href="/users"><em class="fa fa-users">&nbsp;</em> Usuarios</a></li>
-        <li id="variables"><a href="/variables"><em class="fa fa-bar-chart">&nbsp;</em> Variables</a></li>
+        <li id="ranking"><a title="Ranking" href="/"><em class="fa fa-sort-amount-desc">&nbsp;</em> Ranking</a></li>
+        <li id="users"><a title="Usuarios" href="/users"><em class="fa fa-users">&nbsp;</em> Usuarios</a></li>
+        <li id="variables"><a title="Variables" href="/variables"><em class="fa fa-bar-chart">&nbsp;</em> Variables</a></li>
       <% end %>
 
       <!--
