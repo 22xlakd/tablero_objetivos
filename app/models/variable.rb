@@ -10,7 +10,16 @@ class Variable < ActiveRecord::Base
   GRAPH_OPTIONS = { porcentaje: { symbol: '%' }, entero: { symbol: '' }, moneda: { symbol: '$' } }
 
   scope :sucursal_dashboard, ->(codigo_sucursal) { joins(:registros).where('registros.codigo_sucursal': codigo_sucursal).uniq }
-  scope :admin_dashboard, -> { where(nombre: ['Cantidad de clientes']) }
+  scope :admin_dashboard, lambda {
+    includes(registros: :user).
+      where(is_admin: true).
+      where(registros: { fecha: Time.zone.today.beginning_of_month..Time.zone.today.end_of_month })
+  }
+
+  # DESPUES DEL SCOPE, PARA SACAR LOS TOTALES (a ES EL SCOPE) : h = a.first.registros.group_by{ |r| r.codigo_sucursal}
+  # h.keys.map{|k| h[k].sum(&:value).to_f} -> SUMA LOS VALORES DE LOS REGISTROS POR USUARIO
+  # h = a.first.registros.group_by{ |r| r.codigo_sucursal} -> agrupa por usuarios
+  # h.keys.map{|k| puts h[k].sum(&:value) } -> suma registros x usuario
 
   accepts_nested_attributes_for :objetivos
 
