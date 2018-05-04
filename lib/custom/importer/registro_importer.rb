@@ -3,14 +3,17 @@ class Custom::Importer::RegistroImporter
     raise(StandardError, 'No se puede leer el archivo de datos') if data.nil?
 
     registro_with_problems = []
-    # NOTE ELIMINAMOS LOS REGISTROS PORQUE NO HAY MANERA DE IDENTIFICARLOS, CORREGIIIR
-    Registro.destroy_all
 
     # NOTE QUITAMOS ENCABEZADOS
     data.shift
     data.each do |c_row|
-      c_registro = Registro.new(fecha: c_row[0], value: c_row[3])
       c_variable = Variable.find_by(codigo_variable: c_row[2])
+      next if c_variable.nil?
+
+      c_registro = Registro.where(fecha: Date.parse(c_row[0]), codigo_sucursal: c_row[1], variable_id: c_variable.id).first
+
+      c_registro = Registro.new(fecha: c_row[0], value: c_row[3]) if c_registro.nil?
+
       c_user = User.find_by(codigo_sucursal: c_row[1])
 
       if c_variable.nil? || c_user.nil?
