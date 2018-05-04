@@ -9,7 +9,7 @@ class Custom::Importer::RegistroImporter
     data.each do |c_row|
       c_variable = Variable.find_by(codigo_variable: c_row[2])
       next if c_variable.nil?
-
+debugger
       c_registro = Registro.where(fecha: Date.parse(c_row[0]), codigo_sucursal: c_row[1], variable_id: c_variable.id).first
 
       c_registro = Registro.new(fecha: c_row[0], value: c_row[3]) if c_registro.nil?
