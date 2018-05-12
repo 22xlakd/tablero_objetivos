@@ -1,4 +1,47 @@
-/* globals idx */
+/* globals idx Chart */
+
+jQuery( document ).ready(function() {
+    var randomScalingFactor = function(){ return Math.round(Math.random()*1000)};
+    var barChartData = {
+        labels : ["Sucursal Macachin","Sucursal Salliquelo","Sucursal 30 de agosto","Sucursal Anguil","Sucursal Guatrache","Sucursal Casbas","Sucursal General Pico"],
+        datasets : [
+            {
+                label: 'Ventas totales',
+                backgroundColor: "rgba(220,33,27,0.5)",
+                borderColor: "rgba(220,33,27,0.8)",
+                borderWidth: 1,
+                data : [randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor()]
+            },
+            {
+                label: 'Facturacion',
+                backgroundColor: "rgba(48, 164, 255, 0.2)",
+                borderColor: "rgba(48, 164, 255, 0.8)",
+                borderWidth: 1,
+                data : [randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor()]
+            }
+        ]
+
+    }
+    var chart2 = document.getElementById("bar-chart").getContext("2d");
+    var barGraph = new Chart(chart2, {
+        type: "bar",
+        data: barChartData,
+        options: {
+            leyend: {
+                display: true
+            },
+            title: {
+                display: true,
+                text: "Prueba, ksjkjkj"
+            },
+            responsive: true,
+            scaleLineColor: "rgba(0,0,0,.2)",
+            scaleGridLineColor: "rgba(0,0,0,.05)",
+            scaleFontColor: "#c5c7cc"
+        }
+    });
+});
+
 function changeSeparator (idInput) {
 
   jQuery("#" + idInput).val(jQuery("#" + idInput).val().replace(",", "."));
