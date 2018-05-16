@@ -51,7 +51,38 @@ class Variable < ActiveRecord::Base
     # registros.where(codigo_sucursal: user.codigo_sucursal).where('extract(month from fecha) = ?', month).where('extract(year from fecha) = ?', year)
   end
 
+  def average_goal
+    {
+      label: "Objetivo #{nombre.capitalize}",
+      backgroundColor: 'rgba(58, 181, 64,0.5)',
+      borderColor: 'rgba(58, 181, 64,0.8)',
+      borderWidth: 1,
+      fill: false,
+      data: Array.new(Time.days_in_month(Time.zone.today.month, Time.zone.today.year), objetivos.average)
+    }
+  end
+
+  def current_average_value
+    {
+      label: 'Valor Actual Promedio',
+      backgroundColor: 'rgba(220,33,27,0.5)',
+      borderColor: 'rgba(220,33,27,0.8)',
+      borderWidth: 1,
+      fill: false,
+      data: calculate_average_value
+    }
+  end
+
   private
+
+  def calculate_average_value
+    month_values = Array.new(Time.days_in_month(Time.zone.today.month, Time.zone.today.year), 0)
+
+    hsh_registros = registros.group_by(&:fecha)
+    hsh_registros.each_key do |k|
+      month_values
+    end
+  end
 
   def check_variable_type
     errors.add(:tipo, I18n.t('tipo.undefined', tipos: VARIABLE_TYPES, scope: [:activerecord, :errors, :messages])) unless VARIABLE_TYPES.include?(tipo)
