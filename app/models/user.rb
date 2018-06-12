@@ -80,8 +80,9 @@ class User < ActiveRecord::Base
     dashboard_data = []
     variables.each do |c_variable|
       variable_data = {}
+      variable_data[:options] = c_variable.admin_graph_options
       variable_data[:labels] = (1..Time.days_in_month(Time.zone.today.month, Time.zone.today.year)).to_a
-      variable_data[:datasets] = [c_variable.average_goal, c_variable.current_average_value, c_variable.average_prediction, c_variable.average_prediction_percent]
+      variable_data[:datasets] = [c_variable.total_goal, c_variable.current_total_value, c_variable.total_prediction, c_variable.total_prediction_percent]
 
       dashboard_data.push(variable_data)
     end

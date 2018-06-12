@@ -9,7 +9,7 @@ module VariablesHelper
     board_user.calculate_year_points
   end
 
-  def admin_graph(variable, type)
+  def admin_graph(variable, options)
   end
 
   def best_objective

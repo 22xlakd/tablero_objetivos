@@ -23,36 +23,39 @@
       setTimeout(function(){ hideFlashMessage("#notice"); }, 1500);
     </script>
   <% end %>
+
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <% @dashboard_data.each do |c_variable| %>
 <%
-data = {
-  labels: ["January", "February", "March", "April", "May", "June", "July"],
-  datasets: [
-    {
-        label: "My First dataset",
-        backgroundColor: "rgba(220,220,220,0.2)",
-        borderColor: "rgba(220,220,220,1)",
-        fill: false,
-        data: [65, 59, 80, 81, 56, 55, 40]
-    },
-    {
-        label: "My Second dataset",
-        backgroundColor: "rgba(151,187,205,0.2)",
-        borderColor: "rgba(151,187,205,1)",
-        fill: false,
-        data: [28, 48, 40, 19, 86, 27, 90]
-    }
-  ]
-}
+
 options = {
   title: {
     display: true,
-    text: "Facturación"
+    fontSize: 16,
+    fontFamily: "'Montserrat', 'Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif'",
+    text: c_variable[:name]
   },
-  responsive: true,
+  legend: {
+    labels: {
+      fontFamily: "'Montserrat', 'Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif'"
+    }
+  },
+  elements: {
+    line: {
+      tension: 0.5
+    }
+  },
   tooltips: {
     mode: 'index',
     intersect: true,
+    position: 'nearest',
+    titleFontFamily: "'Montserrat', 'Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif'",
+    bodyFontFamily: "'Montserrat', 'Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif'"
   },
+  responsive: true,
   hover: {
     mode: 'nearest',
     intersect: true
@@ -62,30 +65,30 @@ options = {
       display: true,
       scaleLabel: {
         display: true,
-        labelString: 'Month'
+        labelString: 'Dias'
       }
     }],
     yAxes: [{
       display: true,
+      ticks: {
+        callback: "function(value, index, values) {
+          return '$' + value / 1000000 ;
+        }",
+        stepSize: 10000000
+      },
       scaleLabel: {
         display: true,
-        labelString: 'Value'
+        labelString: 'Ventas'
       }
     }]
   }
 }
 %>
-  <div class="row">
-    <div class="col-lg-12">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          Bar Chart
-        </div>
-        <div class="panel-body">
-          <div class="canvas-wrapper">
-            <%= line_chart data, options %>
-            <!-- <canvas class="main-chart" id="bar-chart"></canvas> -->
-          </div>
+            <div class="canvas-wrapper">
+              <% hsh = { labels: c_variable[:labels], datasets: c_variable[:datasets] } %>
+              <%= line_chart hsh, c_variable[:options] %>
+            </div>
+          <% end %>
         </div>
       </div>
     </div>
