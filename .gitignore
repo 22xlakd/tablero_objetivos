@@ -6,7 +6,9 @@
 
 # Ignore bundler config.
 /.bundle
-
+.*
+!.gitignore
+!.git/*
 # Ignore all logfiles and tempfiles.
 /log/*
 /public/assets/*
