@@ -6,34 +6,127 @@ class Variable < ActiveRecord::Base
   has_many :registros
   has_many :objetivos
 
+  after_initialize :init_instance_variables
+
   VARIABLE_TYPES = %w(porcentaje entero moneda)
   GRAPH_OPTIONS = { porcentaje: { symbol: '%' }, entero: { symbol: '' }, moneda: { symbol: '$' } }
+  FONT_FAMILY = "'Montserrat', 'Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif'"
   ADMIN_GRAPH_OPTIONS = {
-    porcentaje: {},
-    entero: {},
-    moneda: {
+    porcentaje: {
       title: {
         display: true,
         fontSize: 16,
-        fontFamily: "'Montserrat', 'Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif'",
+        fontFamily: FONT_FAMILY,
         text: ''
       },
       legend: {
         labels: {
-          fontFamily: "'Montserrat', 'Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif'"
+          fontFamily: FONT_FAMILY
         }
       },
       elements: {
         line: {
-          tension: 0.8
+          tension: 0.4
         }
       },
       tooltips: {
         mode: 'index',
         intersect: true,
         position: 'nearest',
-        titleFontFamily: "'Montserrat', 'Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif'",
-        bodyFontFamily: "'Montserrat', 'Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif'"
+        titleFontFamily: FONT_FAMILY,
+        bodyFontFamily: FONT_FAMILY
+      },
+      responsive: true,
+      hover: {
+        mode: 'nearest',
+        intersect: true
+      },
+      scales: {
+        xAxes: [{
+          display: true,
+          scaleLabel: {
+            display: true,
+            labelString: 'Días'
+          }
+        }],
+        yAxes: [{
+          display: true,
+          scaleLabel: {
+            display: true,
+            labelString: ''
+          }
+        }]
+      }
+    },
+    entero: {
+      title: {
+        display: true,
+        fontSize: 16,
+        fontFamily: FONT_FAMILY,
+        text: ''
+      },
+      legend: {
+        labels: {
+          fontFamily: FONT_FAMILY
+        }
+      },
+      elements: {
+        line: {
+          tension: 0.4
+        }
+      },
+      tooltips: {
+        mode: 'index',
+        intersect: true,
+        position: 'nearest',
+        titleFontFamily: FONT_FAMILY,
+        bodyFontFamily: FONT_FAMILY
+      },
+      responsive: true,
+      hover: {
+        mode: 'nearest',
+        intersect: true
+      },
+      scales: {
+        xAxes: [{
+          display: true,
+          scaleLabel: {
+            display: true,
+            labelString: 'Días'
+          }
+        }],
+        yAxes: [{
+          display: true,
+          scaleLabel: {
+            display: true,
+            labelString: ''
+          }
+        }]
+      }
+    },
+    moneda: {
+      title: {
+        display: true,
+        fontSize: 16,
+        fontFamily: FONT_FAMILY,
+        text: ''
+      },
+      legend: {
+        labels: {
+          fontFamily: FONT_FAMILY
+        }
+      },
+      elements: {
+        line: {
+          tension: 0.4
+        }
+      },
+      tooltips: {
+        mode: 'index',
+        intersect: true,
+        position: 'nearest',
+        titleFontFamily: FONT_FAMILY,
+        bodyFontFamily: FONT_FAMILY
       },
       responsive: true,
       hover: {
@@ -79,9 +172,9 @@ class Variable < ActiveRecord::Base
 
   accepts_nested_attributes_for :objetivos
 
-  after_find do
-    @obj_total = 0
-    @total_prediction = 0
+  def init_instance_variables
+    @obj_total ||= 0
+    @total_prediction ||= 0
   end
 
   def admin_graph_options
@@ -90,6 +183,9 @@ class Variable < ActiveRecord::Base
 
     ADMIN_GRAPH_OPTIONS[tipo.to_sym]
   end
+
+  # def calculate_extreme_values(min = 0, max = 0)
+  # end
 
   def variable_types
     VARIABLE_TYPES
@@ -168,33 +264,47 @@ class Variable < ActiveRecord::Base
 
   def calculate_data_value(calculator)
     total_goal if @obj_total.zero?
-    month_values = Array.new(Time.days_in_month(Time.zone.today.month, Time.zone.today.year), 0)
+    total_days_in_month = Time.days_in_month(Time.zone.today.month, Time.zone.today.year)
+    month_values = Array.new(total_days_in_month, 0)
 
     first_date_month = Time.zone.today.beginning_of_month
     hsh_registros = registros.group_by(&:fecha)
     last_value = 0
     month_values.each_index do |idx|
       c_key = first_date_month + idx
-      if hsh_registros[c_key].nil?
-        month_values[idx] = last_value
-      else
-        month_values[idx] = last_value + send(calculator, hsh_registros[c_key], c_key.day)
-        last_value = month_values[idx]
-      end
+
+      hsh_values = send(calculator, hsh_registros[c_key], last_value, idx + 1, total_days_in_month)
+      month_values[idx] = hsh_values[:day_value]
+      last_value = hsh_values[:last_value]
     end
 
     month_values
   end
 
-  def addition(array_values, _current_day = nil)
-    array_values.sum(&:value).to_f.round(2)
+  def addition(array_values, last_value, _current_day = nil, _total_days_in_month = nil)
+    day_value = if array_values.nil?
+                  last_value
+                else
+                  last_value + array_values.sum(&:value).to_f.round(2)
+                end
+
+    { day_value: day_value, last_value: day_value }
   end
 
-  def prediction(array_values, current_day)
-    c_prediction = array_values.sum { |record| (record.value / current_day) * Time.days_in_month(Time.zone.today.month, Time.zone.today.year) }.to_f.round(2)
-    @total_prediction += c_prediction
+  def prediction(array_values, last_value, current_day, total_days_in_month)
+    hsh_rta = {}
 
-    c_prediction
+    if array_values.nil?
+      hsh_rta[:day_value] = ((last_value / current_day) * total_days_in_month).round(2)
+      hsh_rta[:last_value] = last_value
+    else
+      current_total_value = addition(array_values, last_value, nil, nil)[:day_value]
+      hsh_rta[:day_value] = ((current_total_value / current_day) * total_days_in_month).round(2)
+      hsh_rta[:last_value] = current_total_value
+    end
+
+    @total_prediction += hsh_rta[:day_value]
+    hsh_rta
   end
 
   def prediction_percent

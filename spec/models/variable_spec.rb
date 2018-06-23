@@ -122,39 +122,42 @@ describe Variable, type: :model do
       expect(hsh[:data].class).to eq(Array)
       expect(hsh[:data].count).to eq(Time.days_in_month(Time.zone.today.month, Time.zone.today.year))
       expect(hsh[:data].first).to eq(775)
-      expect(hsh[:data][1]).to eq(615)
-      expect(hsh[:data][2]).to eq(615)
-      expect(hsh[:data][3]).to eq(307)
-      expect(hsh[:data][6]).to eq(307)
-      expect(hsh[:data][9]).to eq(361)
+      expect(hsh[:data][1]).to eq(1390)
+      expect(hsh[:data][2]).to eq(1390)
+      expect(hsh[:data][3]).to eq(1697)
+      expect(hsh[:data][6]).to eq(1697)
+      expect(hsh[:data][9]).to eq(2058)
     end
 
-    it 'returns a hash with the dataset of the total prediction' do
+    it 'returns a hash with the dataset of the total prediction', focus: true do
       hsh = variable.total_prediction
       expect(hsh.class).to eq(Hash)
       expect(hsh[:label]).to eq('Proyección Ventas totales')
       expect(hsh[:fill]).to be false
       expect(hsh[:data].class).to eq(Array)
-      expect(hsh[:data].first).to eq(24_025)
-      expect(hsh[:data][1]).to eq(9532.5)
-      expect(hsh[:data][2]).to eq(9532.5)
-      expect(hsh[:data][3]).to eq(2379.25)
-      expect(hsh[:data][6]).to eq(2379.25)
-      expect(hsh[:data][9]).to eq(1243.44)
+      expect(hsh[:data].first).to eq(23_250.0)
+      expect(hsh[:data][1]).to eq(20_850.0)
+      expect(hsh[:data][2]).to eq(13_900.0)
+      expect(hsh[:data][3]).to eq(12_727.5)
+      expect(hsh[:data][4]).to eq(10_182.0)
+      expect(hsh[:data][6]).to eq(7272.86)
+      expect(hsh[:data][8]).to eq(6860.0)
+      expect(hsh[:data][9]).to eq(6174.0)
     end
 
     it 'returns a hash with the dataset of the total prediction percent' do
+      variable.total_prediction
       hsh = variable.total_prediction_percent
       expect(hsh.class).to eq(Hash)
       expect(hsh[:label]).to eq('Porcentaje proyectado Ventas totales')
       expect(hsh[:fill]).to be false
       expect(hsh[:data].class).to eq(Array)
-      expect(hsh[:data].first).to eq(24_025)
-      expect(hsh[:data][1]).to eq(9532.5)
-      expect(hsh[:data][2]).to eq(9532.5)
-      expect(hsh[:data][3]).to eq(2379.25)
-      expect(hsh[:data][6]).to eq(2379.25)
-      expect(hsh[:data][9]).to eq(1243.44)
+      expect(hsh[:data].first).to eq(171.34)
+      expect(hsh[:data][1]).to eq(171.34)
+      expect(hsh[:data][2]).to eq(171.34)
+      expect(hsh[:data][3]).to eq(171.34)
+      expect(hsh[:data][6]).to eq(171.34)
+      expect(hsh[:data][9]).to eq(171.34)
     end
   end
 end
