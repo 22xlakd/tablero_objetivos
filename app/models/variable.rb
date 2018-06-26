@@ -134,6 +134,10 @@ class Variable < ActiveRecord::Base
         intersect: true
       },
       scales: {
+        scaleLabel: {
+          display: true,
+          labelString: 'en millones'
+        },
         xAxes: [{
           display: true,
           scaleLabel: {
@@ -174,7 +178,7 @@ class Variable < ActiveRecord::Base
 
   def init_instance_variables
     @obj_total ||= 0
-    @total_prediction ||= 0
+    @total_prediction_percent ||= []
   end
 
   def admin_graph_options
@@ -256,7 +260,7 @@ class Variable < ActiveRecord::Base
       borderColor: 'rgba(230,119,24,0.8)',
       borderWidth: 1,
       fill: false,
-      data: prediction_percent
+      data: @total_prediction_percent
     }
   end
 
@@ -303,14 +307,8 @@ class Variable < ActiveRecord::Base
       hsh_rta[:last_value] = current_total_value
     end
 
-    @total_prediction += hsh_rta[:day_value]
+    @total_prediction_percent << (hsh_rta[:day_value] / @obj_total).round(2) unless @obj_total.zero?
     hsh_rta
-  end
-
-  def prediction_percent
-    prediction_percent = (@total_prediction / @obj_total).round(2) unless @obj_total.zero?
-
-    Array.new(Time.days_in_month(Time.zone.today.month, Time.zone.today.year), prediction_percent)
   end
 
   def check_variable_type

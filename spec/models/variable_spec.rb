@@ -152,12 +152,12 @@ describe Variable, type: :model do
       expect(hsh[:label]).to eq('Porcentaje proyectado Ventas totales')
       expect(hsh[:fill]).to be false
       expect(hsh[:data].class).to eq(Array)
-      expect(hsh[:data].first).to eq(171.34)
-      expect(hsh[:data][1]).to eq(171.34)
-      expect(hsh[:data][2]).to eq(171.34)
-      expect(hsh[:data][3]).to eq(171.34)
-      expect(hsh[:data][6]).to eq(171.34)
-      expect(hsh[:data][9]).to eq(171.34)
+      expect(hsh[:data].first.to_f).to eq(110.71)
+      expect(hsh[:data][1].to_f).to eq(99.29)
+      expect(hsh[:data][2].to_f).to eq(66.19)
+      expect(hsh[:data][3].to_f).to eq(60.61)
+      expect(hsh[:data][6].to_f).to eq(34.63)
+      expect(hsh[:data][9].to_f).to eq(29.4)
     end
   end
 end

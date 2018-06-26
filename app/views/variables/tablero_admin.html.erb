@@ -29,61 +29,6 @@
       <div class="panel panel-default">
         <div class="panel-body">
           <% @dashboard_data.each do |c_variable| %>
-<%
-
-options = {
-  title: {
-    display: true,
-    fontSize: 16,
-    fontFamily: "'Montserrat', 'Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif'",
-    text: c_variable[:name]
-  },
-  legend: {
-    labels: {
-      fontFamily: "'Montserrat', 'Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif'"
-    }
-  },
-  elements: {
-    line: {
-      tension: 0.5
-    }
-  },
-  tooltips: {
-    mode: 'index',
-    intersect: true,
-    position: 'nearest',
-    titleFontFamily: "'Montserrat', 'Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif'",
-    bodyFontFamily: "'Montserrat', 'Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif'"
-  },
-  responsive: true,
-  hover: {
-    mode: 'nearest',
-    intersect: true
-  },
-  scales: {
-    xAxes: [{
-      display: true,
-      scaleLabel: {
-        display: true,
-        labelString: 'Dias'
-      }
-    }],
-    yAxes: [{
-      display: true,
-      ticks: {
-        callback: "function(value, index, values) {
-          return '$' + value / 1000000 ;
-        }",
-        stepSize: 10000000
-      },
-      scaleLabel: {
-        display: true,
-        labelString: 'Ventas'
-      }
-    }]
-  }
-}
-%>
             <div class="canvas-wrapper">
               <% hsh = { labels: c_variable[:labels], datasets: c_variable[:datasets] } %>
               <%= line_chart hsh, c_variable[:options] %>
