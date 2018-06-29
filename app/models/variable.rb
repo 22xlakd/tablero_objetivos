@@ -9,7 +9,7 @@ class Variable < ActiveRecord::Base
   VARIABLE_TYPES = %w(porcentaje entero moneda)
   GRAPH_OPTIONS = { porcentaje: { symbol: '%' }, entero: { symbol: '' }, moneda: { symbol: '$' } }
 
-  scope :sucursal_dashboard, ->(codigo_sucursal) { joins(:registros).where('registros.codigo_sucursal': codigo_sucursal).uniq }
+  scope :sucursal_dashboard, ->(codigo_sucursal) { where('registros.codigo_sucursal': codigo_sucursal).uniq }
   scope :admin_dashboard, -> { where(nombre: ['Cantidad de clientes']) }
 
   accepts_nested_attributes_for :objetivos
@@ -24,7 +24,7 @@ class Variable < ActiveRecord::Base
   end
 
   def calculate_current_value(user)
-    registros_by_user_per_month(user).sum(&:value)
+    registros_by_user_per_month(user).value
   end
 
   def calculate_value(user, month, year)
@@ -38,8 +38,8 @@ class Variable < ActiveRecord::Base
   end
 
   def registros_by_user_per_month(user, month = Time.zone.today.month, year = Time.zone.today.year)
-    registros.select { |r| r.codigo_sucursal == user.codigo_sucursal.to_i && r.fecha.month == month.to_i && r.fecha.year == year.to_i }
-    # registros.where(codigo_sucursal: user.codigo_sucursal).where('extract(month from fecha) = ?', month).where('extract(year from fecha) = ?', year)
+    registros.sort_by(&:fecha).reverse.select { |r| r.codigo_sucursal == user.codigo_sucursal.to_i && r.fecha.month == month.to_i && r.fecha.year == year.to_i }.take(1)
+    # registros.select { |r| r.codigo_sucursal == user.codigo_sucursal.to_i && r.fecha.month == month.to_i && r.fecha.year == year.to_i }
   end
 
   private
