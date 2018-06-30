@@ -24,7 +24,13 @@ class Variable < ActiveRecord::Base
   end
 
   def calculate_current_value(user)
-    registros_by_user_per_month(user).value
+    last_record = registros_by_user_per_month(user)
+
+    if last_record.nil?
+      0
+    else
+      last_record.value
+    end
   end
 
   def calculate_value(user, month, year)
