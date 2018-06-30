@@ -10,9 +10,9 @@ class Objetivo < ActiveRecord::Base
 
   def cumplido?(current_value)
     if variable.inverse
-      current_value < valor
+      current_value <= valor
     else
-      current_value > valor
+      current_value >= valor
     end
   end
 

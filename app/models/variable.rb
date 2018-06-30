@@ -38,7 +38,7 @@ class Variable < ActiveRecord::Base
   end
 
   def registros_by_user_per_month(user, month = Time.zone.today.month, year = Time.zone.today.year)
-    registros.sort_by(&:fecha).reverse.select { |r| r.codigo_sucursal == user.codigo_sucursal.to_i && r.fecha.month == month.to_i && r.fecha.year == year.to_i }.take(1)
+    registros.sort_by(&:fecha).reverse.select { |r| r.codigo_sucursal == user.codigo_sucursal.to_i && r.fecha.month == month.to_i && r.fecha.year == year.to_i }.take(1).first
     # registros.select { |r| r.codigo_sucursal == user.codigo_sucursal.to_i && r.fecha.month == month.to_i && r.fecha.year == year.to_i }
   end
 

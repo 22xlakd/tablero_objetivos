@@ -63,14 +63,16 @@ class User < ActiveRecord::Base
   end
 
   def calculate_current_value(variable_id)
-    registros.select { |r| r.variable_id == variable_id && r.fecha.month == Time.zone.today.month && r.fecha.year == Time.zone.today.year }.sum(&:value)
+    registros.sort_by(&:fecha).reverse.select { |r| r.variable_id == variable_id && r.fecha.day <= Time.zone.today.day && r.fecha.month == Time.zone.today.month && r.fecha.year == Time.zone.today.year }.take(1).first.value
+    # registros.select { |r| r.variable_id == variable_id && r.fecha.month == Time.zone.today.month && r.fecha.year == Time.zone.today.year }.sum(&:value)
   end
 
   def calculate_monthly_values(year, variable_id)
     values = []
 
     1.upto(12) do |idx|
-      values.push(registros.select { |r| r.variable_id == variable_id && r.fecha.month == idx && r.fecha.year == year.to_i }.sum(&:value))
+      next if registros.sort_by(&:fecha).reverse.select { |r| r.variable_id == variable_id && r.fecha.month == idx && r.fecha.year == year.to_i }.empty?
+      values.push(registros.sort_by(&:fecha).reverse.select { |r| r.variable_id == variable_id && r.fecha.month == idx && r.fecha.year == year.to_i }.take(1).first.value)
     end
 
     values
