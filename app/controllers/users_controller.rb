@@ -24,14 +24,14 @@ class UsersController < ApplicationController
   # POST /users.json
 
   def ranking_usuarios
-    @users = User.sucursal.includes(:registros)
+    @users = User.sucursal
     @points = {}
 
     @users.each do |c_user|
-      @points[c_user.id] = [c_user.calculate_current_month_points, c_user.calculate_year_points]
+      @points[c_user.id] = [c_user.current_month_points, c_user.year_points]
     end
 
-    @users = @users.sort_by(&:calculate_current_month_points).reverse
+    @users = @users.sort_by(&:current_month_points).reverse
   end
 
   def create

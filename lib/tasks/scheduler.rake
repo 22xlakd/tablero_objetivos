@@ -53,6 +53,19 @@ task :import_registros, [:dir, :file] => :environment do |t, args|
   # rescue StandardError => e
   #  logger.info("El proceso de importación falló: #{e.message}")
   # end
+  # COMIENZA CALCULO PUNTOS USUARIOS
+
+  users = User.sucursal.includes(:registros)
+  users.each do |c_user|
+    c_user.current_month_points = c_user.calculate_current_month_points
+    c_user.year_points = c_user.calculate_year_points
+
+    if c_user.save
+      logger.info("Guardando usuario.....: #{c_user.nombre}")
+    else
+      logger.info("Problemas guardando usuario.....: #{c_user.nombre} - Error ocurrido: #{c_user.errors}")
+    end
+  end
 
   logger.info("...........Finalizando proceso........#{Time.now}")
   logger.close

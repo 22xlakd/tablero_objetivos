@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180411024348) do
+ActiveRecord::Schema.define(version: 20180702032909) do
 
   create_table "objetivos", force: :cascade do |t|
     t.decimal  "proyeccion_mensual",              precision: 10, scale: 2
@@ -37,6 +37,8 @@ ActiveRecord::Schema.define(version: 20180411024348) do
   end
 
   add_index "registros", ["codigo_sucursal"], name: "index_registros_on_codigo_sucursal", using: :btree
+  add_index "registros", ["fecha"], name: "fecha", using: :btree
+  add_index "registros", ["fecha"], name: "index_registros_on_fecha", using: :btree
   add_index "registros", ["variable_id"], name: "index_registros_on_variable_id", using: :btree
 
   create_table "roles", force: :cascade do |t|
@@ -70,11 +72,15 @@ ActiveRecord::Schema.define(version: 20180411024348) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip",     limit: 255
     t.string   "last_sign_in_ip",        limit: 255
+    t.integer  "year_points",            limit: 4,   default: 0
+    t.integer  "current_month_points",   limit: 4,   default: 0
   end
 
   add_index "users", ["codigo_sucursal"], name: "index_users_on_codigo_sucursal", using: :btree
+  add_index "users", ["current_month_points"], name: "index_users_on_current_month_points", using: :btree
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+  add_index "users", ["year_points"], name: "index_users_on_year_points", using: :btree
 
   create_table "variables", force: :cascade do |t|
     t.string   "nombre",          limit: 255

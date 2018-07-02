@@ -1,12 +1,12 @@
 module VariablesHelper
   def month_points
     board_user = set_user
-    board_user.calculate_current_month_points
+    board_user.current_month_points
   end
 
   def year_points
     board_user = set_user
-    board_user.calculate_year_points
+    board_user.year_points
   end
 
   def best_objective
