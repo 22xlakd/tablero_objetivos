@@ -37,7 +37,6 @@ ActiveRecord::Schema.define(version: 20180702032909) do
   end
 
   add_index "registros", ["codigo_sucursal"], name: "index_registros_on_codigo_sucursal", using: :btree
-  add_index "registros", ["fecha"], name: "fecha", using: :btree
   add_index "registros", ["fecha"], name: "index_registros_on_fecha", using: :btree
   add_index "registros", ["variable_id"], name: "index_registros_on_variable_id", using: :btree
 
