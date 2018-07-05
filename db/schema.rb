@@ -90,6 +90,7 @@ ActiveRecord::Schema.define(version: 20180702032909) do
     t.datetime "updated_at",                  null: false
     t.integer  "codigo_variable", limit: 4
     t.boolean  "inverse"
+    t.boolean  "is_admin"
   end
 
   add_index "variables", ["codigo_variable"], name: "index_variables_on_codigo_variable", using: :btree

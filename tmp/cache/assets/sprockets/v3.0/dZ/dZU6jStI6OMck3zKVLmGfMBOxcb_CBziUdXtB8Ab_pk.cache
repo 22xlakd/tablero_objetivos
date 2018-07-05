@@ -1,0 +1,9 @@
+I"›(function() {
+  var changeSeparator;
+
+  changeSeparator = function(formInput) {
+    formInput.val(formInput.val().replace(',', '.'));
+  };
+
+}).call(this);
+:ET

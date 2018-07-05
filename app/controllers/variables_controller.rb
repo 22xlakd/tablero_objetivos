@@ -39,6 +39,21 @@ class VariablesController < ApplicationController
     end
   end
 
+  def tablero_admin
+    @variables_admin = Variable.admin_dashboard
+    @dashboard_data = current_user.build_admin_dashboard(@variables_admin)
+
+    respond_to do |format|
+      if @variables_admin.count > 0
+        format.html { render :tablero_admin }
+        format.json { render :tablero_admin, status: :ok }
+      else
+        format.html { render :tablero_admin, notice: I18n.t(:no_variables_found) }
+        format.json { render json: I18n.t(:no_variables_found), status: :unprocessable_entity }
+      end
+    end
+  end
+
   # POST /variables
   # POST /variables.json
   def create

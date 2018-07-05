@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
 
   def home
     if current_user.include_role?('admin')
-      redirect_to controller: 'users', action: 'ranking_usuarios'
+      redirect_to controller: 'variables', action: 'tablero_admin'
     else
       redirect_to controller: 'variables', action: 'tablero_objetivos'
     end

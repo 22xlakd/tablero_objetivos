@@ -1,4 +1,77 @@
-/* globals idx */
+/* globals idx Chart */
+/*
+jQuery( document ).ready(function() {
+    var randomScalingFactor = function(){ return Math.round(Math.random()*1000)};
+    var barChartData = {
+        labels : [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18],
+        datasets : [
+            {
+                label: 'Objetivo Facturación',
+                backgroundColor: "rgba(58, 181, 64,0.5)",
+                borderColor: "rgba(58, 181, 64,0.8)",
+                borderWidth: 1,
+                fill: false,
+                data : [456,456,456,456,456,456,456,456,456,456,456,456,456,456,456,456,456,456]
+            },
+            {
+                label: 'Proyección Facturación',
+                backgroundColor: "rgba(220,33,27,0.5)",
+                borderColor: "rgba(220,33,27,0.8)",
+                borderWidth: 1,
+                fill: false,
+                data : [randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor()]
+            },
+            {
+                label: 'Facturacion Actual',
+                backgroundColor: "rgba(48, 164, 255, 0.2)",
+                borderColor: "rgba(48, 164, 255, 0.8)",
+                borderWidth: 1,
+                fill: false,
+                data : [randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor(),randomScalingFactor()]
+            }
+        ]
+
+    }
+    var chart2 = document.getElementById("bar-chart").getContext("2d");
+    var barGraph = new Chart(chart2, {
+        type: "line",
+        data: barChartData,
+        options: {
+            title: {
+                display: true,
+                text: "Facturación"
+            },
+            responsive: true,
+            tooltips: {
+                mode: 'index',
+                intersect: true,
+            },
+            hover: {
+                mode: 'nearest',
+                intersect: true
+            },
+            scales: {
+                xAxes: [{
+                    display: true,
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Month'
+                    }
+                }],
+                yAxes: [{
+                    display: true,
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Value'
+                    }
+                }]
+            }
+        }
+    });
+});
+
+*/
+
 function changeSeparator (idInput) {
 
   jQuery("#" + idInput).val(jQuery("#" + idInput).val().replace(",", "."));

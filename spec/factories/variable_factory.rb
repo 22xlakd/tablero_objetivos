@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :variable do
-    nombre 'Tarjetas'
+    nombre { FFaker::Product.unique.brand }
     tipo 'entero'
     puntaje 1
   end

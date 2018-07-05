@@ -1,0 +1,42 @@
+<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
+  <div class="row">
+    <ol class="breadcrumb">
+      <li>
+        <a href="/">
+          <em class="fa fa-home"></em>
+        </a>
+      </li>
+      <li class="active">Tablero</li>
+    </ol>
+  </div><!--/.row-->
+  <div class="row">
+    <div class="col-lg-12">
+      <h3 class="page-header">Estado de Objetivos del mes de <%= l(Time.zone.today, format: :only_month).capitalize %></h3>
+    </div>
+  </div><!--/.row-->
+
+  <% if !notice.nil? %>
+    <div id="notice" class="alert bg-success" role="alert">
+      <em class="fa fa-lg fa-warning">&nbsp;</em> <%= notice %> <a href="#" class="pull-right"><em class="fa fa-lg fa-close"></em></a>
+    </div>
+    <script>
+      setTimeout(function(){ hideFlashMessage("#notice"); }, 1500);
+    </script>
+  <% end %>
+
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <% @dashboard_data.each do |c_variable| %>
+            <div class="canvas-wrapper">
+              <% hsh = { labels: c_variable[:labels], datasets: c_variable[:datasets] } %>
+              <%= line_chart hsh, c_variable[:options] %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div><!--/.row-->  
+
+</div>
