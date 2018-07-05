@@ -2,6 +2,8 @@ require 'rails_helper'
 require 'byebug'
 
 describe Variable, type: :model do
+  include ActiveSupport::Testing::TimeHelpers
+
   let(:user) { create(:sucursal_user) }
   let(:user2) { create(:sucursal_user) }
   let(:user3) { create(:sucursal_user) }
@@ -13,13 +15,13 @@ describe Variable, type: :model do
   let(:objetivo5) { create(:objetivo, valor: 87, user: user5) }
 
   let(:variable) { create(:variable, nombre: 'Ventas totales', puntaje: 4, objetivos: [objetivo, objetivo5, objetivo3, objetivo4]) }
-  let(:registro1) { create(:registro, fecha: Time.zone.today.beginning_of_month, user: user, variable: variable, value: 145) }
-  let(:registro2) { create(:registro, fecha: Time.zone.today.beginning_of_month, user: user3, variable: variable, value: 521) }
-  let(:registro3) { create(:registro, fecha: Time.zone.today.beginning_of_month, user: user4, variable: variable, value: 109) }
-  let(:registro4) { create(:registro, fecha: Time.zone.today.beginning_of_month + 1, user: user, variable: variable, value: 124) }
-  let(:registro5) { create(:registro, fecha: Time.zone.today.beginning_of_month + 1, user: user3, variable: variable, value: 491) }
-  let(:registro6) { create(:registro, fecha: Time.zone.today.beginning_of_month + 3, user: user4, variable: variable, value: 307) }
-  let(:registro7) { create(:registro, fecha: Time.zone.today.beginning_of_month + 8, user: user3, variable: variable, value: 361) }
+  let(:registro1) { create(:registro, fecha: Time.zone.parse('2018-06-01'), user: user, variable: variable, value: 145) }
+  let(:registro2) { create(:registro, fecha: Time.zone.parse('2018-06-01'), user: user3, variable: variable, value: 521) }
+  let(:registro3) { create(:registro, fecha: Time.zone.parse('2018-06-01'), user: user4, variable: variable, value: 109) }
+  let(:registro4) { create(:registro, fecha: Time.zone.parse('2018-06-01') + 1.day, user: user, variable: variable, value: 124) }
+  let(:registro5) { create(:registro, fecha: Time.zone.parse('2018-06-01') + 1.day, user: user3, variable: variable, value: 491) }
+  let(:registro6) { create(:registro, fecha: Time.zone.parse('2018-06-01') + 3.day, user: user4, variable: variable, value: 307) }
+  let(:registro7) { create(:registro, fecha: Time.zone.parse('2018-06-01') + 8.day, user: user3, variable: variable, value: 361) }
 
   before do
     variable.registros << registro1
@@ -103,6 +105,10 @@ describe Variable, type: :model do
   end
 
   context '#admin dashboard' do
+    before (:each) do
+      travel_to Time.new(2018, 6, 7, 1, 0, 0)
+    end
+
     it 'returns a hash with the dataset of the total goal' do
       hsh = variable.total_goal
       expect(hsh.class).to eq(Hash)
@@ -122,11 +128,11 @@ describe Variable, type: :model do
       expect(hsh[:data].class).to eq(Array)
       expect(hsh[:data].count).to eq(Time.days_in_month(Time.zone.today.month, Time.zone.today.year))
       expect(hsh[:data].first).to eq(775)
-      expect(hsh[:data][1]).to eq(1390)
-      expect(hsh[:data][2]).to eq(1390)
-      expect(hsh[:data][3]).to eq(1697)
-      expect(hsh[:data][6]).to eq(1697)
-      expect(hsh[:data][9]).to eq(2058)
+      expect(hsh[:data][1]).to eq(615)
+      expect(hsh[:data][2]).to eq(615)
+      expect(hsh[:data][3]).to eq(307)
+      expect(hsh[:data][6]).to eq(307)
+      expect(hsh[:data][9]).to eq(361)
     end
 
     it 'returns a hash with the dataset of the total prediction', focus: true do
@@ -136,13 +142,13 @@ describe Variable, type: :model do
       expect(hsh[:fill]).to be false
       expect(hsh[:data].class).to eq(Array)
       expect(hsh[:data].first).to eq(23_250.0)
-      expect(hsh[:data][1]).to eq(20_850.0)
-      expect(hsh[:data][2]).to eq(13_900.0)
-      expect(hsh[:data][3]).to eq(12_727.5)
-      expect(hsh[:data][4]).to eq(10_182.0)
-      expect(hsh[:data][6]).to eq(7272.86)
-      expect(hsh[:data][8]).to eq(6860.0)
-      expect(hsh[:data][9]).to eq(6174.0)
+      expect(hsh[:data][1]).to eq(9_225.0)
+      expect(hsh[:data][2]).to eq(6_150.0)
+      expect(hsh[:data][3]).to eq(2_302.5)
+      expect(hsh[:data][4]).to eq(1_842.0)
+      expect(hsh[:data][6]).to eq(1_315.71)
+      expect(hsh[:data][8]).to eq(1_203.33)
+      expect(hsh[:data][9]).to eq(1083.0)
     end
 
     it 'returns a hash with the dataset of the total prediction percent' do
@@ -153,11 +159,11 @@ describe Variable, type: :model do
       expect(hsh[:fill]).to be false
       expect(hsh[:data].class).to eq(Array)
       expect(hsh[:data].first.to_f).to eq(110.71)
-      expect(hsh[:data][1].to_f).to eq(99.29)
-      expect(hsh[:data][2].to_f).to eq(66.19)
-      expect(hsh[:data][3].to_f).to eq(60.61)
-      expect(hsh[:data][6].to_f).to eq(34.63)
-      expect(hsh[:data][9].to_f).to eq(29.4)
+      expect(hsh[:data][1].to_f).to eq(43.93)
+      expect(hsh[:data][2].to_f).to eq(29.29)
+      expect(hsh[:data][3].to_f).to eq(10.96)
+      expect(hsh[:data][6].to_f).to eq(6.27)
+      expect(hsh[:data][9].to_f).to eq(5.16)
     end
   end
 end

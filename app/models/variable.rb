@@ -149,7 +149,7 @@ class Variable < ActiveRecord::Base
           display: true,
           ticks: {
             callback: "function(value, index, values) {
-                        return '$' + value / 1000000 ;
+                        return '$' + value;
                       }",
             stepSize: 10_000_000
           },
@@ -221,6 +221,7 @@ class Variable < ActiveRecord::Base
 
   def total_goal
     @obj_total = objetivos.sum(:valor)
+
     {
       label: "Objetivo #{nombre.capitalize}",
       backgroundColor: 'rgba(58, 181, 64,0.5)',
@@ -289,7 +290,7 @@ class Variable < ActiveRecord::Base
     day_value = if array_values.nil?
                   last_value
                 else
-                  last_value + array_values.sum(&:value).to_f.round(2)
+                  array_values.sum(&:value).to_f.round(2)
                 end
 
     { day_value: day_value, last_value: day_value }
