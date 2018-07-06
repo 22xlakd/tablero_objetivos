@@ -74,7 +74,8 @@ module VariablesHelper
         "symbol: '#{variable.graph_options[:symbol]}',"\
         "#{label_options}"\
         'min: 0,'\
-        'humanFriendly: true,'\
+        'humanFriendly: false,'\
+        'formatNumber: true,'\
         'relativeGaugeSize: true,'\
         "max: #{max},"\
         'customSectors: ['\
@@ -132,7 +133,8 @@ module VariablesHelper
         "symbol: '#{variable.graph_options[:symbol]}',"\
         "#{label_options}"\
         'min: 0,'\
-        'humanFriendly: true,'\
+        'humanFriendly: false,'\
+        'formatNumber: true,'\
         'relativeGaugeSize: true,'\
         "max: #{max},"\
         'customSectors: ['\

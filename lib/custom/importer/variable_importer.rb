@@ -13,7 +13,7 @@ class Custom::Importer::VariableImporter
       c_variable.tipo = if c_row[2] == 'integer'
                           c_variable.variable_types[1]
                         else
-                          c_variable.variable_types[2]
+                          c_variable.variable_types[2] unless c_variable.tipo == c_variable_types[0]
                         end
       c_variable.puntaje = 0 if c_variable.puntaje.nil?
       c_variable.codigo_variable = c_row[0]

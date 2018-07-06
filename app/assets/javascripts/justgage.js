@@ -417,7 +417,7 @@ JustGage = function(config) {
     titleY = dy + (obj.config.titlePosition === 'below' ? (widgetH * 1.07) : (widgetH / 6.4));
 
     // value
-    valueFontSize = ((widgetH / 6.5) > obj.config.valueMinFontSize) ? (widgetH / 6.5) : obj.config.valueMinFontSize;
+    valueFontSize = ((widgetH / 10) > obj.config.valueMinFontSize) ? (widgetH / 10) : obj.config.valueMinFontSize;
     valueX = dx + widgetW / 2;
     valueY = dy + widgetH / 1.275;
 
@@ -1187,8 +1187,8 @@ function humanFriendlyNumber(n, d) {
 /** Format numbers with commas - From: http://stackoverflow.com/questions/2901102/how-to-print-a-number-with-commas-as-thousands-separators-in-javascript */
 function formatNumber(x) {
   var parts = x.toString().split(".");
-  parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-  return parts.join(".");
+  parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+  return parts.join(",");
 }
 
 /**  Get style  */

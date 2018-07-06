@@ -39,10 +39,8 @@
 
   <div class="panel panel-container">
     <div class="row">
-      <% best_obj = best_objective %>
-      <% worst_obj = worst_objective %>
 
-      <div class="col-xs-6 col-md-3 col-lg-3 no-padding">
+      <div class="col-xs-6 col-md-6 col-lg-6 no-padding">
         <div class="panel panel-teal panel-widget border-right">
           <div class="row no-padding"><em class="fa fa-xl fa-bullhorn color-teal"></em>
             <div class="large"><%= month_points %></div>
@@ -50,7 +48,7 @@
           </div>
         </div>
       </div>
-      <div class="col-xs-6 col-md-3 col-lg-3 no-padding">
+      <div class="col-xs-6 col-md-6 col-lg-6 no-padding">
         <div class="panel panel-blue panel-widget border-right">
           <div class="row no-padding"><em class="fa fa-xl fa-line-chart color-orange"></em>
             <div class="large"><%= year_points %></div>
@@ -58,20 +56,7 @@
           </div>
         </div>
       </div>
-      <% if best_obj != '' %>
-        <div class="col-xs-6 col-md-3 col-lg-3 no-padding">
-          <div class="panel panel-orange panel-widget border-right">
-            <%= best_obj %>
-          </div>
-        </div>
-      <% end %>
-      <% if worst_obj != '' %>
-        <div class="col-xs-6 col-md-3 col-lg-3 no-padding">
-          <div class="panel panel-red panel-widget ">
-            <%= worst_obj %>
-          </div>
-        </div>
-      <% end %>
+
     </div><!--/.row-->
   </div>
 
