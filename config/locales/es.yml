@@ -40,6 +40,8 @@ es:
         proyeccion_mensual: 'Proyección Mensual'
         porcentaje_proyectado: 'Porcentaje proyectado'
         user: 'Usuario'
+        mes: 'Mes'
+        anio: 'Año'
     errors:
       models:
         user:
@@ -91,6 +93,14 @@ es:
             user:
               blank: 'No puede estar en blanco'
               taken: 'Ya existe el objetivo para el usuario y la variable seleccionada'
+            mes:
+              greater_than: 'Debe ser mayor que %{count}'
+              less_than_or_equal_to: 'Debe ser menor o igual a %{count}'
+              taken: 'Ya existe el objetivo para el usuario, variable, mes y año seleccionados'
+            anio:
+              greater_than_or_equal_to: 'Debe ser mayor o igual a %{count}'
+              taken: 'Ya existe el objetivo para el usuario, variable mes y año seleccionados'
+
       messages:
         tipo:
           undefined: "El tipo de variable ingresado no pertence a los valores aceptados %{tipos}"

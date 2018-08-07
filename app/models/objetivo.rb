@@ -4,9 +4,14 @@ class Objetivo < ActiveRecord::Base
 
   validates :variable, presence: true
   validates :user, presence: true
+  validates :mes, numericality: { greater_than: 0, less_than_or_equal_to: 12 }
+  validates :anio, numericality: { greater_than_or_equal_to: Time.zone.today.year }
   # validates :proyeccion_mensual, numericality: { greater_than: 0 }
   # validates :porcentaje_proyectado, numericality: { greater_than: 0 }
-  validates :user, uniqueness: { scope: :variable }
+  validates :user, uniqueness: { scope: [:variable, :mes, :anio] }
+  validates :variable, uniqueness: { scope: [:user, :mes, :anio] }
+  validates :mes, uniqueness: { scope: [:user, :variable, :anio] }
+  validates :anio, uniqueness: { scope: [:user, :variable, :mes] }
 
   def cumplido?(current_value)
     if variable.inverse

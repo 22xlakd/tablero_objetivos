@@ -9,7 +9,9 @@ class VariablesController < ApplicationController
 
   # GET /variables/1
   # GET /variables/1.json
-  def show; end
+  def show
+    @variable.objetivos.sort_by(&:user_id)
+  end
 
   # GET /variables/new
   def new; end
@@ -98,6 +100,6 @@ class VariablesController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def variable_params
-    params.require(:variable).permit(:nombre, :tipo, :puntaje, :inverse, objetivos_attributes: [:id, :proyeccion_mensual, :porcentaje_proyectado, :valor, :user_id, :variable_id])
+    params.require(:variable).permit(:nombre, :tipo, :puntaje, :inverse, objetivos_attributes: [:id, :proyeccion_mensual, :porcentaje_proyectado, :valor, :mes, :anio, :user_id, :variable_id])
   end
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180702032909) do
+ActiveRecord::Schema.define(version: 20180731023729) do
 
   create_table "objetivos", force: :cascade do |t|
     t.decimal  "proyeccion_mensual",              precision: 10, scale: 2
@@ -21,9 +21,11 @@ ActiveRecord::Schema.define(version: 20180702032909) do
     t.integer  "user_id",               limit: 4
     t.datetime "created_at",                                               null: false
     t.datetime "updated_at",                                               null: false
+    t.integer  "mes",                   limit: 4
+    t.integer  "anio",                  limit: 4
   end
 
-  add_index "objetivos", ["user_id", "variable_id"], name: "index_objetivos_on_user_id_and_variable_id", unique: true, using: :btree
+  add_index "objetivos", ["user_id", "variable_id", "mes", "anio"], name: "index_objetivos_on_user_id_and_variable_id_and_mes_and_anio", unique: true, using: :btree
   add_index "objetivos", ["user_id"], name: "index_objetivos_on_user_id", using: :btree
   add_index "objetivos", ["variable_id"], name: "index_objetivos_on_variable_id", using: :btree
 
@@ -37,6 +39,7 @@ ActiveRecord::Schema.define(version: 20180702032909) do
   end
 
   add_index "registros", ["codigo_sucursal"], name: "index_registros_on_codigo_sucursal", using: :btree
+  add_index "registros", ["fecha"], name: "fecha", using: :btree
   add_index "registros", ["fecha"], name: "index_registros_on_fecha", using: :btree
   add_index "registros", ["variable_id"], name: "index_registros_on_variable_id", using: :btree
 
