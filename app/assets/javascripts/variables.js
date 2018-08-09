@@ -1,4 +1,4 @@
-/* globals idx Chart */
+/* globals idx Chart idx2 */
 /*
 jQuery( document ).ready(function() {
     var randomScalingFactor = function(){ return Math.round(Math.random()*1000)};
@@ -110,6 +110,12 @@ function add_objective(){
        jQuery(this).attr("for", jQuery(this).attr("for").replace(/[0-9]+/g, idx))
     });
 
+    jQuery(newTab).find("select").each(function(){
+       jQuery(this).attr("id", jQuery(this).attr("id").replace(/[0-9]+/g, idx))
+       jQuery(this).attr("name", jQuery(this).attr("name").replace(/[0-9]+/g, idx))
+       jQuery(this).val(jQuery(this)[0].options[0].value)
+    });
+    
     jQuery(newTab).find("input[type!='hidden']").each(function(){
        jQuery(this).attr("id", jQuery(this).attr("id").replace(/[0-9]+/g, idx))
        jQuery(this).attr("name", jQuery(this).attr("name").replace(/[0-9]+/g, idx))
@@ -120,4 +126,42 @@ function add_objective(){
     jQuery("#collapse_" + idx).collapse('show');
     jQuery('#addObjectiveToUser').modal('hide');
 
+}
+
+function addDateObjetive(row_number){
+    var orig_row = jQuery("#user_obj_" + row_number);
+    var cloned_row = orig_row.clone();
+    idx2++;
+
+    cloned_row.attr("id", "user_obj_" + idx2);
+    cloned_row.find("label").each(function(){
+       jQuery(this).attr("for", jQuery(this).attr("for").replace(/[0-9]+/g, idx2))
+    });
+
+    cloned_row.find("select").each(function(){
+       jQuery(this).attr("id", jQuery(this).attr("id").replace(/[0-9]+/g, idx2))
+       jQuery(this).attr("name", jQuery(this).attr("name").replace(/[0-9]+/g, idx2))
+       jQuery(this).val(jQuery(this)[0].options[0].value)
+    });
+    
+    cloned_row.find("input").each(function(){
+       jQuery(this).attr("id", jQuery(this).attr("id").replace(/[0-9]+/g, idx2))
+       jQuery(this).attr("name", jQuery(this).attr("name").replace(/[0-9]+/g, idx2))
+    });
+
+    cloned_row.find("input[type!='hidden']").each(function(){
+        jQuery(this).val("");
+    });
+
+    cloned_row.find("#variable_objetivos_attributes_"+idx2+"_id").each(function(){
+        jQuery(this).val("");
+    });
+
+    cloned_row.find("button").each(function(){
+       jQuery(this).attr("id", jQuery(this).attr("id").replace(/[0-9]+/g, idx2))
+       jQuery(this).unbind("click");
+       jQuery(this).bind("click", function(){ addDateObjetive(idx2); });
+    });
+
+    cloned_row.insertAfter(orig_row);
 }

@@ -1,5 +1,6 @@
 class VariablesController < ApplicationController
   load_and_authorize_resource
+  skip_load_and_authorize_resource only: :show
 
   # GET /variables
   # GET /variables.json
@@ -10,7 +11,10 @@ class VariablesController < ApplicationController
   # GET /variables/1
   # GET /variables/1.json
   def show
-    @variable.objetivos.sort_by(&:user_id)
+    @variable = Variable.includes(objetivos: :user).find(params[:id])
+    authorize! :show, @variable
+
+    @hs_obj_by_usr = @variable.objetivos.group_by(&:user)
   end
 
   # GET /variables/new
@@ -19,6 +23,7 @@ class VariablesController < ApplicationController
   # GET /variables/1/edit
   def edit
     @variable.objetivos.build if @variable.objetivos.empty?
+    @hs_obj_by_usr = @variable.objetivos.group_by(&:user)
   end
 
   def tablero_objetivos
@@ -75,6 +80,8 @@ class VariablesController < ApplicationController
   # PATCH/PUT /variables/1
   # PATCH/PUT /variables/1.json
   def update
+    @hs_obj_by_usr = @variable.objetivos.group_by(&:user)
+
     respond_to do |format|
       if @variable.update(variable_params)
         format.html { redirect_to @variable, notice: I18n.t(:variable_updated) }

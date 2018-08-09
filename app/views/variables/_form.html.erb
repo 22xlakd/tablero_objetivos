@@ -72,59 +72,68 @@
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
           <h3>Objetivo fijado por Sucursal</h3>
           <div id="accordion" class="accordion-root" role="tablist" aria-multiselectable="false">
-            <%= f.fields_for :objetivos do |ff| %>
-              <% c_user = ff.object.user %>
-              <script>
-                var idx = <%= ff.index %>;
-              </script>
+            <% index = 0 %>
+            <% @hs_obj_by_usr.keys.each_with_index do |c_user, i| %>
+                <script>
+                  var idx = <%= i %>;
+                </script>
 
-              <div class="panel panel-default accordion-container <% if c_user.nil? %>hidden<% end %>" id="tab_<%= ff.index %>">
-                <div class="panel-heading accordion-header" role="tab" id="heading_<%= ff.index %>">
-                  <h5 class="mb-0">
-                    <a class="lnk-username" data-toggle="collapse" data-parent="#accordion" href="#collapse_<%= ff.index %>" aria-expanded="true" aria-controls="collapse_<%= ff.index %>">
-                      <%= c_user.nombre unless c_user.nil? %>
-                      <%= ff.hidden_field :id, value: ff.object.id %>
-                    </a>
-                  </h5>
-                </div>
-                <div id="collapse_<%= ff.index %>" class="collapse" role="tabpanel" aria-labelledby="heading_<%= ff.index %>">
-                  <div class="panel-body">
-                    <div class="row">
-                      <!--
-                      <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-                        <div class="form-group">
-                          <%= ff.label :proyeccion_mensual %>
-                          <%= ff.number_field :proyeccion_mensual, class: "form-control", placeholder: "Proyección mensual", onblur: "changeSeparator(this.id)", step: 0.01 %>
-                        </div>
-                        <div class="form-group">
-                          <%= ff.label :porcentaje_proyectado %>
-                          <%= ff.number_field :porcentaje_proyectado, class: "form-control", placeholder: "Porcentaje proyectado", onblur: "changeSeparator(this.id)", step: 0.01 %>
-                        </div> 
-                      </div> -->
-                      <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
-                        <div class="form-group">
-                          <%= ff.label :valor %>
-                          <%= ff.number_field :valor, class: "form-control", required: "required", onblur: "changeSeparator(this.id)", step: 0.01 %>
-                        </div>
-                      </div>
+                <div class="panel panel-default accordion-container <% if c_user.nil? %>hidden<% end %>" id="tab_<%= i %>">
+                  <div class="panel-heading accordion-header" role="tab" id="heading_<%= i %>">
+                    <h5 class="mb-0">
+                      <a class="lnk-username" data-toggle="collapse" data-parent="#accordion" href="#collapse_<%= i %>" aria-expanded="true" aria-controls="collapse_<%= i %>">
+                        <%= c_user.nombre unless c_user.nil? %>
+                      </a>
+                    </h5>
+                  </div>
+                  <div id="collapse_<%= i %>" class="collapse" role="tabpanel" aria-labelledby="heading_<%= i %>">
+                    <div class="panel-body">
+                      <div id="user_obj_<%= i %>">
+                        <% @hs_obj_by_usr[c_user].each do |c_objetivo| %>
+                          <%= hidden_field_tag("variable[objetivos_attributes][#{index}][id]", c_objetivo.id, id: "variable_objetivos_attributes_#{index}_id") %>
+                          <%= hidden_field_tag("variable[objetivos_attributes][#{index}][user_id]", c_user.id, id: "variable_objetivos_attributes_#{index}_user_id") %>
 
-                      <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
-                        <div class="form-group">
-                          <%= ff.label :mes %>
-                          <%= select_month(ff.object.mes ? ff.object.mes : Date.today, { field_name: :mes, prefix: ff.object_name }, {class: "form-control select-date", required: "required" }) %>
-                        </div>
-                      </div>
+                          <script>
+                            var idx2 = <%= index %>
+                          </script>
 
-                      <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
-                        <div class="form-group">
-                          <%= ff.label :anio %>
-                          <%= select_year(Date.today, { field_name: :anio, prefix: ff.object_name, start_year: Date.today.year, end_year: Date.today.year+4 }, { class: "form-control select-date", required: "required", style: "text-transform: capitalize" }) %>
-                        </div>
+                          <div class="row">
+                            <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                              <div class="form-group">
+                                <%= label_tag("variable_objetivos_attributes_#{index}_valor", "Valor") %>
+                                <%= number_field_tag("variable[objetivos_attributes][#{index}][valor]", c_objetivo.valor, class: "form-control", required: "required", onblur: "changeSeparator(this.id)", step: 0.01) %>
+                              </div>
+                            </div>
+
+                            <div class="col-xs-12 col-sm-4 col-md-4 col-lg-3">
+                              <div class="form-group">
+                                <%= label_tag("variable_objetivos_attributes_#{index}_mes", "Mes") %>
+                                <%= select_month(c_objetivo.mes ? c_objetivo.mes : Date.today, { field_name: :mes, prefix: "variable[objetivos_attributes][#{index}]" }, {class: "form-control select-date", required: "required" }) %>
+                              </div>
+                            </div>
+
+                            <div class="col-xs-12 col-sm-4 col-md-4 col-lg-3">
+                              <div class="form-group">
+                                <%= label_tag("variable_objetivos_attributes_#{index}_anio", "Año") %>
+                                <%= select_year(Date.today, { field_name: :anio, prefix: "variable[objetivos_attributes][#{index}]", start_year: Date.today.year, end_year: Date.today.year+4 }, { class: "form-control select-date", required: "required", style: "text-transform: capitalize" }) %>
+                              </div>
+                            </div>
+
+                            <div class="col-xs-12 col-sm-4 col-md-4 col-lg-2">
+                              <div class="form-group btn-new-objetive">
+                                <button id="btn_date_obj_<%= i %>" type="button" class="btn btn-lg btn-default" onclick="addDateObjetive(<%= i %>);">
+                                  Nuevo
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                          <% index += 1 %>
+                        <% end %>
+
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
             <% end %>
           </div>
         </div>
