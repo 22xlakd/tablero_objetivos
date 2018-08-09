@@ -190,13 +190,13 @@ class Variable < ActiveRecord::Base
     VARIABLE_TYPES
   end
 
-  def objetivo_by_user(user)
-    objetivos.select { |o| o.user == user }.first
+  def objetivo_by_user(user, mes = Time.zone.today.month, anio = Time.zone.today.year)
+    objetivos.select { |o| o.user == user && o.mes == mes.to_i && o.anio == anio.to_i }.first
     # objetivos.find_by(user: user)
   end
 
-  def calculate_current_value(user)
-    last_record = registros_by_user_per_month(user)
+  def calculate_current_value(user, mes = Time.zone.today.month, anio = Time.zone.today.year)
+    last_record = registros_by_user_per_month(user, mes, anio)
 
     if last_record.nil?
       0

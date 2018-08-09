@@ -173,6 +173,7 @@ es:
   point_of_year: 'Puntaje total del año'
   reset: 'Limpiar'
   save: 'Guardar'
+  show: 'Ver'
   title_variable_index: 'Variables existentes en el sistema'
   unauthorized: 'El usuario no tiene permisos para acceder a esta sección'
   update: 'Actualizar'

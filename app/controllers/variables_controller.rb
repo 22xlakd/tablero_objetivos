@@ -27,18 +27,27 @@ class VariablesController < ApplicationController
   end
 
   def tablero_objetivos
-    @user = if params[:codigo_sucursal]
-              User.find_by(codigo_sucursal: params[:codigo_sucursal])
-            else
-              current_user
-            end
+    @user = nil
+    mes = nil
+    anio = nil
+
+    if params[:codigo_sucursal]
+      @user = User.find_by(codigo_sucursal: params[:codigo_sucursal])
+
+      unless params[:date].nil?
+        mes = params[:date][:mes]
+        anio = params[:date][:anio]
+      end
+    else
+      current_user
+    end
 
     @tablero = Variable.includes(:registros, objetivos: :user).sucursal_dashboard(@user.codigo_sucursal)
 
     respond_to do |format|
       if @tablero.count > 0
-        format.html { render :tablero_objetivos, tablero: @tablero }
-        format.json { render :tablero_objetivos, status: :ok, tablero: @tablero }
+        format.html { render :tablero_objetivos, locals: { mes: mes, anio: anio } }
+        format.json { render :tablero_objetivos, status: :ok }
       else
         format.html { render :tablero_objetivos, notice: I18n.t(:no_variables_found) }
         format.json { render json: I18n.t(:no_variables_found), status: :unprocessable_entity }

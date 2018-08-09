@@ -20,7 +20,7 @@ class User < ActiveRecord::Base
 
   def calculate_current_month_points
     total_month_points = 0
-    objetivos.includes(:variable).each do |c_objetivo|
+    objetivos.includes(:variable).where(mes: Time.zone.today.month, anio: Time.zone.today.year).each do |c_objetivo|
       total_month_points += c_objetivo.variable.puntaje if c_objetivo.cumplido?(calculate_current_value(c_objetivo.variable.id))
     end
 

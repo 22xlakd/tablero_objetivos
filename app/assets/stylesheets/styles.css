@@ -1150,3 +1150,12 @@ p.back-link {
 .btn-new-objetive {
     margin-top: 20px;
 }
+
+.select-date-tablero {
+    margin-top: 35%;
+    text-transform: capitalize
+}
+
+.btn-tablero {
+    margin-top: 30%;
+}
