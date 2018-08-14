@@ -162,7 +162,7 @@ class Variable < ActiveRecord::Base
     }
   }
 
-  scope :sucursal_dashboard, ->(codigo_sucursal) { joins(:registros).where('registros.codigo_sucursal': codigo_sucursal).uniq }
+  scope :sucursal_dashboard, ->(codigo_sucursal) { where('registros.codigo_sucursal': codigo_sucursal).uniq }
   scope :admin_dashboard, lambda {
     includes(registros: :user).
       where(is_admin: true).
@@ -190,7 +190,10 @@ class Variable < ActiveRecord::Base
     VARIABLE_TYPES
   end
 
-  def objetivo_by_user(user, mes = Time.zone.today.month, anio = Time.zone.today.year)
+  def objetivo_by_user(user, mes = nil, anio = nil)
+    mes ||= Time.zone.today.month
+    anio ||= Time.zone.today.year
+
     objetivos.select { |o| o.user == user && o.mes == mes.to_i && o.anio == anio.to_i }.first
     # objetivos.find_by(user: user)
   end
@@ -215,7 +218,10 @@ class Variable < ActiveRecord::Base
     }
   end
 
-  def registros_by_user_per_month(user, month = Time.zone.today.month, year = Time.zone.today.year)
+  def registros_by_user_per_month(user, month = nil, year = nil)
+    month ||= Time.zone.today.month
+    year ||= Time.zone.today.year
+
     registros.sort_by(&:fecha).reverse.select { |r| r.codigo_sucursal == user.codigo_sucursal.to_i && r.fecha.month == month.to_i && r.fecha.year == year.to_i }.take(1).first
     # registros.select { |r| r.codigo_sucursal == user.codigo_sucursal.to_i && r.fecha.month == month.to_i && r.fecha.year == year.to_i }
   end

@@ -51,7 +51,8 @@ class User < ActiveRecord::Base
     end
   end
 
-  def calculate_year_points(year = Time.zone.today.year)
+  def calculate_year_points(year = nil)
+    year ||= Time.zone.today.year
     total_year_points = 0
 
     objetivos.includes(:variable).each do |c_objetivo|
