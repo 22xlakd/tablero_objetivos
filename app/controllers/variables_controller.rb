@@ -39,7 +39,7 @@ class VariablesController < ApplicationController
         anio = params[:date][:anio]
       end
     else
-      current_user
+      @user = current_user
     end
 
     @tablero = Variable.includes(:registros, objetivos: :user).sucursal_dashboard(@user.codigo_sucursal)
