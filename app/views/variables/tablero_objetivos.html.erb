@@ -112,6 +112,10 @@
   <script>
     jQuery(document).ready(function(){
       activeMenuItem('dashboard');
-      jQuery("#cbo-mes").val("<%= mes %>");
+      <% if mes.nil? %>
+          jQuery("#cbo-mes").val("<%= Time.zone.today.month %>");
+      <% else %>
+        jQuery("#cbo-mes").val("<%= mes %>");
+      <% end %>
     });
   </script>
