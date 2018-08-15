@@ -11,11 +11,11 @@
   </div><!--/.row-->
   <div class="row">
     <div class="col-xs-12 col-md-10 col-lg-9">
-      <h3 class="page-header">Tablero de Objetivos del mes de <%= mes.nil? ? l(Time.zone.today, format: :only_month).capitalize : Date::MONTHNAMES[mes.to_i].capitalize %><% if @user != current_user %> para el usuario: <%= @user.nombre.capitalize %><% end %></h3>
+      <h3 class="page-header">Tablero de Objetivos del mes de <%= mes.nil? ? l(Time.zone.today, format: :only_month).capitalize : l(Date.parse("01/#{Date::MONTHNAMES[mes.to_i]}/#{anio}"), format: :only_month).capitalize %><% if @user != current_user %> para el usuario: <%= @user.nombre.capitalize %><% end %></h3>
     </div>
     <form method="get" action="<%= tablero_objetivos_variables_path(@user.codigo_sucursal) %>" role="form">
       <div class="col-xs-12 col-md-2 col-lg-1">
-        <%= select_month(Date.today, { field_name: :mes }, {class: "form-control select-date-tablero" }) %>
+        <%= select_month(Date.today, { field_name: :mes }, {class: "form-control select-date-tablero", id: "cbo-mes" }) %>
       </div>
       <div class="col-xs-12 col-md-2 col-lg-1">
         <%= select_year(Date.today, { field_name: :anio, start_year: Date.today.year, end_year: Date.today.year+4 }, { class: "form-control select-date-tablero", style: "text-transform: capitalize" }) %>
@@ -112,5 +112,6 @@
   <script>
     jQuery(document).ready(function(){
       activeMenuItem('dashboard');
+      jQuery("#cbo-mes").val("<%= mes %>");
     });
   </script>
