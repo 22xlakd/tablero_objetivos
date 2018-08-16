@@ -26,8 +26,8 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'cancancan', '~> 2.0'
 gem 'chartjs-ror'
 gem 'devise', '~>3.5'
+gem 'puma_worker_killer'
 gem 'rake', '< 11.0'
-
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
