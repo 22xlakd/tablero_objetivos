@@ -42,7 +42,7 @@ class VariablesController < ApplicationController
       @user = current_user
     end
 
-    @tablero = Variable.includes(:registros, :objetivos).sucursal_dashboard(@user.codigo_sucursal)
+    @tablero = Variable.includes(:registros).sucursal_dashboard(@user.codigo_sucursal)
 
     respond_to do |format|
       if @tablero.count > 0
