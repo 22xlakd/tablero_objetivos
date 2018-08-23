@@ -23,8 +23,8 @@ describe User, type: :model do
   let(:registro12) { create(:registro, fecha: Time.zone.parse('2018-04-29'), user: subject, value: 218, variable: variable) }
   let(:registro13) { create(:registro, fecha: Time.zone.parse('2018-03-31'), user: user2, value: 315, variable: variable) }
 
-  let(:objetivo) { create(:objetivo, valor: 145, user: subject, variable: variable) }
-  let(:objetivo2) { create(:objetivo, valor: 118, user: user2, variable: variable) }
+  let(:objetivo) { create(:objetivo, valor: 145, user: subject, variable: variable, mes: 2, anio: 2018) }
+  let(:objetivo2) { create(:objetivo, valor: 118, user: user2, variable: variable, mes: 2, anio: 2018) }
 
   let(:reg1) { create(:registro, fecha: Time.zone.parse('2018-02-02'), user: subject, value: 122, variable: variable2) }
   let(:reg2) { create(:registro, fecha: Time.zone.parse('2018-02-04'), user: subject, value: 221, variable: variable2) }
@@ -40,13 +40,16 @@ describe User, type: :model do
   let(:reg12) { create(:registro, fecha: Time.zone.parse('2018-06-27'), user: subject, value: 321, variable: variable2) }
   let(:reg13) { create(:registro, fecha: Time.zone.parse('2018-11-27'), user: user2, value: 367, variable: variable2) }
 
-  let(:objetivo3) { create(:objetivo, valor: 185, user: subject, variable: variable2) }
-  let(:objetivo4) { create(:objetivo, valor: 356, user: user2, variable: variable2) }
+  let(:objetivo3) { create(:objetivo, valor: 185, user: subject, variable: variable2, mes: 3, anio: 2018) }
+  let(:objetivo4) { create(:objetivo, valor: 356, user: user2, variable: variable2, mes: 3, anio: 2018) }
+  let(:objetivo5) { create(:objetivo, valor: 240, user: subject, variable: variable2, mes: 2, anio: 2018) }
+  let(:objetivo6) { create(:objetivo, valor: 356, user: user2, variable: variable2, mes: 2, anio: 2018) }
+
 
   before(:each) do
     variable.objetivos = [objetivo, objetivo2]
     variable.registros = [registro1, registro2, registro3, registro4, registro5, registro6, registro7, registro8, registro9, registro10, registro11, registro12, registro13]
-    variable2.objetivos = [objetivo3, objetivo4]
+    variable2.objetivos = [objetivo3, objetivo4, objetivo5, objetivo6]
     variable2.registros = [reg1, reg2, reg3, reg4, reg5, reg6, reg7, reg8, reg9, reg10, reg11, reg12, reg13]
   end
 
@@ -67,8 +70,8 @@ describe User, type: :model do
     end
 
     it 'calculate year points' do
-      expect(subject.calculate_year_points('2018')).to eq(22)
-      expect(user2.calculate_year_points('2018')).to eq(15)
+      expect(subject.calculate_year_points('2018')).to eq(11)
+      expect(user2.calculate_year_points('2018')).to eq(4)
     end
 
     it 'calculate current value' do

@@ -55,9 +55,9 @@ class User < ActiveRecord::Base
     year ||= Time.zone.today.year
     total_year_points = 0
 
-    objetivos.includes(:variable).each do |c_objetivo|
-      monthly_values = calculate_monthly_values(year, c_objetivo.variable.id)
-      total_year_points += c_objetivo.points_per_year(monthly_values)
+    objetivos.includes(:variable).where(anio: year).each do |c_objetivo|
+      last_value = get_month_value(year, c_objetivo.mes, c_objetivo.variable.id)
+      total_year_points += c_objetivo.variable.puntaje if c_objetivo.cumplido?(last_value) && last_value != 0
     end
 
     total_year_points
@@ -72,6 +72,16 @@ class User < ActiveRecord::Base
       last_record.value
     end
     # registros.select { |r| r.variable_id == variable_id && r.fecha.month == Time.zone.today.month && r.fecha.year == Time.zone.today.year }.sum(&:value)
+  end
+
+  def get_month_value(year, month, variable_id)
+    last_record = registros.sort_by(&:fecha).reverse.select { |r| r.variable_id == variable_id && r.fecha.month == month.to_i && r.fecha.year == year.to_i }.take(1).first
+
+    if last_record.nil?
+      0
+    else
+      last_record.value
+    end
   end
 
   def calculate_monthly_values(year, variable_id)
