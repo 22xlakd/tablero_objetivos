@@ -90,14 +90,14 @@
                     <div class="panel-body">
                       <% @hs_obj_by_usr[c_user].each do |c_objetivo| %>
                         <div id="user_obj_<%= index %>">
-                          <%= hidden_field_tag("variable[objetivos_attributes][#{index}][id]", c_objetivo.id, id: "variable_objetivos_attributes_#{index}_id") %>
-                          <%= hidden_field_tag("variable[objetivos_attributes][#{index}][user_id]", c_user.id, id: "variable_objetivos_attributes_#{index}_user_id") %>
-
                           <script>
                             var idx2 = <%= index %>
                           </script>
 
                           <div class="row">
+                            <%= hidden_field_tag("variable[objetivos_attributes][#{index}][id]", c_objetivo.id, id: "variable_objetivos_attributes_#{index}_id") %>
+                            <%= hidden_field_tag("variable[objetivos_attributes][#{index}][user_id]", c_user.id, id: "variable_objetivos_attributes_#{index}_user_id") %>
+
                             <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
                               <div class="form-group">
                                 <%= label_tag("variable_objetivos_attributes_#{index}_valor", "Valor") %>
