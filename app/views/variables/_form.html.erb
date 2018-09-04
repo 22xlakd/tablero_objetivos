@@ -88,8 +88,8 @@
                   </div>
                   <div id="collapse_<%= i %>" class="collapse" role="tabpanel" aria-labelledby="heading_<%= i %>">
                     <div class="panel-body">
-                      <div id="user_obj_<%= i %>">
-                        <% @hs_obj_by_usr[c_user].each do |c_objetivo| %>
+                      <% @hs_obj_by_usr[c_user].each do |c_objetivo| %>
+                        <div id="user_obj_<%= index %>">
                           <%= hidden_field_tag("variable[objetivos_attributes][#{index}][id]", c_objetivo.id, id: "variable_objetivos_attributes_#{index}_id") %>
                           <%= hidden_field_tag("variable[objetivos_attributes][#{index}][user_id]", c_user.id, id: "variable_objetivos_attributes_#{index}_user_id") %>
 
@@ -121,16 +121,15 @@
 
                             <div class="col-xs-12 col-sm-4 col-md-4 col-lg-2">
                               <div class="form-group btn-new-objetive">
-                                <button id="btn_date_obj_<%= i %>" type="button" class="btn btn-lg btn-default" onclick="addDateObjetive(<%= i %>);">
+                                <button id="btn_date_obj_<%= i %>" type="button" class="btn btn-lg btn-default" onclick="addDateObjetive(<%= index %>);">
                                   Nuevo
                                 </button>
                               </div>
                             </div>
                           </div>
                           <% index += 1 %>
-                        <% end %>
-
-                      </div>
+                        </div>
+                      <% end %>
                     </div>
                   </div>
                 </div>
