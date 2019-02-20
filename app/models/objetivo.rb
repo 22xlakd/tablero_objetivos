@@ -5,7 +5,7 @@ class Objetivo < ActiveRecord::Base
   validates :variable, presence: true
   validates :user, presence: true
   validates :mes, numericality: { greater_than: 0, less_than_or_equal_to: 12 }
-  validates :anio, numericality: { greater_than_or_equal_to: Time.zone.today.year }
+  validates :anio, numericality: { greater_than_or_equal_to: Time.zone.today.year-1 }
   # validates :proyeccion_mensual, numericality: { greater_than: 0 }
   # validates :porcentaje_proyectado, numericality: { greater_than: 0 }
   validates :user, uniqueness: { scope: [:variable, :mes, :anio] }

@@ -15,10 +15,10 @@
     </div>
     <form method="get" action="<%= tablero_objetivos_variables_path(@user.codigo_sucursal) %>" role="form">
       <div class="col-xs-12 col-md-2 col-lg-1">
-        <%= select_month(Date.today, { field_name: :mes }, {class: "form-control select-date-tablero", id: "cbo-mes" }) %>
+        <%= select_month(mes.nil? || anio.nil? ? Date.today : Date.parse(anio+"/"+mes+"/1"), { field_name: :mes }, {class: "form-control select-date-tablero", id: "cbo-mes" }) %>
       </div>
       <div class="col-xs-12 col-md-2 col-lg-1">
-        <%= select_year(Date.today, { field_name: :anio, start_year: Date.today.year, end_year: Date.today.year+4 }, { class: "form-control select-date-tablero", style: "text-transform: capitalize" }) %>
+        <%= select_year(anio.nil? || mes.nil? ? Date.today : Date.parse(anio+"/"+mes+"/1"), { field_name: :anio, start_year: Date.today.year-1, end_year: Date.today.year }, { class: "form-control select-date-tablero", style: "text-transform: capitalize" }) %>
       </div>
       <div class="col-xs-12 col-md-2 col-lg-1">
         <%= button_tag(t(:show), class: "btn btn-lg btn-success btn-tablero", type: "submit") %>
@@ -109,13 +109,4 @@
     </div>
   <% end %>
 
-  <script>
-    jQuery(document).ready(function(){
-      activeMenuItem('dashboard');
-      <% if mes.nil? %>
-          jQuery("#cbo-mes").val("<%= Time.zone.today.month %>");
-      <% else %>
-        jQuery("#cbo-mes").val("<%= mes %>");
-      <% end %>
-    });
-  </script>
+  
